@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Orleans.Reminders.Redis</name>
+    </assembly>
+    <members>
+        <member name="T:Orleans.Hosting.SiloBuilderReminderExtensions">
+            <summary>
+            Silo host builder extensions.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.SiloBuilderReminderExtensions.UseRedisReminderService(Orleans.Hosting.ISiloBuilder,System.Action{Orleans.Configuration.RedisReminderTableOptions})">
+            <summary>
+            Adds reminder storage backed by Redis.
+            </summary>
+            <param name="builder">
+            The builder.
+            </param>
+            <param name="configure">
+            The delegate used to configure the reminder store.
+            </param>
+            <returns>
+            The provided <see cref="T:Orleans.Hosting.ISiloBuilder"/>, for chaining.
+            </returns>
+        </member>
+        <member name="M:Orleans.Hosting.SiloBuilderReminderExtensions.UseRedisReminderService(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Orleans.Configuration.RedisReminderTableOptions})">
+            <summary>
+            Adds reminder storage backed by Redis.
+            </summary>
+            <param name="services">
+            The service collection.
+            </param>
+            <param name="configure">
+            The delegate used to configure the reminder store.
+            </param>
+            <returns>
+            The provided <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>, for chaining.
+            </returns>
+        </member>
+        <member name="T:Orleans.Configuration.RedisReminderTableOptions">
+            <summary>
+            Redis reminder options.
+            </summary>
+        </member>
+        <member name="P:Orleans.Configuration.RedisReminderTableOptions.ConfigurationOptions">
+            <summary>
+            Gets or sets the Redis client options.
+            </summary>
+        </member>
+        <member name="P:Orleans.Configuration.RedisReminderTableOptions.CreateMultiplexer">
+            <summary>
+            The delegate used to create a Redis connection multiplexer.
+            </summary>
+        </member>
+        <member name="P:Orleans.Configuration.RedisReminderTableOptions.EntryExpiry">
+            <summary>
+            Entry expiry, null by default. A value should be set ONLY for ephemeral environments (like in tests).
+            Setting a value different from null will cause reminder entries to be deleted after some period of time.
+            </summary>
+        </member>
+        <member name="M:Orleans.Configuration.RedisReminderTableOptions.DefaultCreateMultiplexer(Orleans.Configuration.RedisReminderTableOptions)">
+            <summary>
+            The default multiplexer creation delegate.
+            </summary>
+        </member>
+        <member name="T:Orleans.Configuration.RedisReminderTableOptionsValidator">
+            <summary>
+            Configuration validator for <see cref="T:Orleans.Configuration.RedisReminderTableOptions"/>.
+            </summary>
+        </member>
+        <member name="T:Orleans.Reminders.Redis.RedisRemindersException">
+            <summary>
+            Exception thrown from <see cref="T:Orleans.Reminders.Redis.RedisReminderTable"/>.
+            </summary>
+        </member>
+        <member name="M:Orleans.Reminders.Redis.RedisRemindersException.#ctor">
+            <summary>
+            Initializes a new instance of <see cref="T:Orleans.Reminders.Redis.RedisRemindersException"/>.
+            </summary>
+        </member>
+        <member name="M:Orleans.Reminders.Redis.RedisRemindersException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of <see cref="T:Orleans.Reminders.Redis.RedisRemindersException"/>.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+        </member>
+        <member name="M:Orleans.Reminders.Redis.RedisRemindersException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of <see cref="T:Orleans.Reminders.Redis.RedisRemindersException"/>.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+            <param name="inner">The exception that is the cause of the current exception, or a null reference (Nothing in Visual Basic) if no inner exception is specified.</param>
+        </member>
+        <member name="M:Orleans.Reminders.Redis.RedisRemindersException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,10 @@
+/Users/chakrava/go/src/scan_projects/orleans/test/Misc/TestInterfaces/bin/Debug/net8.0/TestInterfaces.deps.json
+/Users/chakrava/go/src/scan_projects/orleans/test/Misc/TestInterfaces/bin/Debug/net8.0/TestInterfaces.dll
+/Users/chakrava/go/src/scan_projects/orleans/test/Misc/TestInterfaces/obj/Debug/net8.0/TestInterfaces.GeneratedMSBuildEditorConfig.editorconfig
+/Users/chakrava/go/src/scan_projects/orleans/test/Misc/TestInterfaces/obj/Debug/net8.0/TestInterfaces.AssemblyInfoInputs.cache
+/Users/chakrava/go/src/scan_projects/orleans/test/Misc/TestInterfaces/obj/Debug/net8.0/TestInterfaces.AssemblyInfo.cs
+/Users/chakrava/go/src/scan_projects/orleans/test/Misc/TestInterfaces/obj/Debug/net8.0/TestInterfaces.csproj.CoreCompileInputs.cache
+/Users/chakrava/go/src/scan_projects/orleans/test/Misc/TestInterfaces/obj/Debug/net8.0/TestInterfaces.sourcelink.json
+/Users/chakrava/go/src/scan_projects/orleans/test/Misc/TestInterfaces/obj/Debug/net8.0/TestInterfaces.dll
+/Users/chakrava/go/src/scan_projects/orleans/test/Misc/TestInterfaces/obj/Debug/net8.0/refint/TestInterfaces.dll
+/Users/chakrava/go/src/scan_projects/orleans/test/Misc/TestInterfaces/obj/Debug/net8.0/ref/TestInterfaces.dll

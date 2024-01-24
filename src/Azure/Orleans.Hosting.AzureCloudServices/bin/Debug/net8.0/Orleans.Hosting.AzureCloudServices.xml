@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Orleans.Hosting.AzureCloudServices</name>
+    </assembly>
+    <members>
+        <member name="T:Orleans.Runtime.Host.IServiceRuntimeWrapper">
+            <summary>
+            Interface exposed by ServiceRuntimeWrapper for functionality provided 
+            by Microsoft.WindowsAzure.ServiceRuntime.
+             </summary>
+        </member>
+        <member name="P:Orleans.Runtime.Host.IServiceRuntimeWrapper.DeploymentId">
+            <summary>
+            Deployment ID of the hosted service
+            </summary>
+        </member>
+        <member name="P:Orleans.Runtime.Host.IServiceRuntimeWrapper.InstanceName">
+            <summary>
+            Name of the role instance
+            </summary>
+        </member>
+        <member name="P:Orleans.Runtime.Host.IServiceRuntimeWrapper.RoleName">
+            <summary>
+            Name of the worker/web role
+            </summary>
+        </member>
+        <member name="P:Orleans.Runtime.Host.IServiceRuntimeWrapper.UpdateDomain">
+            <summary>
+            Update domain of the role instance
+            </summary>
+        </member>
+        <member name="P:Orleans.Runtime.Host.IServiceRuntimeWrapper.FaultDomain">
+            <summary>
+            Fault domain of the role instance
+            </summary>
+        </member>
+        <member name="P:Orleans.Runtime.Host.IServiceRuntimeWrapper.RoleInstanceCount">
+            <summary>
+            Number of instances in the worker/web role
+            </summary>
+        </member>
+        <member name="M:Orleans.Runtime.Host.IServiceRuntimeWrapper.GetIPEndpoint(System.String)">
+            <summary>
+            Returns IP endpoint by name
+            </summary>
+            <param name="endpointName">Name of the IP endpoint</param>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.Runtime.Host.IServiceRuntimeWrapper.GetConfigurationSettingValue(System.String)">
+            <summary>
+            Returns value of the given configuration setting
+            </summary>
+            <param name="configurationSettingName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.Runtime.Host.IServiceRuntimeWrapper.SubscribeForStoppingNotification(System.Object,System.EventHandler{System.Object})">
+            <summary>
+            Subscribes given even handler for role instance Stopping event
+            </summary>
+            /// <param name="handlerObject">Object that handler is part of, or null for a static method</param>
+            <param name="handler">Handler to subscribe</param>
+        </member>
+        <member name="M:Orleans.Runtime.Host.IServiceRuntimeWrapper.UnsubscribeFromStoppingNotification(System.Object,System.EventHandler{System.Object})">
+            <summary>
+            Unsubscribes given even handler from role instance Stopping event
+            </summary>
+            /// <param name="handlerObject">Object that handler is part of, or null for a static method</param>
+            <param name="handler">Handler to unsubscribe</param>
+        </member>
+        <member name="T:Orleans.Runtime.Host.ServiceRuntimeWrapper">
+            <summary>
+            The purpose of this class is to wrap the functionality provided 
+            by Microsoft.WindowsAzure.ServiceRuntime.dll, so that we can access it via Reflection,
+            and not have a compile-time dependency on it.
+            Microsoft.WindowsAzure.ServiceRuntime.dll doesn't have an official NuGet package.
+            By loading it via Reflection we solve this problem, and do not need an assembly 
+            binding redirect for it, as we can call any compatible version.
+            Microsoft.WindowsAzure.ServiceRuntime.dll hasn't changed in years, so the chance of a breaking change
+            is relatively low.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.SiloPersistentStreamConfiguratorExtension.UseDynamicAzureDeploymentBalancer(Orleans.Hosting.ISiloPersistentStreamConfigurator,System.Nullable{System.TimeSpan})">
+            <summary>
+            Stream queue balancer that uses Azure deployment information and silo statuses from Membership oracle for load balancing.  
+            Requires silo running in Azure.
+            This Balancer uses both the information about the full set of silos as reported by Azure role code and 
+            the information from Membership oracle about currently active (alive) silos and rebalances queues from non active silos.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.SiloPersistentStreamConfiguratorExtension.UseStaticAzureDeploymentBalancer(Orleans.Hosting.ISiloPersistentStreamConfigurator,System.Nullable{System.TimeSpan})">
+            <summary>
+            Stream queue balancer that uses Azure deployment information for load balancing. 
+            Requires silo running in Azure.
+            This Balancer uses both the information about the full set of silos as reported by Azure role code but 
+            does NOT use the information from Membership oracle about currently alive silos. 
+            That is, it does not rebalance queues based on dynamic changes in the cluster Membership.
+            </summary>
+        </member>
+    </members>
+</doc>

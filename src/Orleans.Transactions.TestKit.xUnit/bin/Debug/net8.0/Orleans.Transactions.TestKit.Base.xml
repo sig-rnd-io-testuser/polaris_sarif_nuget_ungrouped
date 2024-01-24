@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Orleans.Transactions.TestKit.Base</name>
+    </assembly>
+    <members>
+        <member name="M:Orleans.Transactions.TestKit.SiloBuilderExtensions.UseControlledFaultInjectionTransactionState(Orleans.Hosting.ISiloBuilder)">
+            <summary>
+            Configure cluster to use the distributed TM algorithm
+            </summary>
+        </member>
+        <member name="M:Orleans.Transactions.TestKit.Correctnesss.ITransactionalBitArrayGrain.Ping">
+            <summary>
+            Ping 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.Transactions.TestKit.Correctnesss.ITransactionalBitArrayGrain.SetBit(System.Int32)">
+            <summary>
+            apply set operation to every transaction state
+            </summary>
+            <param name="newValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.Transactions.TestKit.Correctnesss.ITransactionalBitArrayGrain.Get">
+            <summary>
+            Performs a read transaction on each state, returning the results in order.
+            </summary>
+        </member>
+        <member name="M:Orleans.Transactions.TestKit.ITransactionTestGrain.Set(System.Int32)">
+            <summary>
+            apply set operation to every transaction state
+            </summary>
+            <param name="newValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.Transactions.TestKit.ITransactionTestGrain.Add(System.Int32)">
+            <summary>
+            apply add operation to every transaction state
+            </summary>
+            <param name="numberToAdd"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.Transactions.TestKit.ITransactionTestGrain.Get">
+            <summary>
+            apply get operation to every transaction state
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.Transactions.TestKit.TransactionalStateStorageTestRunner`1.#ctor(System.Func{System.Threading.Tasks.Task{Orleans.Transactions.Abstractions.ITransactionalStateStorage{`0}}},System.Func{System.Int32,`0},Orleans.IGrainFactory,System.Action{System.String},System.Func{FluentAssertions.Equivalency.EquivalencyAssertionOptions{`0},FluentAssertions.Equivalency.EquivalencyAssertionOptions{`0}})">
+            <summary>
+            Constructor
+            </summary>
+            <param name="stateStorageFactory">factory to create ITransactionalStateStorage, the test runner are assuming the state 
+            in storage is empty when ITransactionalStateStorage was created </param>
+            <param name="stateFactory">factory to create TState for test</param>
+            <param name="grainFactory">grain Factory needed for test runner</param>
+            <param name="testOutput">test output to helpful messages</param>
+            <param name="assertConfig">A reference to the FluentAssertions.Equivalency.EquivalencyAssertionOptions`1
+                configuration object that can be used to influence the way the object graphs
+                are compared</param>
+        </member>
+        <member name="M:Orleans.Transactions.TestKit.TransactionConcurrencyTestRunner.SingleSharedGrainTest(System.String)">
+            <summary>
+            Two transaction share a single grain
+            </summary>
+            <param name="grainStates"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.Transactions.TestKit.TransactionConcurrencyTestRunner.TransactionChainTest(System.String)">
+            <summary>
+            Chain of transactions, each dependent on the results of the previous
+            </summary>
+            <param name="grainStates"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.Transactions.TestKit.TransactionConcurrencyTestRunner.TransactionTreeTest(System.String)">
+            <summary>
+            Single transaction containing two grains is dependent on two other transaction, one from each grain
+            </summary>
+            <param name="grainStates"></param>
+            <returns></returns>
+        </member>
+        <member name="F:Orleans.Transactions.TestKit.TransactionTestConstants.MaxCoordinatedTransactions">
+            <summary>
+            Max number of grains to include in a transaction for test purposes.  Not a hard limit of the transaction system.
+            </summary>
+        </member>
+        <member name="T:Orleans.Hosting.TransactionFaultInjectionServiceCollectionExtensions">
+            <summary>
+            <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> extensions.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.TransactionFaultInjectionServiceCollectionExtensions.UseControlledFaultInjectionTransactionState(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Configure cluster to use the distributed TM algorithm
+            </summary>
+        </member>
+    </members>
+</doc>

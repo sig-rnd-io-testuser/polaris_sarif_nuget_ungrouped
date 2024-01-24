@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Orleans.Analyzers</name>
+    </assembly>
+    <members>
+        <member name="T:Orleans.Analyzers.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Orleans.Analyzers.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Orleans.Analyzers.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Orleans.Analyzers.Resources.AbstractOrStaticMembersCannotBeSerializedMessageFormat">
+            <summary>
+              Looks up a localized string similar to The member &quot;{0}&quot; is marked as {1} and therefore cannot be serialized.
+            </summary>
+        </member>
+        <member name="P:Orleans.Analyzers.Resources.AbstractOrStaticMembersCannotBeSerializedTitle">
+            <summary>
+              Looks up a localized string similar to Members which are static or abstract cannot be serialized.
+            </summary>
+        </member>
+        <member name="P:Orleans.Analyzers.Resources.AddAliasAttributesDescription">
+            <summary>
+              Looks up a localized string similar to Add [Alias] to specify well-known names that can be used to identify types or methods..
+            </summary>
+        </member>
+        <member name="P:Orleans.Analyzers.Resources.AddAliasAttributesTitle">
+            <summary>
+              Looks up a localized string similar to Add missing [Alias].
+            </summary>
+        </member>
+        <member name="P:Orleans.Analyzers.Resources.AddAliasMessageFormat">
+            <summary>
+              Looks up a localized string similar to Add missing [Alias].
+            </summary>
+        </member>
+        <member name="P:Orleans.Analyzers.Resources.AddGenerateSerializerAttributeDescription">
+            <summary>
+              Looks up a localized string similar to Add the [GenerateSerializer] attribute to serializable types in your application..
+            </summary>
+        </member>
+        <member name="P:Orleans.Analyzers.Resources.AddGenerateSerializerAttributeMessageFormat">
+            <summary>
+              Looks up a localized string similar to The type &quot;{0}&quot; has the [Serializable] attribute but not the [GenerateSerializer] attribute.
+            </summary>
+        </member>
+        <member name="P:Orleans.Analyzers.Resources.AddGenerateSerializerAttributesTitle">
+            <summary>
+              Looks up a localized string similar to Add the [GenerateSerializer] attribute.
+            </summary>
+        </member>
+        <member name="P:Orleans.Analyzers.Resources.AddSerializationAttributesDescription">
+            <summary>
+              Looks up a localized string similar to Add attributes to properties and fields to direct serializer generation..
+            </summary>
+        </member>
+        <member name="P:Orleans.Analyzers.Resources.AddSerializationAttributesMessageFormat">
+            <summary>
+              Looks up a localized string similar to Add missing serialization attributes.
+            </summary>
+        </member>
+        <member name="P:Orleans.Analyzers.Resources.AddSerializationAttributesTitle">
+            <summary>
+              Looks up a localized string similar to Add missing serialization attributes.
+            </summary>
+        </member>
+        <member name="P:Orleans.Analyzers.Resources.AliasClashDetectedDescription">
+            <summary>
+              Looks up a localized string similar to The [Alias] attribute must be unique to the declaring type..
+            </summary>
+        </member>
+        <member name="P:Orleans.Analyzers.Resources.AliasClashDetectedMessageFormat">
+            <summary>
+              Looks up a localized string similar to Rename duplicated [Alias].
+            </summary>
+        </member>
+        <member name="P:Orleans.Analyzers.Resources.AliasClashDetectedTitle">
+            <summary>
+              Looks up a localized string similar to Rename duplicated [Alias].
+            </summary>
+        </member>
+        <member name="P:Orleans.Analyzers.Resources.AtMostOneOrleansConstructorMessageFormat">
+            <summary>
+              Looks up a localized string similar to A single type is not allowed to have multiple constructors annotated with the [OrleansConstructor] attribute.
+            </summary>
+        </member>
+        <member name="P:Orleans.Analyzers.Resources.AtMostOneOrleansConstructorTitle">
+            <summary>
+              Looks up a localized string similar to At most one constructor can be annotated with the [OrleansConstructor] attribute.
+            </summary>
+        </member>
+        <member name="P:Orleans.Analyzers.Resources.IdClashDetectedDescription">
+            <summary>
+              Looks up a localized string similar to The [Id] attribute must be unique to each members of the declaring type..
+            </summary>
+        </member>
+        <member name="P:Orleans.Analyzers.Resources.IdClashDetectedMessageFormat">
+            <summary>
+              Looks up a localized string similar to Change duplicated [Id].
+            </summary>
+        </member>
+        <member name="P:Orleans.Analyzers.Resources.IdClashDetectedTitle">
+            <summary>
+              Looks up a localized string similar to Change duplicated [Id].
+            </summary>
+        </member>
+        <member name="P:Orleans.Analyzers.Resources.IncorrectAttributeUseMessageFormat">
+            <summary>
+              Looks up a localized string similar to Remove attribute [{0}].
+            </summary>
+        </member>
+        <member name="P:Orleans.Analyzers.Resources.IncorrectAttributeUseTitle">
+            <summary>
+              Looks up a localized string similar to Remove attribute.
+            </summary>
+        </member>
+        <member name="P:Orleans.Analyzers.Resources.IncorrectAttributeUseTitleDescription">
+            <summary>
+              Looks up a localized string similar to This attribute should not be used on grain implementations..
+            </summary>
+        </member>
+    </members>
+</doc>

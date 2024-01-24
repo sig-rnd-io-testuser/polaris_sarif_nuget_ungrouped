@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "dgSpecHash": "xbxTdvXx8aXI1FJJ178RQk8wsbJ3YZcrSAv0/kcs7hg2uPsfJGOilEnEkbFejw5wAwRZINHtTAMh6tZZrEMdLA==",
+  "success": true,
+  "projectFilePath": "/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization.Abstractions/Orleans.Serialization.Abstractions.csproj",
+  "expectedPackageFiles": [
+    "/Users/chakrava/.nuget/packages/microsoft.bcl.asyncinterfaces/8.0.0/microsoft.bcl.asyncinterfaces.8.0.0.nupkg.sha512",
+    "/Users/chakrava/.nuget/packages/microsoft.build.tasks.git/8.0.0/microsoft.build.tasks.git.8.0.0.nupkg.sha512",
+    "/Users/chakrava/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/8.0.0/microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512",
+    "/Users/chakrava/.nuget/packages/microsoft.netcore.platforms/1.1.0/microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "/Users/chakrava/.nuget/packages/microsoft.sourcelink.azurerepos.git/8.0.0/microsoft.sourcelink.azurerepos.git.8.0.0.nupkg.sha512",
+    "/Users/chakrava/.nuget/packages/microsoft.sourcelink.common/8.0.0/microsoft.sourcelink.common.8.0.0.nupkg.sha512",
+    "/Users/chakrava/.nuget/packages/microsoft.sourcelink.github/8.0.0/microsoft.sourcelink.github.8.0.0.nupkg.sha512",
+    "/Users/chakrava/.nuget/packages/netstandard.library/2.0.3/netstandard.library.2.0.3.nupkg.sha512",
+    "/Users/chakrava/.nuget/packages/system.runtime.compilerservices.unsafe/4.5.3/system.runtime.compilerservices.unsafe.4.5.3.nupkg.sha512",
+    "/Users/chakrava/.nuget/packages/system.threading.tasks.extensions/4.5.4/system.threading.tasks.extensions.4.5.4.nupkg.sha512"
+  ],
+  "logs": []
+}

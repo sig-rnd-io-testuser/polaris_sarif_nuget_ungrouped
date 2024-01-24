@@ -1,0 +1,357 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Orleans.Persistence.DynamoDB</name>
+    </assembly>
+    <members>
+        <member name="T:Orleans.Hosting.DynamoDBGrainStorageServiceCollectionExtensions">
+            <summary>
+            <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> extensions.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.DynamoDBGrainStorageServiceCollectionExtensions.AddDynamoDBGrainStorageAsDefault(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Orleans.Configuration.DynamoDBStorageOptions})">
+            <summary>
+            Configure silo to use AWS DynamoDB storage as the default grain storage.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.DynamoDBGrainStorageServiceCollectionExtensions.AddDynamoDBGrainStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String,System.Action{Orleans.Configuration.DynamoDBStorageOptions})">
+            <summary>
+            Configure silo to use AWS DynamoDB storage for grain storage.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.DynamoDBGrainStorageServiceCollectionExtensions.AddDynamoDBGrainStorageAsDefault(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.Extensions.Options.OptionsBuilder{Orleans.Configuration.DynamoDBStorageOptions}})">
+            <summary>
+            Configure silo to use AWS DynamoDB storage as the default grain storage.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.DynamoDBGrainStorageServiceCollectionExtensions.AddDynamoDBGrainStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String,System.Action{Microsoft.Extensions.Options.OptionsBuilder{Orleans.Configuration.DynamoDBStorageOptions}})">
+            <summary>
+            Configure silo to use AWS DynamoDB storage for grain storage.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.DynamoDBGrainStorageSiloBuilderExtensions.AddDynamoDBGrainStorageAsDefault(Orleans.Hosting.ISiloBuilder,System.Action{Orleans.Configuration.DynamoDBStorageOptions})">
+            <summary>
+            Configure silo to use AWS DynamoDB storage as the default grain storage.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.DynamoDBGrainStorageSiloBuilderExtensions.AddDynamoDBGrainStorage(Orleans.Hosting.ISiloBuilder,System.String,System.Action{Orleans.Configuration.DynamoDBStorageOptions})">
+            <summary>
+            Configure silo to use AWS DynamoDB storage for grain storage.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.DynamoDBGrainStorageSiloBuilderExtensions.AddDynamoDBGrainStorageAsDefault(Orleans.Hosting.ISiloBuilder,System.Action{Microsoft.Extensions.Options.OptionsBuilder{Orleans.Configuration.DynamoDBStorageOptions}})">
+            <summary>
+            Configure silo to use AWS DynamoDB storage as the default grain storage.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.DynamoDBGrainStorageSiloBuilderExtensions.AddDynamoDBGrainStorage(Orleans.Hosting.ISiloBuilder,System.String,System.Action{Microsoft.Extensions.Options.OptionsBuilder{Orleans.Configuration.DynamoDBStorageOptions}})">
+            <summary>
+            Configure silo to use AWS DynamoDB storage for grain storage.
+            </summary>
+        </member>
+        <member name="P:Orleans.Configuration.DynamoDBStorageOptions.ServiceId">
+            <summary>
+            Gets or sets a unique identifier for this service, which should survive deployment and redeployment.
+            </summary>
+        </member>
+        <member name="P:Orleans.Configuration.DynamoDBStorageOptions.UseProvisionedThroughput">
+            <summary>
+            Use Provisioned Throughput for tables
+            </summary>
+        </member>
+        <member name="P:Orleans.Configuration.DynamoDBStorageOptions.CreateIfNotExists">
+            <summary>
+            Create the table if it doesn't exist
+            </summary>
+        </member>
+        <member name="P:Orleans.Configuration.DynamoDBStorageOptions.UpdateIfExists">
+            <summary>
+            Update the table if it exists
+            </summary>
+        </member>
+        <member name="P:Orleans.Configuration.DynamoDBStorageOptions.ReadCapacityUnits">
+            <summary>
+            Read capacity unit for DynamoDB storage
+            </summary>
+        </member>
+        <member name="P:Orleans.Configuration.DynamoDBStorageOptions.WriteCapacityUnits">
+            <summary>
+            Write capacity unit for DynamoDB storage
+            </summary>
+        </member>
+        <member name="P:Orleans.Configuration.DynamoDBStorageOptions.TableName">
+            <summary>
+            DynamoDB table name.
+            Defaults to 'OrleansGrainState'.
+            </summary>
+        </member>
+        <member name="P:Orleans.Configuration.DynamoDBStorageOptions.DeleteStateOnClear">
+            <summary>
+            Indicates if grain data should be deleted or reset to defaults when a grain clears it's state.
+            </summary>
+        </member>
+        <member name="P:Orleans.Configuration.DynamoDBStorageOptions.InitStage">
+            <summary>
+            Stage of silo lifecycle where storage should be initialized.  Storage must be initialized prior to use.
+            </summary>
+        </member>
+        <member name="P:Orleans.Configuration.DynamoDBStorageOptions.TimeToLive">
+            <summary>
+            Specifies a time span in which the item would be expired in the future
+            every StateWrite will increase the TTL of the grain
+            </summary>
+        </member>
+        <member name="T:Orleans.Configuration.DynamoDBGrainStorageOptionsValidator">
+            <summary>
+            Configuration validator for DynamoDBStorageOptions
+            </summary>
+        </member>
+        <member name="M:Orleans.Configuration.DynamoDBGrainStorageOptionsValidator.#ctor(Orleans.Configuration.DynamoDBStorageOptions,System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="options">The option to be validated.</param>
+            <param name="name">The option name to be validated.</param>
+        </member>
+        <member name="T:Orleans.Storage.DynamoDBGrainStorage">
+            <summary>
+            Dynamo DB storage Provider.
+            Persist Grain State in a DynamoDB table either in Json or Binary format.
+            </summary>
+        </member>
+        <member name="M:Orleans.Storage.DynamoDBGrainStorage.#ctor(System.String,Orleans.Configuration.DynamoDBStorageOptions,System.IServiceProvider,Microsoft.Extensions.Logging.ILogger{Orleans.Storage.DynamoDBGrainStorage})">
+            <summary>
+            Default Constructor
+            </summary>
+        </member>
+        <member name="M:Orleans.Storage.DynamoDBGrainStorage.Init(System.Threading.CancellationToken)">
+            <summary> Initialization function for this storage provider. </summary>
+        </member>
+        <member name="M:Orleans.Storage.DynamoDBGrainStorage.Close(System.Threading.CancellationToken)">
+            <summary> Shutdown this storage provider. </summary>
+        </member>
+        <member name="M:Orleans.Storage.DynamoDBGrainStorage.ReadStateAsync``1(System.String,Orleans.Runtime.GrainId,Orleans.IGrainState{``0})">
+            <summary> Read state data function for this storage provider. </summary>
+            <see cref="M:Orleans.Storage.IGrainStorage.ReadStateAsync``1(System.String,Orleans.Runtime.GrainId,Orleans.IGrainState{``0})"/>
+        </member>
+        <member name="M:Orleans.Storage.DynamoDBGrainStorage.WriteStateAsync``1(System.String,Orleans.Runtime.GrainId,Orleans.IGrainState{``0})">
+            <summary> Write state data function for this storage provider. </summary>
+            <see cref="M:Orleans.Storage.IGrainStorage.WriteStateAsync``1(System.String,Orleans.Runtime.GrainId,Orleans.IGrainState{``0})"/>
+        </member>
+        <member name="M:Orleans.Storage.DynamoDBGrainStorage.ClearStateAsync``1(System.String,Orleans.Runtime.GrainId,Orleans.IGrainState{``0})">
+            <summary> Clear / Delete state data function for this storage provider. </summary>
+            <remarks>
+            If the <c>DeleteStateOnClear</c> is set to <c>true</c> then the table row
+            for this grain will be deleted / removed, otherwise the table row will be
+            cleared by overwriting with default / null values.
+            </remarks>
+            <see cref="M:Orleans.Storage.IGrainStorage.ClearStateAsync``1(System.String,Orleans.Runtime.GrainId,Orleans.IGrainState{``0})"/>
+        </member>
+        <member name="T:Orleans.Persistence.DynamoDB.AWSUtils">
+            <summary>
+            Some basic utilities methods for AWS SDK
+            </summary>
+        </member>
+        <member name="M:Orleans.Persistence.DynamoDB.AWSUtils.ValidateDynamoDBPartitionKey(System.String)">
+            <summary>
+            Validate DynamoDB PartitionKey.
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.Persistence.DynamoDB.AWSUtils.ValidateDynamoDBRowKey(System.String)">
+            <summary>
+            Validate DynamoDB RowKey.
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Orleans.Persistence.DynamoDB.DynamoDBStorage">
+            <summary>
+            Wrapper around AWS DynamoDB SDK.
+            </summary>
+        </member>
+        <member name="F:Orleans.Persistence.DynamoDB.DynamoDBStorage.secretKey">
+            <summary> Secret key for this dynamoDB table </summary>
+        </member>
+        <member name="M:Orleans.Persistence.DynamoDB.DynamoDBStorage.#ctor(Microsoft.Extensions.Logging.ILogger,System.String,System.String,System.String,System.String,System.String,System.Int32,System.Int32,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Create a DynamoDBStorage instance
+            </summary>
+            <param name="logger"></param>
+            <param name="accessKey"></param>
+            <param name="secretKey"></param>
+            <param name="token"></param>
+            <param name="profileName"></param>
+            <param name="service"></param>
+            <param name="readCapacityUnits"></param>
+            <param name="writeCapacityUnits"></param>
+            <param name="useProvisionedThroughput"></param>
+            <param name="createIfNotExists"></param>
+            <param name="updateIfExists"></param>
+        </member>
+        <member name="M:Orleans.Persistence.DynamoDB.DynamoDBStorage.InitializeTable(System.String,System.Collections.Generic.List{Amazon.DynamoDBv2.Model.KeySchemaElement},System.Collections.Generic.List{Amazon.DynamoDBv2.Model.AttributeDefinition},System.Collections.Generic.List{Amazon.DynamoDBv2.Model.GlobalSecondaryIndex},System.String)">
+            <summary>
+            Create a DynamoDB table if it doesn't exist
+            </summary>
+            <param name="tableName">The name of the table</param>
+            <param name="keys">The keys definitions</param>
+            <param name="attributes">The attributes used on the key definition</param>
+            <param name="secondaryIndexes">(optional) The secondary index definitions</param>
+            <param name="ttlAttributeName">(optional) The name of the item attribute that indicates the item TTL (if null, ttl won't be enabled)</param>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.Persistence.DynamoDB.DynamoDBStorage.DeleTableAsync(System.String)">
+            <summary>
+            Delete a table from DynamoDB
+            </summary>
+            <param name="tableName">The name of the table to delete</param>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.Persistence.DynamoDB.DynamoDBStorage.PutEntryAsync(System.String,System.Collections.Generic.Dictionary{System.String,Amazon.DynamoDBv2.Model.AttributeValue},System.String,System.Collections.Generic.Dictionary{System.String,Amazon.DynamoDBv2.Model.AttributeValue})">
+            <summary>
+            Create or Replace an entry in a DynamoDB Table
+            </summary>
+            <param name="tableName">The name of the table to put an entry</param>
+            <param name="fields">The fields/attributes to add or replace in the table</param>
+            <param name="conditionExpression">Optional conditional expression</param>
+            <param name="conditionValues">Optional field/attribute values used in the conditional expression</param>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.Persistence.DynamoDB.DynamoDBStorage.UpsertEntryAsync(System.String,System.Collections.Generic.Dictionary{System.String,Amazon.DynamoDBv2.Model.AttributeValue},System.Collections.Generic.Dictionary{System.String,Amazon.DynamoDBv2.Model.AttributeValue},System.String,System.Collections.Generic.Dictionary{System.String,Amazon.DynamoDBv2.Model.AttributeValue},System.String,System.Collections.Generic.Dictionary{System.String,Amazon.DynamoDBv2.Model.AttributeValue})">
+            <summary>
+            Create or update an entry in a DynamoDB Table
+            </summary>
+            <param name="tableName">The name of the table to upsert an entry</param>
+            <param name="keys">The table entry keys for the entry</param>
+            <param name="fields">The fields/attributes to add or updated in the table</param>
+            <param name="conditionExpression">Optional conditional expression</param>
+            <param name="conditionValues">Optional field/attribute values used in the conditional expression</param>
+            <param name="extraExpression">Additional expression that will be added in the end of the upsert expression</param>
+            <param name="extraExpressionValues">Additional field/attribute that will be used in the extraExpression</param>
+            <remarks>The fields dictionary item values will be updated with the values returned from DynamoDB</remarks>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.Persistence.DynamoDB.DynamoDBStorage.DeleteEntryAsync(System.String,System.Collections.Generic.Dictionary{System.String,Amazon.DynamoDBv2.Model.AttributeValue},System.String,System.Collections.Generic.Dictionary{System.String,Amazon.DynamoDBv2.Model.AttributeValue})">
+            <summary>
+            Delete an entry from a DynamoDB table
+            </summary>
+            <param name="tableName">The name of the table to delete an entry</param>
+            <param name="keys">The table entry keys for the entry to be deleted</param>
+            <param name="conditionExpression">Optional conditional expression</param>
+            <param name="conditionValues">Optional field/attribute values used in the conditional expression</param>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.Persistence.DynamoDB.DynamoDBStorage.DeleteEntriesAsync(System.String,System.Collections.Generic.IReadOnlyCollection{System.Collections.Generic.Dictionary{System.String,Amazon.DynamoDBv2.Model.AttributeValue}})">
+            <summary>
+            Delete multiple entries from a DynamoDB table (Batch delete)
+            </summary>
+            <param name="tableName">The name of the table to delete entries</param>
+            <param name="toDelete">List of key values for each entry that must be deleted in the batch</param>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.Persistence.DynamoDB.DynamoDBStorage.ReadSingleEntryAsync``1(System.String,System.Collections.Generic.Dictionary{System.String,Amazon.DynamoDBv2.Model.AttributeValue},System.Func{System.Collections.Generic.Dictionary{System.String,Amazon.DynamoDBv2.Model.AttributeValue},``0})">
+            <summary>
+            Read an entry from a DynamoDB table
+            </summary>
+            <typeparam name="TResult">The result type</typeparam>
+            <param name="tableName">The name of the table to search for the entry</param>
+            <param name="keys">The table entry keys to search for</param>
+            <param name="resolver">Function that will be called to translate the returned fields into a concrete type. This Function is only called if the result is != null</param>
+            <returns>The object translated by the resolver function</returns>
+        </member>
+        <member name="M:Orleans.Persistence.DynamoDB.DynamoDBStorage.QueryAsync``1(System.String,System.Collections.Generic.Dictionary{System.String,Amazon.DynamoDBv2.Model.AttributeValue},System.String,System.Func{System.Collections.Generic.Dictionary{System.String,Amazon.DynamoDBv2.Model.AttributeValue},``0},System.String,System.Boolean,System.Collections.Generic.Dictionary{System.String,Amazon.DynamoDBv2.Model.AttributeValue},System.Boolean)">
+            <summary>
+            Query for multiple entries in a DynamoDB table by filtering its keys
+            </summary>
+            <typeparam name="TResult">The result type</typeparam>
+            <param name="tableName">The name of the table to search for the entries</param>
+            <param name="keys">The table entry keys to search for</param>
+            <param name="keyConditionExpression">the expression that will filter the keys</param>
+            <param name="resolver">Function that will be called to translate the returned fields into a concrete type. This Function is only called if the result is != null and will be called for each entry that match the query and added to the results list</param>
+            <param name="indexName">In case a secondary index is used in the keyConditionExpression</param>
+            <param name="scanIndexForward">In case an index is used, show if the seek order is ascending (true) or descending (false)</param>
+            <param name="lastEvaluatedKey">The primary key of the first item that this operation will evaluate. Use the value that was returned for LastEvaluatedKey in the previous operation</param>
+            <param name="consistentRead">Determines the read consistency model. Note that if a GSI is used, this must be false.</param>
+            <returns>The collection containing a list of objects translated by the resolver function and the LastEvaluatedKey for paged results</returns>
+        </member>
+        <member name="M:Orleans.Persistence.DynamoDB.DynamoDBStorage.QueryAllAsync``1(System.String,System.Collections.Generic.Dictionary{System.String,Amazon.DynamoDBv2.Model.AttributeValue},System.String,System.Func{System.Collections.Generic.Dictionary{System.String,Amazon.DynamoDBv2.Model.AttributeValue},``0},System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Query for multiple entries in a DynamoDB table by filtering its keys
+            </summary>
+            <typeparam name="TResult">The result type</typeparam>
+            <param name="tableName">The name of the table to search for the entries</param>
+            <param name="keys">The table entry keys to search for</param>
+            <param name="keyConditionExpression">the expression that will filter the keys</param>
+            <param name="resolver">Function that will be called to translate the returned fields into a concrete type. This Function is only called if the result is != null and will be called for each entry that match the query and added to the results list</param>
+            <param name="indexName">In case a secondary index is used in the keyConditionExpression</param>
+            <param name="scanIndexForward">In case an index is used, show if the seek order is ascending (true) or descending (false)</param>
+            <param name="consistentRead">Determines the read consistency model. Note that if a GSI is used, this must be false.</param>
+            <returns>The collection containing a list of objects translated by the resolver function</returns>
+        </member>
+        <member name="M:Orleans.Persistence.DynamoDB.DynamoDBStorage.ScanAsync``1(System.String,System.Collections.Generic.Dictionary{System.String,Amazon.DynamoDBv2.Model.AttributeValue},System.String,System.Func{System.Collections.Generic.Dictionary{System.String,Amazon.DynamoDBv2.Model.AttributeValue},``0})">
+            <summary>
+            Scan a DynamoDB table by querying the entry fields.
+            </summary>
+            <typeparam name="TResult">The result type</typeparam>
+            <param name="tableName">The name of the table to search for the entries</param>
+            <param name="attributes">The attributes used on the expression</param>
+            <param name="expression">The filter expression</param>
+            <param name="resolver">Function that will be called to translate the returned fields into a concrete type. This Function is only called if the result is != null and will be called for each entry that match the query and added to the results list</param>
+            <returns>The collection containing a list of objects translated by the resolver function</returns>
+        </member>
+        <member name="M:Orleans.Persistence.DynamoDB.DynamoDBStorage.PutEntriesAsync(System.String,System.Collections.Generic.IReadOnlyCollection{System.Collections.Generic.Dictionary{System.String,Amazon.DynamoDBv2.Model.AttributeValue}})">
+            <summary>
+            Crete or replace multiple entries in a DynamoDB table (Batch put)
+            </summary>
+            <param name="tableName">The name of the table to search for the entry</param>
+            <param name="toCreate">List of key values for each entry that must be created or replaced in the batch</param>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.Persistence.DynamoDB.DynamoDBStorage.GetEntriesTxAsync``1(System.String,System.Collections.Generic.IEnumerable{System.Collections.Generic.Dictionary{System.String,Amazon.DynamoDBv2.Model.AttributeValue}},System.Func{System.Collections.Generic.Dictionary{System.String,Amazon.DynamoDBv2.Model.AttributeValue},``0})">
+            <summary>
+            Transactionally reads entries from a DynamoDB table
+            </summary>
+            <typeparam name="TResult">The result type</typeparam>
+            <param name="tableName">The name of the table to search for the entry</param>
+            <param name="keys">The table entry keys to search for</param>
+            <param name="resolver">Function that will be called to translate the returned fields into a concrete type. This Function is only called if the result is != null</param>
+            <returns>The object translated by the resolver function</returns>
+        </member>
+        <member name="M:Orleans.Persistence.DynamoDB.DynamoDBStorage.WriteTxAsync(System.Collections.Generic.IEnumerable{Amazon.DynamoDBv2.Model.Put},System.Collections.Generic.IEnumerable{Amazon.DynamoDBv2.Model.Update},System.Collections.Generic.IEnumerable{Amazon.DynamoDBv2.Model.Delete},System.Collections.Generic.IEnumerable{Amazon.DynamoDBv2.Model.ConditionCheck})">
+            <summary>
+            Transactionally performs write requests
+            </summary>
+            <param name="puts">Any puts to be performed</param>
+            <param name="updates">Any updated to be performed</param>
+            <param name="deletes">Any deletes to be performed</param>
+            <param name="conditionChecks">Any condition checks to be performed</param>
+            <returns></returns>
+        </member>
+        <member name="P:Orleans.Persistence.DynamoDB.DynamoDBClientOptions.AccessKey">
+            <summary>
+            AccessKey string for DynamoDB Storage
+            </summary>
+        </member>
+        <member name="P:Orleans.Persistence.DynamoDB.DynamoDBClientOptions.SecretKey">
+            <summary>
+            Secret key for DynamoDB storage
+            </summary>
+        </member>
+        <member name="P:Orleans.Persistence.DynamoDB.DynamoDBClientOptions.Service">
+            <summary>
+            DynamoDB region name, such as "us-west-2"
+            </summary>
+        </member>
+        <member name="P:Orleans.Persistence.DynamoDB.DynamoDBClientOptions.Token">
+            <summary>
+            Token for DynamoDB storage
+            </summary>
+        </member>
+        <member name="P:Orleans.Persistence.DynamoDB.DynamoDBClientOptions.ProfileName">
+            <summary>
+            AWS profile name.
+            </summary>
+        </member>
+    </members>
+</doc>

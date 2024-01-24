@@ -1,0 +1,453 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Orleans.Transactions</name>
+    </assembly>
+    <members>
+        <member name="M:Orleans.Transactions.Abstractions.TransactionalStateExtensions.PerformUpdate``1(Orleans.Transactions.Abstractions.ITransactionalState{``0},System.Action{``0})">
+            <summary>
+            Performs an update operation, without returning any result.
+            </summary>
+            <param name="transactionalState">Transactional state to perform update upon.</param>
+            <param name="updateAction">An action that updates the state.</param>
+        </member>
+        <member name="T:Orleans.Transactions.Abstractions.INamedTransactionalStateStorageFactory">
+            <summary>
+            Factory which creates an ITransactionalStateStorage by name.
+            </summary>
+        </member>
+        <member name="M:Orleans.Transactions.Abstractions.INamedTransactionalStateStorageFactory.Create``1(System.String,System.String)">
+            <summary>
+            Create an ITransactionalStateStorage by name.
+            </summary>
+            <typeparam name="TState"></typeparam>
+            <param name="storageName">Name of transaction state storage to create.</param>
+            <param name="stateName">Name of transaction state.</param>
+            <returns>ITransactionalStateStorage, null if not found.</returns>
+        </member>
+        <member name="T:Orleans.Transactions.Abstractions.ITransactionalResource">
+            <summary>
+            Interface that allows a component to be a transaction participant.
+            </summary>
+        </member>
+        <member name="M:Orleans.Transactions.Abstractions.ITransactionalResource.CommitReadOnly(System.Guid,Orleans.Transactions.Abstractions.AccessCounter,System.DateTime)">
+            <summary>
+            Request sent by TA to all participants of a read-only transaction (one-phase commit). 
+            Participants respond after committing or aborting the read.
+            </summary>
+            <param name="transactionId">the id of the transaction to prepare</param>
+            <param name="accessCount">number of reads/writes performed on this participant by this transaction</param>
+            <param name="timeStamp">the commit timestamp for this transaction</param>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.Transactions.Abstractions.ITransactionalResource.Prepare(System.Guid,Orleans.Transactions.Abstractions.AccessCounter,System.DateTime,Orleans.Transactions.ParticipantId)">
+            <summary>
+            One-way message sent by TA to all participants except TM.  
+            </summary>
+            <param name="transactionId">the id of the transaction to prepare</param>
+            <param name="accessCount">number of reads/writes performed on this participant by this transaction</param>
+            <param name="timeStamp">the commit timestamp for this transaction</param>
+            <param name="transactionManager">the transaction manager for this transaction</param>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.Transactions.Abstractions.ITransactionalResource.Abort(System.Guid)">
+            <summary>
+            One-way message sent by TA to participants to let them know a transaction has aborted.
+            </summary>
+            <param name="transactionId">The id of the aborted transaction</param>
+        </member>
+        <member name="M:Orleans.Transactions.Abstractions.ITransactionalResource.Cancel(System.Guid,System.DateTime,Orleans.Transactions.TransactionalStatus)">
+            <summary>
+            One-way message sent by TM to participants to let them know a transaction has aborted.
+            </summary>
+            <param name="transactionId">The id of the aborted transaction</param>
+            <param name="timeStamp">The commit timestamp of the aborted transaction</param>
+            <param name="status">Reason for abort</param>
+        </member>
+        <member name="M:Orleans.Transactions.Abstractions.ITransactionalResource.Confirm(System.Guid,System.DateTime)">
+            <summary>
+            Request sent by TM to participants to let them know a transaction has committed.
+            Participants respond after cleaning up all prepare records.
+            </summary>
+            <param name="transactionId">The id of the committed transaction</param>
+            <param name="timeStamp">The commit timestamp of the committed transaction</param>
+        </member>
+        <member name="T:Orleans.Transactions.Abstractions.ITransactionalState`1">
+            <summary>
+            State that respects Orleans transaction semantics, and allows
+            read/write locking
+            </summary>
+            <typeparam name="TState">The type of the state</typeparam>
+        </member>
+        <member name="M:Orleans.Transactions.Abstractions.ITransactionalState`1.PerformRead``1(System.Func{`0,``0})">
+            <summary>
+            Performs a read operation and returns the result, without modifying the state.
+            </summary>
+            <typeparam name="TResult">The type of the return value</typeparam>
+            <param name="readFunction">A function that reads the state and returns the result. MUST NOT modify the state.</param>
+        </member>
+        <member name="M:Orleans.Transactions.Abstractions.ITransactionalState`1.PerformUpdate``1(System.Func{`0,``0})">
+            <summary>
+            Performs an update operation and returns the result.
+            </summary>
+            <typeparam name="TResult">The type of the return value</typeparam>
+            <param name="updateFunction">A function that can read and update the state, and return a result</param>
+        </member>
+        <member name="T:Orleans.Transactions.Abstractions.ITransactionalStateStorage`1">
+            <summary>
+            Storage interface for transactional state
+            </summary>
+            <typeparam name="TState">the type of the state</typeparam>
+        </member>
+        <member name="P:Orleans.Transactions.Abstractions.PendingTransactionState`1.SequenceId">
+            <summary>
+            Transactions are given dense local sequence numbers 1,2,3,4...
+            If a new transaction is prepared with the same sequence number as a 
+            previously prepared transaction, it replaces it.
+            </summary>
+        </member>
+        <member name="P:Orleans.Transactions.Abstractions.PendingTransactionState`1.TransactionId">
+            <summary>
+            A globally unique identifier of the transaction. 
+            </summary>
+        </member>
+        <member name="P:Orleans.Transactions.Abstractions.PendingTransactionState`1.TimeStamp">
+            <summary>
+            The logical timestamp of the transaction.
+            Timestamps are guaranteed to be monotonically increasing.
+            </summary>
+        </member>
+        <member name="P:Orleans.Transactions.Abstractions.PendingTransactionState`1.TransactionManager">
+            <summary>
+            The transaction manager that knows about the status of this prepared transaction,
+            or null if this is the transaction manager.
+            Used during recovery to inquire about the fate of the transaction.
+            </summary>
+        </member>
+        <member name="P:Orleans.Transactions.Abstractions.PendingTransactionState`1.State">
+            <summary>
+            A snapshot of the state after this transaction executed
+            </summary>
+        </member>
+        <member name="P:Orleans.Transactions.Abstractions.TransactionalStorageLoadResponse`1.CommittedSequenceId">
+            <summary>
+            The local sequence id of the last committed transaction, or zero if none
+            </summary>
+        </member>
+        <member name="P:Orleans.Transactions.Abstractions.TransactionalStorageLoadResponse`1.Metadata">
+            <summary>
+            Additional state maintained by the transaction algorithm, such as commit records
+            </summary>
+        </member>
+        <member name="P:Orleans.Transactions.Abstractions.TransactionalStorageLoadResponse`1.PendingStates">
+            <summary>
+            List of pending states, ordered by sequence id
+            </summary>
+        </member>
+        <member name="T:Orleans.Transactions.Abstractions.TransactionalStateMetaData">
+            <summary>
+            Metadata is stored in storage, as a JSON object
+            </summary>
+        </member>
+        <member name="M:Orleans.Transactions.Abstractions.ITransactionManager.PrepareAndCommit(System.Guid,Orleans.Transactions.Abstractions.AccessCounter,System.DateTime,System.Collections.Generic.List{Orleans.Transactions.ParticipantId},System.Int32)">
+            <summary>
+            Request sent by TA to TM. The TM responds after committing or aborting the transaction.
+            </summary>
+            <param name="transactionId">the id of the transaction to prepare</param>
+            <param name="accessCount">number of reads/writes performed on this participant by this transaction</param>
+            <param name="timeStamp">the commit timestamp for this transaction</param>
+            <param name="writerResources">the participants who wrote during the transaction</param>
+            <param name="totalParticipants">the total number of participants in the transaction</param>
+            <returns>the status of the transaction</returns>
+        </member>
+        <member name="M:Orleans.Transactions.Abstractions.ITransactionManager.Prepared(System.Guid,System.DateTime,Orleans.Transactions.ParticipantId,Orleans.Transactions.TransactionalStatus)">
+            <summary>
+            One-way message sent by a participant to the TM after it (successfully or unsuccessfully) prepares.
+            </summary>
+            <param name="transactionId">The id of the transaction</param>
+            <param name="timeStamp">The commit timestamp of the transaction</param>
+            <param name="resource">The participant sending the message</param>
+            <param name="status">The outcome of the prepare</param>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.Transactions.Abstractions.ITransactionManager.Ping(System.Guid,System.DateTime,Orleans.Transactions.ParticipantId)">
+            <summary>
+            One-way message sent by participants to TM, to let TM know they are still waiting to hear about
+            the fate of a transaction.
+            </summary>
+            <param name="transactionId">The id of the transaction</param>
+            <param name="timeStamp">The commit timestamp of the transaction</param>
+            <param name="resource">The participant sending the message</param>
+        </member>
+        <member name="T:Orleans.Transactions.Abstractions.AccessCounter">
+            <summary>
+            Counts read and write accesses on a transaction participant.
+            </summary>
+        </member>
+        <member name="M:Orleans.Transactions.TransactionInfo.#ctor(Orleans.Transactions.TransactionInfo)">
+            <summary>
+            Constructor used when TransactionInfo is transferred to a request
+            </summary>
+            <param name="other"></param>
+        </member>
+        <member name="M:Orleans.Transactions.TransactionInfo.ReconcilePending">
+            <summary>
+            Reconciles all pending calls that have join the transaction.
+            </summary>
+            <returns>true if there are no orphans, false otherwise</returns>
+        </member>
+        <member name="M:Orleans.Transactions.TransactionInfo.ToString">
+            <summary>
+            For verbose tracing and debugging.
+            </summary>
+        </member>
+        <member name="T:Orleans.Transactions.TransactionRateLoadSheddingOptions">
+            <summary>
+            Options for load shedding based on transaction rate 
+            </summary>
+        </member>
+        <member name="P:Orleans.Transactions.TransactionRateLoadSheddingOptions.Enabled">
+            <summary>
+            whether to turn on transaction load shedding. Default to false;
+            </summary>
+        </member>
+        <member name="F:Orleans.Transactions.TransactionRateLoadSheddingOptions.DEFAULT_LIMIT">
+            <summary>
+            Default load shedding limit
+            </summary>
+        </member>
+        <member name="P:Orleans.Transactions.TransactionRateLoadSheddingOptions.Limit">
+            <summary>
+            Load shedding limit for transaction
+            </summary>
+        </member>
+        <member name="T:Orleans.Transactions.CommitRole">
+            <summary>
+            Each participant plays a particular role in the commit protocol
+            </summary>
+        </member>
+        <member name="T:Orleans.Transactions.TransactionRecord`1">
+            <summary>
+            Record that is kept for each transaction at each participant
+            </summary>
+            <typeparam name="TState">The type of state</typeparam>
+        </member>
+        <member name="P:Orleans.Transactions.TransactionRecord`1.ReadyToCommit">
+            <summary>
+            Indicates whether a transaction record is ready to commit
+            </summary>
+        </member>
+        <member name="T:Orleans.Transactions.OrleansTransactionsErrorCode">
+            <summary>
+            Orleans Transactions error codes
+            </summary>
+        </member>
+        <member name="F:Orleans.Transactions.OrleansTransactionsErrorCode.OrleansTransactions">
+            <summary>
+            Start of orleans transactions error codes
+            </summary>
+        </member>
+        <member name="T:Orleans.Transactions.ITransactionAgent">
+            <summary>
+            The Transaction Agent it is used by the silo and activations to
+            interact with the transactions system.
+            </summary>
+            <remarks>
+            There is one Transaction Agent per silo.
+            TODO: does this belong in Runtime instead?
+            </remarks>
+        </member>
+        <member name="M:Orleans.Transactions.ITransactionAgent.StartTransaction(System.Boolean,System.TimeSpan)">
+            <summary>
+            Starts a new transaction
+            </summary>
+            <param name="readOnly">Whether it is a read-only transaction</param>
+            <param name="timeout">Transaction is automatically aborted if it does not complete within this time</param>
+            <returns>Info of the new transaction</returns>
+        </member>
+        <member name="M:Orleans.Transactions.ITransactionAgent.Resolve(Orleans.Transactions.TransactionInfo)">
+            <summary>
+            Attempt to Resolve a transaction.  Will commit or abort transaction
+            </summary>
+            <param name="transactionInfo">transaction info</param>
+            <returns>null if the transaction committed successfully, or an exception otherwise.
+            If the exception is OrleansTransactionInDoubtException, it means the outcome of the Commit cannot be determined; otherwise,
+            the transaction is guaranteed to not have taken effect.</returns>
+        </member>
+        <member name="M:Orleans.Transactions.ITransactionAgent.Abort(Orleans.Transactions.TransactionInfo)">
+            <summary>
+            Abort a transaction.
+            </summary>
+            <param name="transactionInfo"></param>
+            <returns>None.</returns>
+            <remarks>This method is exception-free</remarks>
+        </member>
+        <member name="T:Orleans.Transactions.OrleansTransactionException">
+            <summary>
+            Base class for all transaction exceptions
+            </summary>
+        </member>
+        <member name="T:Orleans.Transactions.OrleansTransactionsDisabledException">
+            <summary>
+            Orleans transactions are disabled.
+            </summary>
+        </member>
+        <member name="T:Orleans.Transactions.OrleansStartTransactionFailedException">
+            <summary>
+            Signifies that the runtime was unable to start a transaction.
+            </summary>
+        </member>
+        <member name="T:Orleans.Transactions.OrleansTransactionOverloadException">
+            <summary>
+            Signifies that transaction runtime is overloaded
+            </summary>
+        </member>
+        <member name="T:Orleans.Transactions.OrleansTransactionInDoubtException">
+            <summary>
+            Signifies that the runtime is unable to determine whether a transaction
+            has committed.
+            </summary>
+        </member>
+        <member name="T:Orleans.Transactions.OrleansTransactionAbortedException">
+            <summary>
+            Signifies that the executing transaction has aborted.
+            </summary>
+        </member>
+        <member name="P:Orleans.Transactions.OrleansTransactionAbortedException.TransactionId">
+            <summary>
+            The unique identifier of the aborted transaction.
+            </summary>
+        </member>
+        <member name="T:Orleans.Transactions.OrleansCascadingAbortException">
+            <summary>
+            Signifies that the executing transaction has aborted because a dependent transaction aborted.
+            </summary>
+        </member>
+        <member name="T:Orleans.Transactions.OrleansOrphanCallException">
+            <summary>
+            Signifies that the executing transaction has aborted because a method did not await all its pending calls.
+            </summary>
+        </member>
+        <member name="T:Orleans.Transactions.OrleansReadOnlyViolatedException">
+            <summary>
+            Signifies that the executing read-only transaction has aborted because it attempted to write to a grain.
+            </summary>
+        </member>
+        <member name="T:Orleans.Transactions.OrleansBrokenTransactionLockException">
+            <summary>
+            Signifies that the executing transaction has aborted because its execution lock was broken
+            </summary>
+        </member>
+        <member name="T:Orleans.Transactions.OrleansTransactionLockUpgradeException">
+            <summary>
+            Signifies that the executing transaction has aborted because it could not upgrade some lock
+            </summary>
+        </member>
+        <member name="T:Orleans.Transactions.OrleansTransactionPrepareTimeoutException">
+            <summary>
+            Signifies that the executing transaction has aborted because the TM did not receive all prepared messages in time
+            </summary>
+        </member>
+        <member name="T:Orleans.Transactions.OrleansTransactionTransientFailureException">
+            <summary>
+            Signifies that the executing transaction has aborted because some possibly transient problem, such as internal
+            timeouts for locks or protocol responses, or speculation failures.
+            </summary>
+        </member>
+        <member name="M:Orleans.Transactions.State.TransactionQueue`1.NotifyOfRestore">
+            <summary>
+            called on activation, and when recovering from storage conflicts or other exceptions.
+            </summary>
+        </member>
+        <member name="M:Orleans.Transactions.State.TransactionQueue`1.Ready">
+            <summary>
+            Ensures queue is ready to process requests.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Orleans.Transactions.ITransactionalStateStorageEvents`1">
+            <summary>
+            Events streamed to storage. 
+            </summary>
+        </member>
+        <member name="T:Orleans.Transactions.StorageBatch`1">
+            <summary>
+            Accumulates storage events, for submitting them to storage as a batch.
+            </summary>
+            <typeparam name="TState"></typeparam>
+        </member>
+        <member name="T:Orleans.Transactions.TransactionalState`1">
+            <summary>
+            Stateful facet that respects Orleans transaction semantics
+            </summary>
+        </member>
+        <member name="M:Orleans.Transactions.TransactionalState`1.PerformRead``1(System.Func{`0,``0})">
+            <summary>
+            Read the current state.
+            </summary>
+        </member>
+        <member name="M:Orleans.Transactions.TransactionalState`1.PerformUpdate``1(System.Func{`0,``0})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.Transactions.TransactionCommitter`1.OnCommit(Orleans.Transactions.Abstractions.ITransactionCommitOperation{`0})">
+            <inheritdoc/>
+        </member>
+        <member name="T:Orleans.Transactions.TransactionalStatus">
+            <summary>
+            Used to propagate information about the status of a transaction. Used for transaction orchestration, for diagnostics, 
+            and for generating informative user exceptions
+            </summary>
+        </member>
+        <member name="T:Orleans.Transactions.CommitQueue`1">
+            <summary>
+            A queue data structure that stores transaction records in a circular buffer, sorted by timestamps.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:Orleans.Transactions.IClock">
+            <summary>
+            System clock abstraction
+            </summary>
+        </member>
+        <member name="M:Orleans.Transactions.IClock.UtcNow">
+            <summary>
+            Current time in utc
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.Hosting.SiloBuilderExtensions.UseTransactions(Orleans.Hosting.ISiloBuilder)">
+            <summary>
+            Configure cluster to use the distributed TM algorithm
+            </summary>
+            <param name="builder">Silo host builder</param>
+            <returns>The silo builder.</returns>
+        </member>
+        <member name="T:Orleans.Hosting.TransactionsServiceCollectionExtensions">
+            <summary>
+            <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> extensions.
+            </summary>
+        </member>
+        <member name="M:Orleans.ITransactionClient.RunTransaction(Orleans.TransactionOption,System.Func{System.Threading.Tasks.Task})">
+            <summary>
+            Run transaction delegate
+            </summary>
+            <param name="transactionOption"></param>
+            <param name="transactionDelegate"></param>
+            <returns><see cref="T:System.Threading.Tasks.Task"/></returns>
+            <remarks>Transaction always commit, unless an exception is thrown from the delegate and depending on <paramref name="transactionOption"/></remarks>
+        </member>
+        <member name="M:Orleans.ITransactionClient.RunTransaction(Orleans.TransactionOption,System.Func{System.Threading.Tasks.Task{System.Boolean}})">
+            <summary>
+            Run transaction delegate
+            </summary>
+            <param name="transactionOption"></param>
+            <param name="transactionDelegate"></param>
+            <returns>True if the transaction should commit</returns>
+        </member>
+        <member name="T:Orleans.TransactionAttribute">
+            <summary>
+            The TransactionAttribute attribute is used to mark methods that start and join transactions.
+            </summary>
+        </member>
+    </members>
+</doc>

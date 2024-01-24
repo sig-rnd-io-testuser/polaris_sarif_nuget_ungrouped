@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Orleans.Serialization.SystemTextJson</name>
+    </assembly>
+    <members>
+        <member name="T:Orleans.Serialization.JsonCodec">
+            <summary>
+            A serialization codec which uses <see cref="T:System.Text.Json.JsonSerializer"/>.
+            </summary>
+        </member>
+        <member name="F:Orleans.Serialization.JsonCodec.WellKnownAlias">
+            <summary>
+            The well-known type alias for this codec.
+            </summary>
+        </member>
+        <member name="M:Orleans.Serialization.JsonCodec.#ctor(System.Collections.Generic.IEnumerable{Orleans.Serialization.Serializers.ICodecSelector},System.Collections.Generic.IEnumerable{Orleans.Serialization.Serializers.ICopierSelector},Microsoft.Extensions.Options.IOptions{Orleans.Serialization.JsonCodecOptions})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Orleans.Serialization.JsonCodec"/> class.
+            </summary>
+            <param name="serializableTypeSelectors">Filters used to indicate which types should be serialized by this codec.</param>
+            <param name="copyableTypeSelectors">Filters used to indicate which types should be copied by this codec.</param>
+            <param name="options">The JSON codec options.</param>
+        </member>
+        <member name="M:Orleans.Serialization.JsonCodec.Orleans#Serialization#Codecs#IFieldCodec#WriteField``1(Orleans.Serialization.Buffers.Writer{``0}@,System.UInt32,System.Type,System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.Serialization.JsonCodec.Orleans#Serialization#Codecs#IFieldCodec#ReadValue``1(Orleans.Serialization.Buffers.Reader{``0}@,Orleans.Serialization.WireProtocol.Field)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.Serialization.JsonCodec.Orleans#Serialization#Serializers#IGeneralizedCodec#IsSupportedType(System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.Serialization.JsonCodec.Orleans#Serialization#Cloning#IDeepCopier#DeepCopy(System.Object,Orleans.Serialization.Cloning.CopyContext)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.Serialization.JsonCodec.Orleans#Serialization#Cloning#IGeneralizedCopier#IsSupportedType(System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.Serialization.JsonCodec.Orleans#Serialization#ITypeFilter#IsTypeAllowed(System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Orleans.Serialization.JsonCodecOptions">
+            <summary>
+            Options for <see cref="T:Orleans.Serialization.JsonCodec"/>.
+            </summary>
+        </member>
+        <member name="P:Orleans.Serialization.JsonCodecOptions.SerializerOptions">
+            <summary>
+            Gets or sets the <see cref="T:System.Text.Json.JsonSerializerOptions"/>.
+            </summary>
+        </member>
+        <member name="P:Orleans.Serialization.JsonCodecOptions.ReaderOptions">
+            <summary>
+            Gets or sets the <see cref="T:System.Text.Json.JsonReaderOptions"/>.
+            </summary>
+        </member>
+        <member name="P:Orleans.Serialization.JsonCodecOptions.IsSerializableType">
+            <summary>
+            Gets or sets a delegate used to determine if a type is supported by the JSON serializer for serialization and deserialization.
+            </summary>
+        </member>
+        <member name="P:Orleans.Serialization.JsonCodecOptions.IsCopyableType">
+            <summary>
+            Gets or sets a delegate used to determine if a type is supported by the JSON serializer for copying.
+            </summary>
+        </member>
+        <member name="T:Orleans.Serialization.SerializationHostingExtensions">
+            <summary>
+            Extension method for <see cref="T:Orleans.Serialization.ISerializerBuilder"/>.
+            </summary>
+        </member>
+        <member name="M:Orleans.Serialization.SerializationHostingExtensions.AddJsonSerializer(Orleans.Serialization.ISerializerBuilder,System.Func{System.Type,System.Boolean},System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            Adds support for serializing and deserializing values using <see cref="T:System.Text.Json.JsonSerializer"/>.
+            </summary>
+            <param name="serializerBuilder">The serializer builder.</param>
+            <param name="isSupported">A delegate used to indicate which types should be serialized and copied by this codec.</param>
+            <param name="jsonSerializerOptions">The JSON serializer options.</param>
+        </member>
+        <member name="M:Orleans.Serialization.SerializationHostingExtensions.AddJsonSerializer(Orleans.Serialization.ISerializerBuilder,System.Func{System.Type,System.Boolean},System.Func{System.Type,System.Boolean},System.Action{Microsoft.Extensions.Options.OptionsBuilder{Orleans.Serialization.JsonCodecOptions}})">
+            <summary>
+            Adds support for serializing and deserializing values using <see cref="T:System.Text.Json.JsonSerializer"/>.
+            </summary>
+            <param name="serializerBuilder">The serializer builder.</param>
+            <param name="isSerializable">A delegate used to indicate which types should be serialized by this codec.</param>
+            <param name="isCopyable">A delegate used to indicate which types should be copied by this codec.</param>
+            <param name="configureOptions">A delegate used to configure the options for the JSON serializer.</param>
+        </member>
+    </members>
+</doc>

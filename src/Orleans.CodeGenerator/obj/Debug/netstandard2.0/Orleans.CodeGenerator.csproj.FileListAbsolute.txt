@@ -1,0 +1,13 @@
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.CodeGenerator/bin/Debug/netstandard2.0/Orleans.CodeGenerator.deps.json
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.CodeGenerator/bin/Debug/netstandard2.0/Orleans.CodeGenerator.dll
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.CodeGenerator/bin/Debug/netstandard2.0/Orleans.CodeGenerator.xml
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.CodeGenerator/obj/Debug/netstandard2.0/Orleans.CodeGenerator.csproj.AssemblyReference.cache
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.CodeGenerator/obj/Debug/netstandard2.0/Orleans.CodeGenerator.Resources.resources
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.CodeGenerator/obj/Debug/netstandard2.0/Orleans.CodeGenerator.csproj.GenerateResource.cache
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.CodeGenerator/obj/Debug/netstandard2.0/Orleans.CodeGenerator.GeneratedMSBuildEditorConfig.editorconfig
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.CodeGenerator/obj/Debug/netstandard2.0/Orleans.CodeGenerator.AssemblyInfoInputs.cache
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.CodeGenerator/obj/Debug/netstandard2.0/Orleans.CodeGenerator.AssemblyInfo.cs
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.CodeGenerator/obj/Debug/netstandard2.0/Orleans.CodeGenerator.csproj.CoreCompileInputs.cache
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.CodeGenerator/obj/Debug/netstandard2.0/Orleans.CodeGenerator.sourcelink.json
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.CodeGenerator/obj/Debug/netstandard2.0/Orleans.CodeGenerator.dll
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.CodeGenerator/obj/Debug/netstandard2.0/Orleans.CodeGenerator.xml

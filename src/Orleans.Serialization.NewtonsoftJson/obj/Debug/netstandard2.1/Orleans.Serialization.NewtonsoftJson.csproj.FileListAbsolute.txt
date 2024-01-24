@@ -1,0 +1,16 @@
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization.NewtonsoftJson/bin/Debug/netstandard2.1/Orleans.Serialization.NewtonsoftJson.deps.json
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization.NewtonsoftJson/bin/Debug/netstandard2.1/Orleans.Serialization.NewtonsoftJson.dll
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization.NewtonsoftJson/bin/Debug/netstandard2.1/Orleans.Serialization.NewtonsoftJson.xml
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization.NewtonsoftJson/bin/Debug/netstandard2.1/Orleans.Serialization.Abstractions.dll
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization.NewtonsoftJson/bin/Debug/netstandard2.1/Orleans.Serialization.dll
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization.NewtonsoftJson/bin/Debug/netstandard2.1/Orleans.Serialization.xml
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization.NewtonsoftJson/bin/Debug/netstandard2.1/Orleans.Serialization.Abstractions.xml
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization.NewtonsoftJson/obj/Debug/netstandard2.1/Orleans.Serialization.NewtonsoftJson.csproj.AssemblyReference.cache
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization.NewtonsoftJson/obj/Debug/netstandard2.1/Orleans.Serialization.NewtonsoftJson.GeneratedMSBuildEditorConfig.editorconfig
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization.NewtonsoftJson/obj/Debug/netstandard2.1/Orleans.Serialization.NewtonsoftJson.AssemblyInfoInputs.cache
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization.NewtonsoftJson/obj/Debug/netstandard2.1/Orleans.Serialization.NewtonsoftJson.AssemblyInfo.cs
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization.NewtonsoftJson/obj/Debug/netstandard2.1/Orleans.Serialization.NewtonsoftJson.csproj.CoreCompileInputs.cache
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization.NewtonsoftJson/obj/Debug/netstandard2.1/Orleans.Serialization.NewtonsoftJson.sourcelink.json
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization.NewtonsoftJson/obj/Debug/netstandard2.1/Orleans.Serialization.NewtonsoftJson.csproj.CopyComplete
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization.NewtonsoftJson/obj/Debug/netstandard2.1/Orleans.Serialization.NewtonsoftJson.dll
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization.NewtonsoftJson/obj/Debug/netstandard2.1/Orleans.Serialization.NewtonsoftJson.xml

@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Orleans.Serialization.NewtonsoftJson</name>
+    </assembly>
+    <members>
+        <member name="F:Orleans.Serialization.NewtonsoftJsonCodec.WellKnownAlias">
+            <summary>
+            The well-known type alias for this codec.
+            </summary>
+        </member>
+        <member name="M:Orleans.Serialization.NewtonsoftJsonCodec.#ctor(System.Collections.Generic.IEnumerable{Orleans.Serialization.Serializers.ICodecSelector},System.Collections.Generic.IEnumerable{Orleans.Serialization.Serializers.ICopierSelector},Microsoft.Extensions.Options.IOptions{Orleans.Serialization.NewtonsoftJsonCodecOptions})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Orleans.Serialization.NewtonsoftJsonCodec"/> class.
+            </summary>
+            <param name="serializableTypeSelectors">Filters used to indicate which types should be serialized by this codec.</param>
+            <param name="copyableTypeSelectors">Filters used to indicate which types should be copied by this codec.</param>
+            <param name="options">The JSON codec options.</param>
+        </member>
+        <member name="M:Orleans.Serialization.NewtonsoftJsonCodec.Orleans#Serialization#Cloning#IDeepCopier#DeepCopy(System.Object,Orleans.Serialization.Cloning.CopyContext)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.Serialization.NewtonsoftJsonCodec.Orleans#Serialization#Cloning#IGeneralizedCopier#IsSupportedType(System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Orleans.Serialization.NewtonsoftJsonCodecOptions">
+            <summary>
+            Options for <see cref="T:Orleans.Serialization.NewtonsoftJsonCodec"/>.
+            </summary>
+        </member>
+        <member name="P:Orleans.Serialization.NewtonsoftJsonCodecOptions.SerializerSettings">
+            <summary>
+            Gets or sets the <see cref="T:Newtonsoft.Json.JsonSerializerSettings"/>.
+            </summary>
+        </member>
+        <member name="P:Orleans.Serialization.NewtonsoftJsonCodecOptions.IsSerializableType">
+            <summary>
+            Gets or sets a delegate used to determine if a type is supported by the JSON serializer for serialization and deserialization.
+            </summary>
+        </member>
+        <member name="P:Orleans.Serialization.NewtonsoftJsonCodecOptions.IsCopyableType">
+            <summary>
+            Gets or sets a delegate used to determine if a type is supported by the JSON serializer for copying.
+            </summary>
+        </member>
+        <member name="T:Orleans.Serialization.SerializationHostingExtensions">
+            <summary>
+            Extension method for <see cref="T:Orleans.Serialization.ISerializerBuilder"/>.
+            </summary>
+        </member>
+        <member name="M:Orleans.Serialization.SerializationHostingExtensions.AddNewtonsoftJsonSerializer(Orleans.Serialization.ISerializerBuilder,System.Func{System.Type,System.Boolean},Newtonsoft.Json.JsonSerializerSettings)">
+            <summary>
+            Adds support for serializing and deserializing values using <see cref="T:Newtonsoft.Json.JsonSerializer"/>.
+            </summary>
+            <param name="serializerBuilder">The serializer builder.</param>
+            <param name="isSupported">A delegate used to indicate which types should be serialized and copied by this codec.</param>
+            <param name="jsonSerializerSettings">The JSON serializer settings.</param>
+        </member>
+        <member name="M:Orleans.Serialization.SerializationHostingExtensions.AddNewtonsoftJsonSerializer(Orleans.Serialization.ISerializerBuilder,System.Func{System.Type,System.Boolean},System.Action{Microsoft.Extensions.Options.OptionsBuilder{Orleans.Serialization.NewtonsoftJsonCodecOptions}})">
+            <summary>
+            Adds support for serializing and deserializing values using <see cref="T:Newtonsoft.Json.JsonSerializer"/>.
+            </summary>
+            <param name="serializerBuilder">The serializer builder.</param>
+            <param name="isSupported">A delegate used to indicate which types should be serialized and copied by this codec.</param>
+            <param name="configureOptions">A delegate used to configure the options for the JSON serializer.</param>
+        </member>
+        <member name="M:Orleans.Serialization.SerializationHostingExtensions.AddNewtonsoftJsonSerializer(Orleans.Serialization.ISerializerBuilder,System.Func{System.Type,System.Boolean},System.Func{System.Type,System.Boolean},System.Action{Microsoft.Extensions.Options.OptionsBuilder{Orleans.Serialization.NewtonsoftJsonCodecOptions}})">
+            <summary>
+            Adds support for serializing and deserializing values using <see cref="T:Newtonsoft.Json.JsonSerializer"/>.
+            </summary>
+            <param name="serializerBuilder">The serializer builder.</param>
+            <param name="isSerializable">A delegate used to indicate which types should be serialized by this codec.</param>
+            <param name="isCopyable">A delegate used to indicate which types should be copied by this codec.</param>
+            <param name="configureOptions">A delegate used to configure the options for the JSON serializer.</param>
+        </member>
+    </members>
+</doc>

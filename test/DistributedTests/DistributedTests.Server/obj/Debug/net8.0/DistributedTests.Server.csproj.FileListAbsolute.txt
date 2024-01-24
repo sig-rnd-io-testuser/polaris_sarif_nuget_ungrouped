@@ -1,0 +1,16 @@
+/Users/chakrava/go/src/scan_projects/orleans/Artifacts/DistributedTests/DistributedTests.Server/net8.0/secrets.json
+/Users/chakrava/go/src/scan_projects/orleans/Artifacts/DistributedTests/DistributedTests.Server/net8.0/DistributedTests.Server
+/Users/chakrava/go/src/scan_projects/orleans/Artifacts/DistributedTests/DistributedTests.Server/net8.0/DistributedTests.Server.deps.json
+/Users/chakrava/go/src/scan_projects/orleans/Artifacts/DistributedTests/DistributedTests.Server/net8.0/DistributedTests.Server.runtimeconfig.json
+/Users/chakrava/go/src/scan_projects/orleans/Artifacts/DistributedTests/DistributedTests.Server/net8.0/DistributedTests.Server.dll
+/Users/chakrava/go/src/scan_projects/orleans/test/DistributedTests/DistributedTests.Server/obj/Debug/net8.0/DistributedTests.Server.csproj.AssemblyReference.cache
+/Users/chakrava/go/src/scan_projects/orleans/test/DistributedTests/DistributedTests.Server/obj/Debug/net8.0/DistributedTests.Server.GeneratedMSBuildEditorConfig.editorconfig
+/Users/chakrava/go/src/scan_projects/orleans/test/DistributedTests/DistributedTests.Server/obj/Debug/net8.0/DistributedTests.Server.AssemblyInfoInputs.cache
+/Users/chakrava/go/src/scan_projects/orleans/test/DistributedTests/DistributedTests.Server/obj/Debug/net8.0/DistributedTests.Server.AssemblyInfo.cs
+/Users/chakrava/go/src/scan_projects/orleans/test/DistributedTests/DistributedTests.Server/obj/Debug/net8.0/DistributedTests.Server.csproj.CoreCompileInputs.cache
+/Users/chakrava/go/src/scan_projects/orleans/test/DistributedTests/DistributedTests.Server/obj/Debug/net8.0/DistributedTests.Server.sourcelink.json
+/Users/chakrava/go/src/scan_projects/orleans/test/DistributedTests/DistributedTests.Server/obj/Debug/net8.0/DistributedTests.Server.csproj.CopyComplete
+/Users/chakrava/go/src/scan_projects/orleans/test/DistributedTests/DistributedTests.Server/obj/Debug/net8.0/DistributedTests.Server.dll
+/Users/chakrava/go/src/scan_projects/orleans/test/DistributedTests/DistributedTests.Server/obj/Debug/net8.0/refint/DistributedTests.Server.dll
+/Users/chakrava/go/src/scan_projects/orleans/test/DistributedTests/DistributedTests.Server/obj/Debug/net8.0/DistributedTests.Server.genruntimeconfig.cache
+/Users/chakrava/go/src/scan_projects/orleans/test/DistributedTests/DistributedTests.Server/obj/Debug/net8.0/ref/DistributedTests.Server.dll

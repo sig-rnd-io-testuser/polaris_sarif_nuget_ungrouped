@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Orleans.Serialization.FSharp</name>
+    </assembly>
+    <members>
+        <member name="T:Orleans.Serialization.FSharpOptionCodec`1">
+            <summary>
+            Serializer for <see cref="T:Microsoft.FSharp.Core.FSharpOption`1"/>.
+            </summary>
+            <typeparam name="T">The underlying type.</typeparam>
+        </member>
+        <member name="M:Orleans.Serialization.FSharpOptionCodec`1.#ctor(Orleans.Serialization.Codecs.IFieldCodec{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Orleans.Serialization.FSharpOptionCodec`1"/> class.
+            </summary>
+        </member>
+        <member name="M:Orleans.Serialization.FSharpOptionCodec`1.WriteField``1(Orleans.Serialization.Buffers.Writer{``0}@,System.UInt32,System.Type,Microsoft.FSharp.Core.FSharpOption{`0})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.Serialization.FSharpOptionCodec`1.ReadValue``1(Orleans.Serialization.Buffers.Reader{``0}@,Orleans.Serialization.WireProtocol.Field)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Orleans.Serialization.FSharpOptionCopier`1">
+            <summary>
+            Copier implementation for <see cref="T:Microsoft.FSharp.Core.FSharpOption`1"/>.
+            </summary>
+            <typeparam name="T">The underlying value type of the option type.</typeparam>
+        </member>
+        <member name="M:Orleans.Serialization.FSharpOptionCopier`1.#ctor(Orleans.Serialization.Cloning.IDeepCopier{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Orleans.Serialization.FSharpOptionCopier`1"/> class.
+            </summary>
+            <param name="valueCopier">The value copier.</param>
+        </member>
+        <member name="M:Orleans.Serialization.FSharpOptionCopier`1.DeepCopy(Microsoft.FSharp.Core.FSharpOption{`0},Orleans.Serialization.Cloning.CopyContext)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Orleans.Serialization.FSharpValueOptionCodec`1">
+            <summary>
+            Serializer for <see cref="T:Microsoft.FSharp.Core.FSharpValueOption`1"/>.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Orleans.Serialization.FSharpValueOptionCodec`1.#ctor(Orleans.Serialization.Codecs.IFieldCodec{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Orleans.Serialization.FSharpValueOptionCodec`1"/> class.
+            </summary>
+            <param name="item1Codec">The item codec.</param>
+        </member>
+        <member name="M:Orleans.Serialization.FSharpValueOptionCodec`1.Orleans#Serialization#Codecs#IFieldCodec{Microsoft#FSharp#Core#FSharpValueOption{T}}#WriteField``1(Orleans.Serialization.Buffers.Writer{``0}@,System.UInt32,System.Type,Microsoft.FSharp.Core.FSharpValueOption{`0})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.Serialization.FSharpValueOptionCodec`1.Orleans#Serialization#Codecs#IFieldCodec{Microsoft#FSharp#Core#FSharpValueOption{T}}#ReadValue``1(Orleans.Serialization.Buffers.Reader{``0}@,Orleans.Serialization.WireProtocol.Field)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Orleans.Serialization.FSharpValueOptionCopier`1">
+            <summary>
+            Copier for <see cref="T:Microsoft.FSharp.Core.FSharpValueOption`1"/>.
+            </summary>
+            <typeparam name="T">The underlying value type.</typeparam>
+        </member>
+        <member name="M:Orleans.Serialization.FSharpValueOptionCopier`1.#ctor(Orleans.Serialization.Cloning.IDeepCopier{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Orleans.Serialization.FSharpValueOptionCopier`1"/> class.
+            </summary>
+            <param name="valueCopier">The value copier.</param>
+        </member>
+        <member name="M:Orleans.Serialization.FSharpValueOptionCopier`1.DeepCopy(Microsoft.FSharp.Core.FSharpValueOption{`0},Orleans.Serialization.Cloning.CopyContext)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Orleans.Serialization.FSharpChoiceCodec`2">
+            <summary>
+            Serializer for <see cref="T:Microsoft.FSharp.Core.FSharpChoice`2"/>.
+            </summary>
+        </member>
+        <member name="M:Orleans.Serialization.FSharpChoiceCodec`2.#ctor(Orleans.Serialization.Codecs.IFieldCodec{`0},Orleans.Serialization.Codecs.IFieldCodec{`1})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Orleans.Serialization.FSharpChoiceCodec`2"/> class.
+            </summary>
+            <param name="item1Codec">The codec for <typeparamref name="T1"/>.</param>
+            <param name="item2Codec">The codec for <typeparamref name="T2"/>.</param>
+        </member>
+        <member name="M:Orleans.Serialization.FSharpChoiceCodec`2.Orleans#Serialization#Codecs#IFieldCodec{Microsoft#FSharp#Core#FSharpChoice{T1,T2}}#WriteField``1(Orleans.Serialization.Buffers.Writer{``0}@,System.UInt32,System.Type,Microsoft.FSharp.Core.FSharpChoice{`0,`1})">
+            <inheritdoc/>
+        </member>
+    </members>
+</doc>

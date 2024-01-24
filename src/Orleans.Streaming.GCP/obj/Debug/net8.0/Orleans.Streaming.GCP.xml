@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Orleans.Streaming.GCP</name>
+    </assembly>
+    <members>
+        <member name="T:Orleans.Providers.GCP.Streams.PubSub.IPubSubDataAdapter">
+            <summary>
+            Converts event data to and from cloud queue message
+            </summary>
+        </member>
+        <member name="M:Orleans.Providers.GCP.Streams.PubSub.IPubSubDataAdapter.ToPubSubMessage``1(Orleans.Runtime.StreamId,System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            Creates a <seealso cref="T:Google.Cloud.PubSub.V1.PubsubMessage"/> from stream event data.
+            </summary>
+        </member>
+        <member name="M:Orleans.Providers.GCP.Streams.PubSub.IPubSubDataAdapter.FromPullResponseMessage(Google.Cloud.PubSub.V1.PubsubMessage,System.Int64)">
+            <summary>
+            Creates a batch container from a <seealso cref="T:Google.Cloud.PubSub.V1.PubsubMessage"/> message
+            </summary>
+        </member>
+        <member name="M:Orleans.Providers.GCP.Streams.PubSub.PubSubDataAdapter.#ctor(Orleans.Serialization.Serializer{Orleans.Providers.GCP.Streams.PubSub.PubSubBatchContainer})">
+            <summary>
+            Initializes a new instance of the <seealso cref="T:Orleans.Providers.GCP.Streams.PubSub.PubSubDataAdapter"/> class.
+            </summary>
+        </member>
+        <member name="M:Orleans.Providers.GCP.Streams.PubSub.PubSubDataAdapter.FromPullResponseMessage(Google.Cloud.PubSub.V1.PubsubMessage,System.Int64)">
+            <inherithdoc/>
+        </member>
+        <member name="M:Orleans.Providers.GCP.Streams.PubSub.PubSubDataAdapter.ToPubSubMessage``1(Orleans.Runtime.StreamId,System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <inherithdoc/>
+        </member>
+        <member name="P:Orleans.Providers.GCP.Streams.PubSub.PubSubAdapterFactory`1.StreamFailureHandlerFactory">
+            <summary>
+            Application level failure handler override.
+            </summary>
+        </member>
+        <member name="T:Orleans.Providers.GCP.Streams.PubSub.PubSubDataManager">
+            <summary>
+            Utility class to encapsulate access to Google PubSub APIs.
+            </summary>
+            <remarks> Used by Google PubSub streaming provider.</remarks>
+        </member>
+        <member name="M:Orleans.Hosting.ClientBuilderExtensions.AddPubSubStreams``1(Orleans.Hosting.IClientBuilder,System.String,System.Action{Orleans.Configuration.PubSubOptions})">
+            <summary>
+            Configure cluster client to use PubSub persistent streams.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.ClientBuilderExtensions.AddPubSubStreams``1(Orleans.Hosting.IClientBuilder,System.String,System.Action{Orleans.Hosting.ClusterClientPubSubStreamConfigurator{``0}})">
+            <summary>
+            Configure cluster client to use PubSub persistent streams.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.SiloBuilderExtensions.AddPubSubStreams``1(Orleans.Hosting.ISiloBuilder,System.String,System.Action{Orleans.Configuration.PubSubOptions})">
+            <summary>
+            Configure silo to use PubSub persistent streams.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.SiloBuilderExtensions.AddPubSubStreams``1(Orleans.Hosting.ISiloBuilder,System.String,System.Action{Orleans.Hosting.SiloPubSubStreamConfigurator{``0}})">
+            <summary>
+            Configure silo to use PubSub persistent streams.
+            </summary>
+        </member>
+    </members>
+</doc>

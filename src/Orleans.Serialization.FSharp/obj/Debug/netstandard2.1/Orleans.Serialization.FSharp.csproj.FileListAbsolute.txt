@@ -1,0 +1,16 @@
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization.FSharp/bin/Debug/netstandard2.1/Orleans.Serialization.FSharp.deps.json
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization.FSharp/bin/Debug/netstandard2.1/Orleans.Serialization.FSharp.dll
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization.FSharp/bin/Debug/netstandard2.1/Orleans.Serialization.FSharp.xml
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization.FSharp/bin/Debug/netstandard2.1/Orleans.Serialization.Abstractions.dll
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization.FSharp/bin/Debug/netstandard2.1/Orleans.Serialization.dll
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization.FSharp/bin/Debug/netstandard2.1/Orleans.Serialization.xml
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization.FSharp/bin/Debug/netstandard2.1/Orleans.Serialization.Abstractions.xml
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization.FSharp/obj/Debug/netstandard2.1/Orleans.Serialization.FSharp.csproj.AssemblyReference.cache
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization.FSharp/obj/Debug/netstandard2.1/Orleans.Serialization.FSharp.GeneratedMSBuildEditorConfig.editorconfig
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization.FSharp/obj/Debug/netstandard2.1/Orleans.Serialization.FSharp.AssemblyInfoInputs.cache
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization.FSharp/obj/Debug/netstandard2.1/Orleans.Serialization.FSharp.AssemblyInfo.cs
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization.FSharp/obj/Debug/netstandard2.1/Orleans.Serialization.FSharp.csproj.CoreCompileInputs.cache
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization.FSharp/obj/Debug/netstandard2.1/Orleans.Serialization.FSharp.sourcelink.json
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization.FSharp/obj/Debug/netstandard2.1/Orleans.Serialization.FSharp.csproj.CopyComplete
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization.FSharp/obj/Debug/netstandard2.1/Orleans.Serialization.FSharp.dll
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization.FSharp/obj/Debug/netstandard2.1/Orleans.Serialization.FSharp.xml

@@ -1,0 +1,10 @@
+/Users/chakrava/go/src/scan_projects/orleans/test/Misc/TestFSharpInterfaces/bin/Debug/net8.0/TestFSharpInterfaces.deps.json
+/Users/chakrava/go/src/scan_projects/orleans/test/Misc/TestFSharpInterfaces/bin/Debug/net8.0/TestFSharpInterfaces.dll
+/Users/chakrava/go/src/scan_projects/orleans/test/Misc/TestFSharpInterfaces/obj/Debug/net8.0/TestFSharpInterfaces.fsproj.AssemblyReference.cache
+/Users/chakrava/go/src/scan_projects/orleans/test/Misc/TestFSharpInterfaces/obj/Debug/net8.0/TestFSharpInterfaces.AssemblyInfoInputs.cache
+/Users/chakrava/go/src/scan_projects/orleans/test/Misc/TestFSharpInterfaces/obj/Debug/net8.0/TestFSharpInterfaces.AssemblyInfo.fs
+/Users/chakrava/go/src/scan_projects/orleans/test/Misc/TestFSharpInterfaces/obj/Debug/net8.0/TestFSharpInterfaces.fsproj.CoreCompileInputs.cache
+/Users/chakrava/go/src/scan_projects/orleans/test/Misc/TestFSharpInterfaces/obj/Debug/net8.0/TestFSharpInterfaces.sourcelink.json
+/Users/chakrava/go/src/scan_projects/orleans/test/Misc/TestFSharpInterfaces/obj/Debug/net8.0/TestFSharpInterfaces.dll
+/Users/chakrava/go/src/scan_projects/orleans/test/Misc/TestFSharpInterfaces/obj/Debug/net8.0/refint/TestFSharpInterfaces.dll
+/Users/chakrava/go/src/scan_projects/orleans/test/Misc/TestFSharpInterfaces/obj/Debug/net8.0/ref/TestFSharpInterfaces.dll

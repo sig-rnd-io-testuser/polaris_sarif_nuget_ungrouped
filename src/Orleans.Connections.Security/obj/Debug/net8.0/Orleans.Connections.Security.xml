@@ -1,0 +1,278 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Orleans.Connections.Security</name>
+    </assembly>
+    <members>
+        <member name="M:Orleans.Hosting.OrleansConnectionSecurityHostingExtensions.UseTls(Orleans.Hosting.IClientBuilder,System.Security.Cryptography.X509Certificates.StoreName,System.String,System.Boolean,System.Security.Cryptography.X509Certificates.StoreLocation,System.Action{Orleans.Connections.Security.TlsOptions})">
+            <summary>
+            Configures TLS.
+            </summary>
+            <param name="builder">The builder to configure.</param>
+            <param name="storeName">The certificate store to load the certificate from.</param>
+            <param name="subject">The subject name for the certificate to load.</param>
+            <param name="allowInvalid">Indicates if invalid certificates should be considered, such as self-signed certificates.</param>
+            <param name="location">The store location to load the certificate from.</param>
+            <param name="configureOptions">An Action to configure the <see cref="T:Orleans.Connections.Security.TlsOptions"/>.</param>
+            <returns>The builder.</returns>
+        </member>
+        <member name="M:Orleans.Hosting.OrleansConnectionSecurityHostingExtensions.UseTls(Orleans.Hosting.IClientBuilder,System.Security.Cryptography.X509Certificates.X509Certificate2,System.Action{Orleans.Connections.Security.TlsOptions})">
+            <summary>
+            Configures TLS.
+            </summary>
+            <param name="builder">The builder to configure.</param>
+            <param name="certificate">The server certificate.</param>
+            <param name="configureOptions">An Action to configure the <see cref="T:Orleans.Connections.Security.TlsOptions"/>.</param>
+            <returns>The builder.</returns>
+        </member>
+        <member name="M:Orleans.Hosting.OrleansConnectionSecurityHostingExtensions.UseTls(Orleans.Hosting.IClientBuilder,System.Security.Cryptography.X509Certificates.X509Certificate2)">
+            <summary>
+            Configures TLS.
+            </summary>
+            <param name="builder">The builder to configure.</param>
+            <param name="certificate">The server certificate.</param>
+            <returns>The builder.</returns>
+        </member>
+        <member name="M:Orleans.Hosting.OrleansConnectionSecurityHostingExtensions.UseTls(Orleans.Hosting.IClientBuilder,System.Action{Orleans.Connections.Security.TlsOptions})">
+            <summary>
+            Configures TLS.
+            </summary>
+            <param name="builder">The builder to configure.</param>
+            <param name="configureOptions">An Action to configure the <see cref="T:Orleans.Connections.Security.TlsOptions"/>.</param>
+            <returns>The builder.</returns>
+        </member>
+        <member name="M:Orleans.Hosting.OrleansConnectionSecurityHostingExtensions.UseTls(Orleans.Hosting.ISiloBuilder,System.Security.Cryptography.X509Certificates.StoreName,System.String,System.Boolean,System.Security.Cryptography.X509Certificates.StoreLocation,System.Action{Orleans.Connections.Security.TlsOptions})">
+            <summary>
+            Configures TLS.
+            </summary>
+            <param name="builder">The builder to configure.</param>
+            <param name="storeName">The certificate store to load the certificate from.</param>
+            <param name="subject">The subject name for the certificate to load.</param>
+            <param name="allowInvalid">Indicates if invalid certificates should be considered, such as self-signed certificates.</param>
+            <param name="location">The store location to load the certificate from.</param>
+            <param name="configureOptions">An Action to configure the <see cref="T:Orleans.Connections.Security.TlsOptions"/>.</param>
+            <returns>The builder.</returns>
+        </member>
+        <member name="M:Orleans.Hosting.OrleansConnectionSecurityHostingExtensions.UseTls(Orleans.Hosting.ISiloBuilder,System.Security.Cryptography.X509Certificates.X509Certificate2,System.Action{Orleans.Connections.Security.TlsOptions})">
+            <summary>
+            Configures TLS.
+            </summary>
+            <param name="builder">The builder to configure.</param>
+            <param name="certificate">The server certificate.</param>
+            <param name="configureOptions">An Action to configure the <see cref="T:Orleans.Connections.Security.TlsOptions"/>.</param>
+            <returns>The builder.</returns>
+        </member>
+        <member name="M:Orleans.Hosting.OrleansConnectionSecurityHostingExtensions.UseTls(Orleans.Hosting.ISiloBuilder,System.Security.Cryptography.X509Certificates.X509Certificate2)">
+            <summary>
+            Configures TLS.
+            </summary>
+            <param name="builder">The builder to configure.</param>
+            <param name="certificate">The server certificate.</param>
+            <returns>The builder.</returns>
+        </member>
+        <member name="M:Orleans.Hosting.OrleansConnectionSecurityHostingExtensions.UseTls(Orleans.Hosting.ISiloBuilder,System.Action{Orleans.Connections.Security.TlsOptions})">
+            <summary>
+            Configures TLS.
+            </summary>
+            <param name="builder">The builder to configure.</param>
+            <param name="configureOptions">An Action to configure the <see cref="T:Orleans.Connections.Security.TlsOptions"/>.</param>
+            <returns>The builder.</returns>
+        </member>
+        <member name="T:Orleans.Connections.Security.DuplexPipeStream.TaskToApm">
+            <summary>
+            Provides support for efficiently using Tasks to implement the APM (Begin/End) pattern.
+            </summary>
+        </member>
+        <member name="M:Orleans.Connections.Security.DuplexPipeStream.TaskToApm.Begin(System.Threading.Tasks.Task,System.AsyncCallback,System.Object)">
+            <summary>
+            Marshals the Task as an IAsyncResult, using the supplied callback and state
+            to implement the APM pattern.
+            </summary>
+            <param name="task">The Task to be marshaled.</param>
+            <param name="callback">The callback to be invoked upon completion.</param>
+            <param name="state">The state to be stored in the IAsyncResult.</param>
+            <returns>An IAsyncResult to represent the task's asynchronous operation.</returns>
+        </member>
+        <member name="M:Orleans.Connections.Security.DuplexPipeStream.TaskToApm.End(System.IAsyncResult)">
+            <summary>Processes an IAsyncResult returned by Begin.</summary>
+            <param name="asyncResult">The IAsyncResult to unwrap.</param>
+        </member>
+        <member name="M:Orleans.Connections.Security.DuplexPipeStream.TaskToApm.End``1(System.IAsyncResult)">
+            <summary>Processes an IAsyncResult returned by Begin.</summary>
+            <param name="asyncResult">The IAsyncResult to unwrap.</param>
+        </member>
+        <member name="M:Orleans.Connections.Security.DuplexPipeStream.TaskToApm.GetTask(System.IAsyncResult)">
+            <summary>Gets the task represented by the IAsyncResult.</summary>
+        </member>
+        <member name="M:Orleans.Connections.Security.DuplexPipeStream.TaskToApm.ThrowArgumentException(System.IAsyncResult)">
+            <summary>Throws an argument exception for the invalid <paramref name="asyncResult"/>.</summary>
+        </member>
+        <member name="T:Orleans.Connections.Security.DuplexPipeStream.TaskToApm.TaskAsyncResult">
+            <summary>Provides a simple IAsyncResult that wraps a Task.</summary>
+            <remarks>
+            We could use the Task as the IAsyncResult if the Task's AsyncState is the same as the object state,
+            but that's very rare, in particular in a situation where someone cares about allocation, and always
+            using TaskAsyncResult simplifies things and enables additional optimizations.
+            </remarks>
+        </member>
+        <member name="F:Orleans.Connections.Security.DuplexPipeStream.TaskToApm.TaskAsyncResult._task">
+            <summary>The wrapped Task.</summary>
+        </member>
+        <member name="F:Orleans.Connections.Security.DuplexPipeStream.TaskToApm.TaskAsyncResult._callback">
+            <summary>Callback to invoke when the wrapped task completes.</summary>
+        </member>
+        <member name="M:Orleans.Connections.Security.DuplexPipeStream.TaskToApm.TaskAsyncResult.#ctor(System.Threading.Tasks.Task,System.Object,System.AsyncCallback)">
+            <summary>Initializes the IAsyncResult with the Task to wrap and the associated object state.</summary>
+            <param name="task">The Task to wrap.</param>
+            <param name="state">The new AsyncState value.</param>
+            <param name="callback">Callback to invoke when the wrapped task completes.</param>
+        </member>
+        <member name="M:Orleans.Connections.Security.DuplexPipeStream.TaskToApm.TaskAsyncResult.InvokeCallback">
+            <summary>Invokes the callback.</summary>
+        </member>
+        <member name="P:Orleans.Connections.Security.DuplexPipeStream.TaskToApm.TaskAsyncResult.AsyncState">
+            <summary>Gets a user-defined object that qualifies or contains information about an asynchronous operation.</summary>
+        </member>
+        <member name="P:Orleans.Connections.Security.DuplexPipeStream.TaskToApm.TaskAsyncResult.CompletedSynchronously">
+            <summary>Gets a value that indicates whether the asynchronous operation completed synchronously.</summary>
+            <remarks>This is set lazily based on whether the <see cref="F:Orleans.Connections.Security.DuplexPipeStream.TaskToApm.TaskAsyncResult._task"/> has completed by the time this object is created.</remarks>
+        </member>
+        <member name="P:Orleans.Connections.Security.DuplexPipeStream.TaskToApm.TaskAsyncResult.IsCompleted">
+            <summary>Gets a value that indicates whether the asynchronous operation has completed.</summary>
+        </member>
+        <member name="P:Orleans.Connections.Security.DuplexPipeStream.TaskToApm.TaskAsyncResult.AsyncWaitHandle">
+            <summary>Gets a <see cref="T:System.Threading.WaitHandle"/> that is used to wait for an asynchronous operation to complete.</summary>
+        </member>
+        <member name="T:Orleans.Connections.Security.DuplexPipeStreamAdapter`1">
+            <summary>
+            A helper for wrapping a Stream decorator from an <see cref="T:System.IO.Pipelines.IDuplexPipe"/>.
+            </summary>
+            <typeparam name="TStream"></typeparam>
+        </member>
+        <member name="P:Orleans.Connections.Security.ITlsConnectionFeature.RemoteCertificate">
+            <summary>
+            Synchronously retrieves the remote endpoint's certificate, if any.
+            </summary>
+        </member>
+        <member name="M:Orleans.Connections.Security.ITlsConnectionFeature.GetRemoteCertificateAsync(System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously retrieves the remote endpoint's certificate, if any.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.Connections.Security.MemoryPoolExtensions.GetMinimumSegmentSize(System.Buffers.MemoryPool{System.Byte})">
+            <summary>
+            Computes a minimum segment size
+            </summary>
+            <param name="pool"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Orleans.Connections.Security.RemoteCertificateMode">
+            <summary>
+            Describes the remote certificate requirements for a TLS connection.
+            </summary>
+        </member>
+        <member name="F:Orleans.Connections.Security.RemoteCertificateMode.NoCertificate">
+            <summary>
+            A remote certificate is not required and will not be requested from remote endpoints.
+            </summary>
+        </member>
+        <member name="F:Orleans.Connections.Security.RemoteCertificateMode.AllowCertificate">
+            <summary>
+            A remote certificate will be requested; however, authentication will not fail if a certificate is not provided by the remote endpoint.
+            </summary>
+        </member>
+        <member name="F:Orleans.Connections.Security.RemoteCertificateMode.RequireCertificate">
+            <summary>
+            A remote certificate will be requested, and the remote endpoint must provide a valid certificate for authentication.
+            </summary>
+        </member>
+        <member name="T:Orleans.Connections.Security.TlsOptions">
+            <summary>
+            Settings for how TLS connections are handled.
+            </summary>
+        </member>
+        <member name="P:Orleans.Connections.Security.TlsOptions.LocalCertificate">
+            <summary>
+            <para>
+            Specifies the local certificate used to authenticate TLS connections. This is ignored on server if LocalCertificateSelector is set.
+            </para>
+            <para>
+            To omit client authentication set to <c>null</c> on client and set <see cref="P:Orleans.Connections.Security.TlsOptions.RemoteCertificateMode"/> to <see cref="F:Orleans.Connections.Security.RemoteCertificateMode.AllowCertificate"/> or <see cref="F:Orleans.Connections.Security.RemoteCertificateMode.NoCertificate"/> on server.
+            </para>
+            <para>
+            If the certificate has an Extended Key Usage extension, the usages must include Server Authentication (OID 1.3.6.1.5.5.7.3.1) for server and Client Authentication (OID 1.3.6.1.5.5.7.3.2) for client.
+            </para>
+            </summary>
+        </member>
+        <member name="P:Orleans.Connections.Security.TlsOptions.LocalServerCertificateSelector">
+            <summary>
+            <para>
+            A callback that will be invoked to dynamically select a local server certificate. This is higher priority than LocalCertificate.
+            If SNI is not available then the name parameter will be null.
+            </para>
+            <para>
+            If the certificate has an Extended Key Usage extension, the usages must include Server Authentication (OID 1.3.6.1.5.5.7.3.1).
+            </para>
+            </summary>
+        </member>
+        <member name="P:Orleans.Connections.Security.TlsOptions.LocalClientCertificateSelector">
+            <summary>
+            <para>
+            A callback that will be invoked to dynamically select a local client certificate. This is higher priority than LocalCertificate.
+            </para>
+            <para>
+            If the certificate has an Extended Key Usage extension, the usages must include Client Authentication (OID 1.3.6.1.5.5.7.3.2).
+            </para>
+            </summary>
+        </member>
+        <member name="P:Orleans.Connections.Security.TlsOptions.RemoteCertificateMode">
+            <summary>
+            Specifies the remote endpoint certificate requirements for a TLS connection. Defaults to <see cref="F:Orleans.Connections.Security.RemoteCertificateMode.RequireCertificate"/>.
+            </summary>
+        </member>
+        <member name="P:Orleans.Connections.Security.TlsOptions.ClientCertificateMode">
+            <summary>
+            Specifies the client authentication certificate requirements for a TLS connection to Silo. Defaults to <see cref="F:Orleans.Connections.Security.RemoteCertificateMode.AllowCertificate"/>.
+            </summary>
+        </member>
+        <member name="P:Orleans.Connections.Security.TlsOptions.RemoteCertificateValidation">
+            <summary>
+            Specifies a callback for additional remote certificate validation that will be invoked during authentication. This will be ignored
+            if <see cref="M:Orleans.Connections.Security.TlsOptions.AllowAnyRemoteCertificate"/> is called after this callback is set.
+            </summary>
+        </member>
+        <member name="P:Orleans.Connections.Security.TlsOptions.SslProtocols">
+            <summary>
+            Specifies allowable SSL protocols. Defaults to <see cref="F:System.Security.Authentication.SslProtocols.Tls13" /> and <see cref="F:System.Security.Authentication.SslProtocols.Tls12"/>.
+            </summary>
+        </member>
+        <member name="P:Orleans.Connections.Security.TlsOptions.CheckCertificateRevocation">
+            <summary>
+            Specifies whether the certificate revocation list is checked during authentication.
+            </summary>
+        </member>
+        <member name="M:Orleans.Connections.Security.TlsOptions.AllowAnyRemoteCertificate">
+            <summary>
+            Overrides the current <see cref="P:Orleans.Connections.Security.TlsOptions.RemoteCertificateValidation"/> callback and allows any client certificate.
+            </summary>
+        </member>
+        <member name="P:Orleans.Connections.Security.TlsOptions.OnAuthenticateAsServer">
+            <summary>
+            Provides direct configuration of the <see cref="T:Orleans.Connections.Security.TlsServerAuthenticationOptions"/> on a per-connection basis.
+            This is called after all of the other settings have already been applied.
+            </summary>
+        </member>
+        <member name="P:Orleans.Connections.Security.TlsOptions.OnAuthenticateAsClient">
+            <summary>
+            Provides direct configuration of the <see cref="T:Orleans.Connections.Security.TlsClientAuthenticationOptions"/> on a per-connection basis.
+            This is called after all of the other settings have already been applied.
+            </summary>
+        </member>
+        <member name="P:Orleans.Connections.Security.TlsOptions.HandshakeTimeout">
+            <summary>
+            Specifies the maximum amount of time allowed for the TLS/SSL handshake. This must be positive and finite.
+            </summary>
+        </member>
+    </members>
+</doc>

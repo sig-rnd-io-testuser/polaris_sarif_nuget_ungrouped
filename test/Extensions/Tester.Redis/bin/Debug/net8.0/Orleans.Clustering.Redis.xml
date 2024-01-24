@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Orleans.Clustering.Redis</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Extensions.Hosting.RedisClusteringIClientBuilderExtensions">
+            <summary>
+            Hosting extensions for Redis clustering.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.Hosting.RedisClusteringIClientBuilderExtensions.UseRedisClustering(Orleans.Hosting.IClientBuilder,System.Action{Orleans.Clustering.Redis.RedisClusteringOptions})">
+            <summary>
+            Configures Redis as the clustering provider.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.Hosting.RedisClusteringIClientBuilderExtensions.UseRedisClustering(Orleans.Hosting.IClientBuilder,System.String)">
+            <summary>
+            Configures Redis as the clustering provider.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Extensions.Hosting.RedisClusteringISiloBuilderExtensions">
+            <summary>
+            Hosting extensions for the Redis clustering provider.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.Hosting.RedisClusteringISiloBuilderExtensions.UseRedisClustering(Orleans.Hosting.ISiloBuilder,System.Action{Orleans.Clustering.Redis.RedisClusteringOptions})">
+            <summary>
+            Configures Redis as the clustering provider.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.Hosting.RedisClusteringISiloBuilderExtensions.UseRedisClustering(Orleans.Hosting.ISiloBuilder,System.String)">
+            <summary>
+            Configures Redis as the clustering provider.
+            </summary>
+        </member>
+        <member name="T:Orleans.Clustering.Redis.RedisClusteringOptions">
+            <summary>
+            Options for Redis clustering.
+            </summary>
+        </member>
+        <member name="P:Orleans.Clustering.Redis.RedisClusteringOptions.ConfigurationOptions">
+            <summary>
+            Gets or sets the Redis client configuration.
+            </summary>
+        </member>
+        <member name="P:Orleans.Clustering.Redis.RedisClusteringOptions.CreateMultiplexer">
+            <summary>
+            The delegate used to create a Redis connection multiplexer.
+            </summary>
+        </member>
+        <member name="P:Orleans.Clustering.Redis.RedisClusteringOptions.EntryExpiry">
+            <summary>
+            Entry expiry, null by default. A value should be set ONLY for ephemeral environments (like in tests).
+            Setting a value different from null will cause entries to be deleted after some period of time.
+            </summary>
+        </member>
+        <member name="M:Orleans.Clustering.Redis.RedisClusteringOptions.DefaultCreateMultiplexer(Orleans.Clustering.Redis.RedisClusteringOptions)">
+            <summary>
+            The default multiplexer creation delegate.
+            </summary>
+        </member>
+        <member name="T:Orleans.Clustering.Redis.RedisClusteringOptionsValidator">
+            <summary>
+            Configuration validator for <see cref="T:Orleans.Clustering.Redis.RedisClusteringOptions"/>.
+            </summary>
+        </member>
+        <member name="M:Orleans.Clustering.Redis.RedisClusteringOptionsValidator.ValidateConfiguration">
+            <inheritdoc/>
+        </member>
+        <member name="T:Orleans.Clustering.Redis.RedisClusteringException">
+            <summary>
+            Represents an exception which occurred in the Redis clustering.
+            </summary>
+        </member>
+        <member name="M:Orleans.Clustering.Redis.RedisClusteringException.#ctor">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.Clustering.Redis.RedisClusteringException.#ctor(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.Clustering.Redis.RedisClusteringException.#ctor(System.String,System.Exception)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.Clustering.Redis.RedisClusteringException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <inheritdoc/>
+        </member>
+    </members>
+</doc>

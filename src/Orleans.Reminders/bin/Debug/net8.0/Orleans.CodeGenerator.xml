@@ -1,0 +1,837 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Orleans.CodeGenerator</name>
+    </assembly>
+    <members>
+        <member name="M:Orleans.CodeGenerator.Hashing.BitOperations.RotateLeft(System.UInt32,System.Int32)">
+            <summary>
+            Rotates the specified value left by the specified number of bits.
+            Similar in behavior to the x86 instruction ROL.
+            </summary>
+            <param name="value">The value to rotate.</param>
+            <param name="offset">The number of bits to rotate by.
+            Any value outside the range [0..31] is treated as congruent mod 32.</param>
+            <returns>The rotated value.</returns>
+        </member>
+        <member name="T:Orleans.CodeGenerator.Hashing.NonCryptographicHashAlgorithm">
+            <summary>
+              Represents a non-cryptographic hash algorithm.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.Hashing.NonCryptographicHashAlgorithm.HashLengthInBytes">
+            <summary>
+              Gets the number of bytes produced from this hash algorithm.
+            </summary>
+            <value>The number of bytes produced from this hash algorithm.</value>
+        </member>
+        <member name="M:Orleans.CodeGenerator.Hashing.NonCryptographicHashAlgorithm.#ctor(System.Int32)">
+            <summary>
+              Called from constructors in derived classes to initialize the
+              <see cref="T:Orleans.CodeGenerator.Hashing.NonCryptographicHashAlgorithm"/> class.
+            </summary>
+            <param name="hashLengthInBytes">
+              The number of bytes produced from this hash algorithm.
+            </param>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+              <paramref name="hashLengthInBytes"/> is less than 1.
+            </exception>
+        </member>
+        <member name="M:Orleans.CodeGenerator.Hashing.NonCryptographicHashAlgorithm.Append(System.ReadOnlySpan{System.Byte})">
+            <summary>
+              When overridden in a derived class,
+              appends the contents of <paramref name="source"/> to the data already
+              processed for the current hash computation.
+            </summary>
+            <param name="source">The data to process.</param>
+        </member>
+        <member name="M:Orleans.CodeGenerator.Hashing.NonCryptographicHashAlgorithm.Reset">
+            <summary>
+              When overridden in a derived class,
+              resets the hash computation to the initial state.
+            </summary>
+        </member>
+        <member name="M:Orleans.CodeGenerator.Hashing.NonCryptographicHashAlgorithm.GetCurrentHashCore(System.Span{System.Byte})">
+            <summary>
+              When overridden in a derived class,
+              writes the computed hash value to <paramref name="destination"/>
+              without modifying accumulated state.
+            </summary>
+            <param name="destination">The buffer that receives the computed hash value.</param>
+            <remarks>
+              <para>
+                Implementations of this method must write exactly
+                <see cref="P:Orleans.CodeGenerator.Hashing.NonCryptographicHashAlgorithm.HashLengthInBytes"/> bytes to <paramref name="destination"/>.
+                Do not assume that the buffer was zero-initialized.
+              </para>
+              <para>
+                The <see cref="T:Orleans.CodeGenerator.Hashing.NonCryptographicHashAlgorithm"/> class validates the
+                size of the buffer before calling this method, and slices the span
+                down to be exactly <see cref="P:Orleans.CodeGenerator.Hashing.NonCryptographicHashAlgorithm.HashLengthInBytes"/> in length.
+              </para>
+            </remarks>
+        </member>
+        <member name="M:Orleans.CodeGenerator.Hashing.NonCryptographicHashAlgorithm.Append(System.Byte[])">
+            <summary>
+              Appends the contents of <paramref name="source"/> to the data already
+              processed for the current hash computation.
+            </summary>
+            <param name="source">The data to process.</param>
+            <exception cref="T:System.ArgumentNullException">
+              <paramref name="source"/> is <see langword="null"/>.
+            </exception>
+        </member>
+        <member name="M:Orleans.CodeGenerator.Hashing.NonCryptographicHashAlgorithm.Append(System.IO.Stream)">
+            <summary>
+              Appends the contents of <paramref name="stream"/> to the data already
+              processed for the current hash computation.
+            </summary>
+            <param name="stream">The data to process.</param>
+            <exception cref="T:System.ArgumentNullException">
+              <paramref name="stream"/> is <see langword="null"/>.
+            </exception>
+            <seealso cref="M:Orleans.CodeGenerator.Hashing.NonCryptographicHashAlgorithm.AppendAsync(System.IO.Stream,System.Threading.CancellationToken)"/>
+        </member>
+        <member name="M:Orleans.CodeGenerator.Hashing.NonCryptographicHashAlgorithm.AppendAsync(System.IO.Stream,System.Threading.CancellationToken)">
+            <summary>
+              Asychronously reads the contents of <paramref name="stream"/>
+              and appends them to the data already
+              processed for the current hash computation.
+            </summary>
+            <param name="stream">The data to process.</param>
+            <param name="cancellationToken">
+              The token to monitor for cancellation requests.
+              The default value is <see cref="P:System.Threading.CancellationToken.None"/>.
+            </param>
+            <returns>
+              A task that represents the asynchronous append operation.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+              <paramref name="stream"/> is <see langword="null"/>.
+            </exception>
+        </member>
+        <member name="M:Orleans.CodeGenerator.Hashing.NonCryptographicHashAlgorithm.GetCurrentHash">
+            <summary>
+              Gets the current computed hash value without modifying accumulated state.
+            </summary>
+            <returns>
+              The hash value for the data already provided.
+            </returns>
+        </member>
+        <member name="M:Orleans.CodeGenerator.Hashing.NonCryptographicHashAlgorithm.TryGetCurrentHash(System.Span{System.Byte},System.Int32@)">
+            <summary>
+              Attempts to write the computed hash value to <paramref name="destination"/>
+              without modifying accumulated state.
+            </summary>
+            <param name="destination">The buffer that receives the computed hash value.</param>
+            <param name="bytesWritten">
+              On success, receives the number of bytes written to <paramref name="destination"/>.
+            </param>
+            <returns>
+              <see langword="true"/> if <paramref name="destination"/> is long enough to receive
+              the computed hash value; otherwise, <see langword="false"/>.
+            </returns>
+        </member>
+        <member name="M:Orleans.CodeGenerator.Hashing.NonCryptographicHashAlgorithm.GetCurrentHash(System.Span{System.Byte})">
+            <summary>
+              Writes the computed hash value to <paramref name="destination"/>
+              without modifying accumulated state.
+            </summary>
+            <param name="destination">The buffer that receives the computed hash value.</param>
+            <returns>
+              The number of bytes written to <paramref name="destination"/>,
+              which is always <see cref="P:Orleans.CodeGenerator.Hashing.NonCryptographicHashAlgorithm.HashLengthInBytes"/>.
+            </returns>
+            <exception cref="T:System.ArgumentException">
+              <paramref name="destination"/> is shorter than <see cref="P:Orleans.CodeGenerator.Hashing.NonCryptographicHashAlgorithm.HashLengthInBytes"/>.
+            </exception>
+        </member>
+        <member name="M:Orleans.CodeGenerator.Hashing.NonCryptographicHashAlgorithm.GetHashAndReset">
+            <summary>
+              Gets the current computed hash value and clears the accumulated state.
+            </summary>
+            <returns>
+              The hash value for the data already provided.
+            </returns>
+        </member>
+        <member name="M:Orleans.CodeGenerator.Hashing.NonCryptographicHashAlgorithm.TryGetHashAndReset(System.Span{System.Byte},System.Int32@)">
+            <summary>
+              Attempts to write the computed hash value to <paramref name="destination"/>.
+              If successful, clears the accumulated state.
+            </summary>
+            <param name="destination">The buffer that receives the computed hash value.</param>
+            <param name="bytesWritten">
+              On success, receives the number of bytes written to <paramref name="destination"/>.
+            </param>
+            <returns>
+              <see langword="true"/> and clears the accumulated state
+              if <paramref name="destination"/> is long enough to receive
+              the computed hash value; otherwise, <see langword="false"/>.
+            </returns>
+        </member>
+        <member name="M:Orleans.CodeGenerator.Hashing.NonCryptographicHashAlgorithm.GetHashAndReset(System.Span{System.Byte})">
+            <summary>
+              Writes the computed hash value to <paramref name="destination"/>
+              then clears the accumulated state.
+            </summary>
+            <param name="destination">The buffer that receives the computed hash value.</param>
+            <returns>
+              The number of bytes written to <paramref name="destination"/>,
+              which is always <see cref="P:Orleans.CodeGenerator.Hashing.NonCryptographicHashAlgorithm.HashLengthInBytes"/>.
+            </returns>
+            <exception cref="T:System.ArgumentException">
+              <paramref name="destination"/> is shorter than <see cref="P:Orleans.CodeGenerator.Hashing.NonCryptographicHashAlgorithm.HashLengthInBytes"/>.
+            </exception>
+        </member>
+        <member name="M:Orleans.CodeGenerator.Hashing.NonCryptographicHashAlgorithm.GetHashAndResetCore(System.Span{System.Byte})">
+            <summary>
+              Writes the computed hash value to <paramref name="destination"/>
+              then clears the accumulated state.
+            </summary>
+            <param name="destination">The buffer that receives the computed hash value.</param>
+            <remarks>
+              <para>
+                Implementations of this method must write exactly
+                <see cref="P:Orleans.CodeGenerator.Hashing.NonCryptographicHashAlgorithm.HashLengthInBytes"/> bytes to <paramref name="destination"/>.
+                Do not assume that the buffer was zero-initialized.
+              </para>
+              <para>
+                The <see cref="T:Orleans.CodeGenerator.Hashing.NonCryptographicHashAlgorithm"/> class validates the
+                size of the buffer before calling this method, and slices the span
+                down to be exactly <see cref="P:Orleans.CodeGenerator.Hashing.NonCryptographicHashAlgorithm.HashLengthInBytes"/> in length.
+              </para>
+              <para>
+                The default implementation of this method calls
+                <see cref="M:Orleans.CodeGenerator.Hashing.NonCryptographicHashAlgorithm.GetCurrentHashCore(System.Span{System.Byte})"/> followed by <see cref="M:Orleans.CodeGenerator.Hashing.NonCryptographicHashAlgorithm.Reset"/>.
+                Overrides of this method do not need to call either of those methods,
+                but must ensure that the caller cannot observe a difference in behavior.
+              </para>
+            </remarks>
+        </member>
+        <member name="M:Orleans.CodeGenerator.Hashing.NonCryptographicHashAlgorithm.GetHashCode">
+            <summary>
+              This method is not supported and should not be called.
+              Call <see cref="M:Orleans.CodeGenerator.Hashing.NonCryptographicHashAlgorithm.GetCurrentHash"/> or <see cref="M:Orleans.CodeGenerator.Hashing.NonCryptographicHashAlgorithm.GetHashAndReset"/>
+              instead.
+            </summary>
+            <returns>This method will always throw a <see cref="T:System.NotSupportedException"/>.</returns>
+            <exception cref="T:System.NotSupportedException">In all cases.</exception>
+        </member>
+        <member name="T:Orleans.CodeGenerator.Hashing.XxHash32">
+            <summary>
+              Provides an implementation of the XxHash32 algorithm.
+            </summary>
+        </member>
+        <member name="M:Orleans.CodeGenerator.Hashing.XxHash32.#ctor">
+            <summary>
+              Initializes a new instance of the <see cref="T:Orleans.CodeGenerator.Hashing.XxHash32"/> class.
+            </summary>
+            <remarks>
+              The XxHash32 algorithm supports an optional seed value.
+              Instances created with this constructor use the default seed, zero.
+            </remarks>
+        </member>
+        <member name="M:Orleans.CodeGenerator.Hashing.XxHash32.#ctor(System.Int32)">
+            <summary>
+              Initializes a new instance of the <see cref="T:Orleans.CodeGenerator.Hashing.XxHash32"/> class with
+              a specified seed.
+            </summary>
+            <param name="seed">
+              The hash seed value for computations from this instance.
+            </param>
+        </member>
+        <member name="M:Orleans.CodeGenerator.Hashing.XxHash32.Reset">
+            <summary>
+              Resets the hash computation to the initial state.
+            </summary>
+        </member>
+        <member name="M:Orleans.CodeGenerator.Hashing.XxHash32.Append(System.ReadOnlySpan{System.Byte})">
+            <summary>
+              Appends the contents of <paramref name="source"/> to the data already
+              processed for the current hash computation.
+            </summary>
+            <param name="source">The data to process.</param>
+        </member>
+        <member name="M:Orleans.CodeGenerator.Hashing.XxHash32.GetCurrentHashCore(System.Span{System.Byte})">
+            <summary>
+              Writes the computed hash value to <paramref name="destination"/>
+              without modifying accumulated state.
+            </summary>
+        </member>
+        <member name="M:Orleans.CodeGenerator.Hashing.XxHash32.Hash(System.Byte[])">
+            <summary>
+              Computes the XxHash32 hash of the provided data.
+            </summary>
+            <param name="source">The data to hash.</param>
+            <returns>The XxHash32 hash of the provided data.</returns>
+            <exception cref="T:System.ArgumentNullException">
+              <paramref name="source"/> is <see langword="null"/>.
+            </exception>
+        </member>
+        <member name="M:Orleans.CodeGenerator.Hashing.XxHash32.Hash(System.Byte[],System.Int32)">
+            <summary>
+              Computes the XxHash32 hash of the provided data using the provided seed.
+            </summary>
+            <param name="source">The data to hash.</param>
+            <param name="seed">The seed value for this hash computation.</param>
+            <returns>The XxHash32 hash of the provided data.</returns>
+            <exception cref="T:System.ArgumentNullException">
+              <paramref name="source"/> is <see langword="null"/>.
+            </exception>
+        </member>
+        <member name="M:Orleans.CodeGenerator.Hashing.XxHash32.Hash(System.ReadOnlySpan{System.Byte},System.Int32)">
+            <summary>
+              Computes the XxHash32 hash of the provided data.
+            </summary>
+            <param name="source">The data to hash.</param>
+            <param name="seed">The seed value for this hash computation. The default is zero.</param>
+            <returns>The XxHash32 hash of the provided data.</returns>
+        </member>
+        <member name="M:Orleans.CodeGenerator.Hashing.XxHash32.TryHash(System.ReadOnlySpan{System.Byte},System.Span{System.Byte},System.Int32@,System.Int32)">
+            <summary>
+              Attempts to compute the XxHash32 hash of the provided data into the provided destination.
+            </summary>
+            <param name="source">The data to hash.</param>
+            <param name="destination">The buffer that receives the computed hash value.</param>
+            <param name="bytesWritten">
+              On success, receives the number of bytes written to <paramref name="destination"/>.
+            </param>
+            <param name="seed">The seed value for this hash computation. The default is zero.</param>
+            <returns>
+              <see langword="true"/> if <paramref name="destination"/> is long enough to receive
+              the computed hash value (4 bytes); otherwise, <see langword="false"/>.
+            </returns>
+        </member>
+        <member name="M:Orleans.CodeGenerator.Hashing.XxHash32.Hash(System.ReadOnlySpan{System.Byte},System.Span{System.Byte},System.Int32)">
+            <summary>
+              Computes the XxHash32 hash of the provided data into the provided destination.
+            </summary>
+            <param name="source">The data to hash.</param>
+            <param name="destination">The buffer that receives the computed hash value.</param>
+            <param name="seed">The seed value for this hash computation. The default is zero.</param>
+            <returns>
+              The number of bytes written to <paramref name="destination"/>.
+            </returns>
+        </member>
+        <member name="T:Orleans.CodeGenerator.InvokableGenerator">
+            <summary>
+            Generates RPC stub objects called invokers.
+            </summary>
+        </member>
+        <member name="T:Orleans.CodeGenerator.InvokableMethodDescription">
+            <summary>
+            Describes an invokable method.
+            This is a method on the original interface which defined it.
+            By contrast, <see cref="T:Orleans.CodeGenerator.ProxyMethodDescription"/> describes a method on an interface which a proxy is being generated for, having type argument substitutions, etc.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.InvokableMethodDescription.CodeGenerator">
+            <summary>
+            Gets the source generator.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.InvokableMethodDescription.Key">
+            <summary>
+            Gets the method identifier.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.InvokableMethodDescription.ProxyBase">
+            <summary>
+            Gets the proxy base information for the method (eg, GrainReference, whether it is an extension).
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.InvokableMethodDescription.Method">
+            <summary>
+            Gets the method symbol.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.InvokableMethodDescription.InvokableBaseTypes">
+            <summary>
+            Gets the dictionary of invokable base types. This indicates what invokable base type (eg, ValueTaskRequest) should be used for a given return type (eg, ValueTask).
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.InvokableMethodDescription.ResponseTimeoutTicks">
+            <summary>
+            Gets the response timeout ticks, if set.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.InvokableMethodDescription.CustomInitializerMethods">
+            <summary>
+            Gets the list of custom initializer method names and their corresponding argument.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.InvokableMethodDescription.GeneratedMethodId">
+            <summary>
+            Gets the generated method identifier.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.InvokableMethodDescription.MethodId">
+            <summary>
+            Gets the method identifier.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.InvokableMethodDescription.HasAlias">
+            <summary>
+            Gets a value indicating whether this method has an alias.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.InvokableMethodDescription.ContainingInterface">
+            <summary>
+            Gets the interface which this type is contained in.
+            </summary>
+        </member>
+        <member name="T:Orleans.CodeGenerator.InvokableMethodId">
+            <summary>
+            Identifies an invokable method.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.InvokableMethodId.ProxyBase">
+            <summary>
+            Gets the proxy base information for the method (eg, GrainReference, whether it is an extension).
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.InvokableMethodId.Method">
+            <summary>
+            Gets the method symbol.
+            </summary>
+        </member>
+        <member name="T:Orleans.CodeGenerator.InvokableMethodProxyBase">
+            <summary>
+            Describes the proxy base for an invokable method, including whether the proxy is a grain reference or extension, and what invokable base types should be used for a given return type.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.InvokableMethodProxyBase.CodeGenerator">
+            <summary>
+            Gets the source generator.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.InvokableMethodProxyBase.Key">
+            <summary>
+            Gets the proxy base id.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.InvokableMethodProxyBase.ProxyBaseType">
+            <summary>
+            Gets the proxy base type, eg <c>GrainReference</c>.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.InvokableMethodProxyBase.IsExtension">
+            <summary>
+            Gets a value indicating whether this descriptor represents an extension.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.InvokableMethodProxyBase.CompositeAliasComponents">
+            <summary>
+            Gets the components of the compound type alias used to refer to this proxy base.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.InvokableMethodProxyBase.InvokableBaseTypes">
+            <summary>
+            Gets the dictionary of invokable base types. This indicates what invokable base type (eg, ValueTaskRequest) should be used for a given return type (eg, ValueTask).
+            </summary>
+        </member>
+        <member name="T:Orleans.CodeGenerator.InvokableMethodProxyBaseId">
+            <summary>
+            Identifies a proxy base, including whether the proxy is a grain reference or extension.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.InvokableMethodProxyBaseId.ProxyBaseType">
+            <summary>
+            Gets the proxy base type, eg <c>GrainReference</c>.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.InvokableMethodProxyBaseId.IsExtension">
+            <summary>
+            Gets a value indicating whether this descriptor represents an extension.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.InvokableMethodProxyBaseId.CompositeAliasComponents">
+            <summary>
+            Gets the components of the compound type alias used to refer to this proxy base.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.InvokableMethodProxyBaseId.GeneratedClassNameComponent">
+            <summary>
+            Gets a string used to distinguish this proxy base from others in generated class names.
+            </summary>
+        </member>
+        <member name="T:Orleans.CodeGenerator.CompoundTypeAliasTree">
+            <summary>
+            Represents a compound type aliases as a prefix tree.
+            </summary>
+        </member>
+        <member name="M:Orleans.CodeGenerator.CompoundTypeAliasTree.#ctor(Orleans.CodeGenerator.CompoundTypeAliasComponent,Microsoft.CodeAnalysis.CSharp.Syntax.TypeSyntax)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Orleans.CodeGenerator.CompoundTypeAliasTree"/> class.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.CompoundTypeAliasTree.Key">
+            <summary>
+            Gets the key for this node.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.CompoundTypeAliasTree.Value">
+            <summary>
+            Gets the value for this node.
+            </summary>
+        </member>
+        <member name="M:Orleans.CodeGenerator.CompoundTypeAliasTree.Create">
+            <summary>
+            Creates a new tree with a root node which has no key or value.
+            </summary>
+        </member>
+        <member name="M:Orleans.CodeGenerator.CompoundTypeAliasTree.Add(Microsoft.CodeAnalysis.ITypeSymbol)">
+            <summary>
+            Adds a node to the tree.
+            </summary>
+            <param name="key">The key for the new node.</param>
+        </member>
+        <member name="M:Orleans.CodeGenerator.CompoundTypeAliasTree.Add(System.String)">
+            <summary>
+            Adds a node to the tree.
+            </summary>
+            <param name="key">The key for the new node.</param>
+        </member>
+        <member name="M:Orleans.CodeGenerator.CompoundTypeAliasTree.Add(System.String,Microsoft.CodeAnalysis.CSharp.Syntax.TypeSyntax)">
+            <summary>
+            Adds a node to the tree.
+            </summary>
+            <param name="key">The key for the new node.</param>
+            <param name="value">The value for the new node.</param>
+        </member>
+        <member name="M:Orleans.CodeGenerator.CompoundTypeAliasTree.Add(Microsoft.CodeAnalysis.ITypeSymbol,Microsoft.CodeAnalysis.CSharp.Syntax.TypeSyntax)">
+            <summary>
+            Adds a node to the tree.
+            </summary>
+            <param name="key">The key for the new node.</param>
+            <param name="value">The value for the new node.</param>
+        </member>
+        <member name="T:Orleans.CodeGenerator.ProxyMethodDescription">
+            <summary>
+            Describes an invokable method on a proxy interface.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.ProxyMethodDescription.InvokableBaseTypes">
+            <summary>
+            Mapping of method return types to invokable base type. The code generator will create a derived type with the method arguments as fields.
+            </summary>
+        </member>
+        <member name="T:Orleans.CodeGenerator.ProxyGenerator">
+            <summary>
+            Generates RPC stub objects called invokers.
+            </summary>
+        </member>
+        <member name="T:Orleans.CodeGenerator.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.Resources.InaccessibleSetterDescription">
+            <summary>
+              Looks up a localized string similar to Serializable properties must have accessible setters. Ensure that the property has a non-private set method..
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.Resources.InaccessibleSetterMessageFormat">
+            <summary>
+              Looks up a localized string similar to Serializable property {0} does not have an accessible setter.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.Resources.InaccessibleSetterTitle">
+            <summary>
+              Looks up a localized string similar to Serializable properties with bodies must be settable.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.Resources.InvalidRpcMethodReturnTypeDescription">
+            <summary>
+              Looks up a localized string similar to The return type of an RPC method must conform to the list of supported types, such as Task, Task&lt;T&gt;, ValueTask, and ValueTask&lt;T&gt;..
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.Resources.InvalidRpcMethodReturnTypeMessageFormat">
+            <summary>
+              Looks up a localized string similar to The return type {0} for the RPC interface method {1} is unsupported and must be changed to one of the following types: {2}.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.Resources.InvalidRpcMethodReturnTypeTitle">
+            <summary>
+              Looks up a localized string similar to Invalid return type for RPC interface method.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.SerializerGenerator.ISerializableMember.TypeSyntax">
+            <summary>
+            Gets syntax representing the type of this field.
+            </summary>
+        </member>
+        <member name="M:Orleans.CodeGenerator.SerializerGenerator.ISerializableMember.GetGetter(Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax)">
+            <summary>
+            Returns syntax for retrieving the value of this field, deep copying it if necessary.
+            </summary>
+            <param name="instance">The instance of the containing type.</param>
+            <returns>Syntax for retrieving the value of this field.</returns>
+        </member>
+        <member name="M:Orleans.CodeGenerator.SerializerGenerator.ISerializableMember.GetSetter(Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax,Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax)">
+            <summary>
+            Returns syntax for setting the value of this field.
+            </summary>
+            <param name="instance">The instance of the containing type.</param>
+            <param name="value">Syntax for the new value.</param>
+            <returns>Syntax for setting the value of this field.</returns>
+        </member>
+        <member name="T:Orleans.CodeGenerator.SerializerGenerator.SerializableMethodMember">
+            <summary>
+            Represents a serializable member (field/property) of a type.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.SerializerGenerator.SerializableMethodMember.TypeSyntax">
+            <summary>
+            Gets syntax representing the type of this field.
+            </summary>
+        </member>
+        <member name="M:Orleans.CodeGenerator.SerializerGenerator.SerializableMethodMember.GetGetter(Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax)">
+            <summary>
+            Returns syntax for retrieving the value of this field, deep copying it if necessary.
+            </summary>
+            <param name="instance">The instance of the containing type.</param>
+            <returns>Syntax for retrieving the value of this field.</returns>
+        </member>
+        <member name="M:Orleans.CodeGenerator.SerializerGenerator.SerializableMethodMember.GetSetter(Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax,Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax)">
+            <summary>
+            Returns syntax for setting the value of this field.
+            </summary>
+            <param name="instance">The instance of the containing type.</param>
+            <param name="value">Syntax for the new value.</param>
+            <returns>Syntax for setting the value of this field.</returns>
+        </member>
+        <member name="T:Orleans.CodeGenerator.SerializerGenerator.SerializableMember">
+            <summary>
+            Represents a serializable member (field/property) of a type.
+            </summary>
+        </member>
+        <member name="F:Orleans.CodeGenerator.SerializerGenerator.SerializableMember._ordinal">
+            <summary>
+            The ordinal assigned to this field.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.SerializerGenerator.SerializableMember.Field">
+            <summary>
+            Gets the underlying <see cref="P:Orleans.CodeGenerator.SerializerGenerator.SerializableMember.Field"/> instance.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.SerializerGenerator.SerializableMember.GetterFieldName">
+            <summary>
+            Gets the name of the getter field.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.SerializerGenerator.SerializableMember.SetterFieldName">
+            <summary>
+            Gets the name of the setter field.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.SerializerGenerator.SerializableMember.IsProperty">
+            <summary>
+            Gets a value indicating if the member is a property.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.SerializerGenerator.SerializableMember.IsGettableField">
+            <summary>
+            Gets a value indicating whether or not this member represents an accessible field.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.SerializerGenerator.SerializableMember.IsSettableField">
+            <summary>
+            Gets a value indicating whether or not this member represents an accessible, mutable field.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.SerializerGenerator.SerializableMember.IsGettableProperty">
+            <summary>
+            Gets a value indicating whether or not this member represents a property with an accessible, non-obsolete getter.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.SerializerGenerator.SerializableMember.IsSettableProperty">
+            <summary>
+            Gets a value indicating whether or not this member represents a property with an accessible, non-obsolete setter.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.SerializerGenerator.SerializableMember.TypeSyntax">
+            <summary>
+            Gets syntax representing the type of this field.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.SerializerGenerator.SerializableMember.Property">
+            <summary>
+            Gets the <see cref="P:Orleans.CodeGenerator.SerializerGenerator.SerializableMember.Property"/> which this field is the backing property for, or
+            <see langword="null" /> if this is not the backing field of an auto-property.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.SerializerGenerator.SerializableMember.IsObsolete">
+            <summary>
+            Gets a value indicating whether or not this field is obsolete.
+            </summary>
+        </member>
+        <member name="M:Orleans.CodeGenerator.SerializerGenerator.SerializableMember.GetGetter(Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax)">
+            <summary>
+            Returns syntax for retrieving the value of this field, deep copying it if necessary.
+            </summary>
+            <param name="instance">The instance of the containing type.</param>
+            <returns>Syntax for retrieving the value of this field.</returns>
+        </member>
+        <member name="M:Orleans.CodeGenerator.SerializerGenerator.SerializableMember.GetSetter(Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax,Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax)">
+            <summary>
+            Returns syntax for setting the value of this field.
+            </summary>
+            <param name="instance">The instance of the containing type.</param>
+            <param name="value">Syntax for the new value.</param>
+            <returns>Syntax for setting the value of this field.</returns>
+        </member>
+        <member name="P:Orleans.CodeGenerator.FSharpUtilities.FSharpUnionCaseTypeDescription.FSharpUnionCaseFieldDescription.SetterFieldName">
+            <summary>
+            Gets the name of the setter field.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.FSharpUtilities.FSharpUnionCaseTypeDescription.FSharpUnionCaseFieldDescription.TypeSyntax">
+            <summary>
+            Gets syntax representing the type of this field.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.FSharpUtilities.FSharpUnionCaseTypeDescription.FSharpUnionCaseFieldDescription.Property">
+            <summary>
+            Gets the <see cref="P:Orleans.CodeGenerator.FSharpUtilities.FSharpUnionCaseTypeDescription.FSharpUnionCaseFieldDescription.Property"/> which this field is the backing property for, or
+            <see langword="null" /> if this is not the backing field of an auto-property.
+            </summary>
+        </member>
+        <member name="M:Orleans.CodeGenerator.FSharpUtilities.FSharpUnionCaseTypeDescription.FSharpUnionCaseFieldDescription.GetGetter(Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax)">
+            <summary>
+            Returns syntax for retrieving the value of this field, deep copying it if necessary.
+            </summary>
+            <param name="instance">The instance of the containing type.</param>
+            <returns>Syntax for retrieving the value of this field.</returns>
+        </member>
+        <member name="M:Orleans.CodeGenerator.FSharpUtilities.FSharpUnionCaseTypeDescription.FSharpUnionCaseFieldDescription.GetSetter(Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax,Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax)">
+            <summary>
+            Returns syntax for setting the value of this field.
+            </summary>
+            <param name="instance">The instance of the containing type.</param>
+            <param name="value">Syntax for the new value.</param>
+            <returns>Syntax for setting the value of this field.</returns>
+        </member>
+        <member name="P:Orleans.CodeGenerator.FSharpUtilities.FSharpRecordTypeDescription.FSharpRecordPropertyDescription.SetterFieldName">
+            <summary>
+            Gets the name of the setter field.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.FSharpUtilities.FSharpRecordTypeDescription.FSharpRecordPropertyDescription.TypeSyntax">
+            <summary>
+            Gets syntax representing the type of this field.
+            </summary>
+        </member>
+        <member name="P:Orleans.CodeGenerator.FSharpUtilities.FSharpRecordTypeDescription.FSharpRecordPropertyDescription.Property">
+            <summary>
+            Gets the <see cref="P:Orleans.CodeGenerator.FSharpUtilities.FSharpRecordTypeDescription.FSharpRecordPropertyDescription.Property"/> which this field is the backing property for, or
+            <see langword="null" /> if this is not the backing field of an auto-property.
+            </summary>
+        </member>
+        <member name="M:Orleans.CodeGenerator.FSharpUtilities.FSharpRecordTypeDescription.FSharpRecordPropertyDescription.GetGetter(Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax)">
+            <summary>
+            Returns syntax for retrieving the value of this field, deep copying it if necessary.
+            </summary>
+            <param name="instance">The instance of the containing type.</param>
+            <returns>Syntax for retrieving the value of this field.</returns>
+        </member>
+        <member name="M:Orleans.CodeGenerator.FSharpUtilities.FSharpRecordTypeDescription.FSharpRecordPropertyDescription.GetSetter(Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax,Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax)">
+            <summary>
+            Returns syntax for setting the value of this field.
+            </summary>
+            <param name="instance">The instance of the containing type.</param>
+            <param name="value">Syntax for the new value.</param>
+            <returns>Syntax for setting the value of this field.</returns>
+        </member>
+        <member name="T:Orleans.CodeGenerator.SyntaxGeneration.StringExtensions">
+            <summary>
+            Extensions to the <see cref="T:System.String"/> class to support code generation.
+            </summary>
+        </member>
+        <member name="M:Orleans.CodeGenerator.SyntaxGeneration.StringExtensions.GetLiteralExpression(System.String)">
+            <summary>
+            Returns the provided string as a literal expression.
+            </summary>
+            <param name="str">
+            The string.
+            </param>
+            <returns>
+            The literal expression.
+            </returns>
+        </member>
+        <member name="M:Orleans.CodeGenerator.SyntaxGeneration.SymbolExtensions.GetAttributes(Microsoft.CodeAnalysis.ISymbol,Microsoft.CodeAnalysis.INamedTypeSymbol,Microsoft.CodeAnalysis.AttributeData[]@)">
+            <summary>
+            Gets all attributes which are assignable to the specified attribute type.
+            </summary>
+        </member>
+        <member name="M:Orleans.CodeGenerator.SyntaxGeneration.SymbolExtensions.GetAttributes(Microsoft.CodeAnalysis.INamedTypeSymbol,Microsoft.CodeAnalysis.INamedTypeSymbol,Microsoft.CodeAnalysis.AttributeData[]@,System.Boolean)">
+            <summary>
+            Gets all attributes which are assignable to the specified attribute type.
+            </summary>
+        </member>
+        <member name="M:Orleans.CodeGenerator.SyntaxGeneration.SymbolSyntaxExtensions.ToExpression(Microsoft.CodeAnalysis.TypedConstant)">
+            <summary>
+            Returns the System.String that represents the current TypedConstant.
+            </summary>
+            <returns>A System.String that represents the current TypedConstant.</returns>
+        </member>
+        <member name="M:Orleans.CodeGenerator.SyntaxGeneration.SyntaxFactoryUtility.Member(Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax,System.String)">
+            <summary>
+            Returns member access syntax.
+            </summary>
+            <param name="instance">
+            The instance.
+            </param>
+            <param name="member">
+            The member.
+            </param>
+            <returns>
+            The resulting <see cref="T:Microsoft.CodeAnalysis.CSharp.Syntax.MemberAccessExpressionSyntax"/>.
+            </returns>
+        </member>
+        <member name="M:Orleans.CodeGenerator.SyntaxGeneration.SyntaxFactoryUtility.Member(Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax,Microsoft.CodeAnalysis.CSharp.Syntax.IdentifierNameSyntax)">
+            <summary>
+            Returns member access syntax.
+            </summary>
+            <param name="instance">
+            The instance.
+            </param>
+            <param name="member">
+            The member.
+            </param>
+            <returns>
+            The resulting <see cref="T:Microsoft.CodeAnalysis.CSharp.Syntax.MemberAccessExpressionSyntax"/>.
+            </returns>
+        </member>
+        <member name="T:Orleans.GenerateFieldIds">
+            <summary>
+            This enum provides options for controlling the field id generation logic.
+            </summary>
+        </member>
+        <member name="F:Orleans.GenerateFieldIds.None">
+            <summary>
+            Only members explicitly annotated with a field id will be serialized. This is the default.
+            </summary>
+        </member>
+        <member name="F:Orleans.GenerateFieldIds.PublicProperties">
+            <summary>
+            Field ids will be automatically assigned to eligible public properties. To qualify, a property must have an accessible getter, and either an accessible setter or a corresponding constructor parameter.
+            </summary>
+            <remarks>
+            The presence of an explicit field id annotation on any member of a type will automatically disable automatic field id generation for that type.
+            </remarks>
+        </member>
+    </members>
+</doc>

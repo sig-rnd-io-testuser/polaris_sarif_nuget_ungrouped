@@ -1,0 +1,368 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Orleans.Reminders.DynamoDB</name>
+    </assembly>
+    <members>
+        <member name="T:Orleans.Hosting.DynamoDBServiceCollectionReminderExtensions">
+            <summary>
+            <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> extensions.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.DynamoDBServiceCollectionReminderExtensions.UseDynamoDBReminderService(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Orleans.Configuration.DynamoDBReminderStorageOptions})">
+            <summary>
+            Adds reminder storage backed by Amazon DynamoDB.
+            </summary>
+            <param name="services">
+            The service collection.
+            </param>
+            <param name="configure">
+            The delegate used to configure the reminder store.
+            </param>
+            <returns>
+            The provided <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>, for chaining.
+            </returns>
+        </member>
+        <member name="T:Orleans.Hosting.DynamoDBSiloBuilderReminderExtensions">
+            <summary>
+            Silo host builder extensions.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.DynamoDBSiloBuilderReminderExtensions.UseDynamoDBReminderService(Orleans.Hosting.ISiloBuilder,System.Action{Orleans.Configuration.DynamoDBReminderStorageOptions})">
+            <summary>
+            Adds reminder storage backed by Amazon DynamoDB.
+            </summary>
+            <param name="builder">
+            The builder.
+            </param>
+            <param name="configure">
+            The delegate used to configure the reminder store.
+            </param>
+            <returns>
+            The provided <see cref="T:Orleans.Hosting.ISiloBuilder"/>, for chaining.
+            </returns>
+        </member>
+        <member name="T:Orleans.Configuration.DynamoDBReminderTableOptions">
+            <summary>
+            Configuration for Amazon DynamoDB reminder storage.
+            </summary>
+        </member>
+        <member name="P:Orleans.Configuration.DynamoDBReminderTableOptions.ConnectionString">
+            <summary>
+            Gets or sets the connection string.
+            </summary>
+        </member>
+        <member name="T:Orleans.Configuration.DynamoDBReminderStorageOptions">
+            <summary>
+            Configuration for Amazon DynamoDB reminder storage.
+            </summary>
+        </member>
+        <member name="P:Orleans.Configuration.DynamoDBReminderStorageOptions.ReadCapacityUnits">
+            <summary>
+            Read capacity unit for DynamoDB storage
+            </summary>
+        </member>
+        <member name="P:Orleans.Configuration.DynamoDBReminderStorageOptions.WriteCapacityUnits">
+            <summary>
+            Write capacity unit for DynamoDB storage
+            </summary>
+        </member>
+        <member name="P:Orleans.Configuration.DynamoDBReminderStorageOptions.UseProvisionedThroughput">
+            <summary>
+            Use Provisioned Throughput for tables
+            </summary>
+        </member>
+        <member name="P:Orleans.Configuration.DynamoDBReminderStorageOptions.CreateIfNotExists">
+            <summary>
+            Create the table if it doesn't exist
+            </summary>
+        </member>
+        <member name="P:Orleans.Configuration.DynamoDBReminderStorageOptions.UpdateIfExists">
+            <summary>
+            Update the table if it exists
+            </summary>
+        </member>
+        <member name="P:Orleans.Configuration.DynamoDBReminderStorageOptions.TableName">
+            <summary>
+            DynamoDB table name.
+            Defaults to 'OrleansReminders'.
+            </summary>
+        </member>
+        <member name="T:Orleans.Configuration.DynamoDBReminderStorageOptionsExtensions">
+            <summary>
+            Configuration for Amazon DynamoDB reminder storage.
+            </summary>
+        </member>
+        <member name="M:Orleans.Configuration.DynamoDBReminderStorageOptionsExtensions.ParseConnectionString(Orleans.Configuration.DynamoDBReminderStorageOptions,System.String)">
+            <summary>
+            Configures this instance using the provided connection string.
+            </summary>
+        </member>
+        <member name="T:Orleans.Reminders.DynamoDB.DynamoDBReminderTable">
+            <summary>
+            Implementation for IReminderTable using DynamoDB as underlying storage.
+            </summary>
+        </member>
+        <member name="M:Orleans.Reminders.DynamoDB.DynamoDBReminderTable.#ctor(Microsoft.Extensions.Logging.ILoggerFactory,Microsoft.Extensions.Options.IOptions{Orleans.Configuration.ClusterOptions},Microsoft.Extensions.Options.IOptions{Orleans.Configuration.DynamoDBReminderStorageOptions})">
+            <summary>Initializes a new instance of the <see cref="T:Orleans.Reminders.DynamoDB.DynamoDBReminderTable"/> class.</summary>
+            <param name="loggerFactory">logger factory to use</param>
+            <param name="clusterOptions"></param>
+            <param name="storageOptions"></param>
+        </member>
+        <member name="M:Orleans.Reminders.DynamoDB.DynamoDBReminderTable.Init">
+            <summary>Initialize current instance with specific global configuration and logger</summary>
+        </member>
+        <member name="M:Orleans.Reminders.DynamoDB.DynamoDBReminderTable.ReadRow(Orleans.Runtime.GrainId,System.String)">
+            <summary>
+            Reads a reminder for a grain reference by reminder name.
+            Read a row from the reminder table
+            </summary>
+            <param name="grainId"> grain ref to locate the row </param>
+            <param name="reminderName"> reminder name to locate the row </param>
+            <returns> Return the ReminderTableData if the rows were read successfully </returns>
+        </member>
+        <member name="M:Orleans.Reminders.DynamoDB.DynamoDBReminderTable.ReadRows(Orleans.Runtime.GrainId)">
+            <summary>
+            Read one row from the reminder table
+            </summary>
+            <param name="grainId">grain ref to locate the row </param>
+            <returns> Return the ReminderTableData if the rows were read successfully </returns>
+        </member>
+        <member name="M:Orleans.Reminders.DynamoDB.DynamoDBReminderTable.ReadRows(System.UInt32,System.UInt32)">
+            <summary>
+            Reads reminder table data for a given hash range.
+            </summary>
+            <param name="begin"></param>
+            <param name="end"></param>
+            <returns> Return the RemiderTableData if the rows were read successfully </returns>
+        </member>
+        <member name="M:Orleans.Reminders.DynamoDB.DynamoDBReminderTable.RemoveRow(Orleans.Runtime.GrainId,System.String,System.String)">
+            <summary>
+            Remove one row from the reminder table
+            </summary>
+            <param name="grainId"> specific grain ref to locate the row </param>
+            <param name="reminderName"> reminder name to locate the row </param>
+            <param name="eTag"> e tag </param>
+            <returns> Return true if the row was removed </returns>
+        </member>
+        <member name="M:Orleans.Reminders.DynamoDB.DynamoDBReminderTable.TestOnlyClearTable">
+            <summary>
+            Test hook to clear reminder table data.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.Reminders.DynamoDB.DynamoDBReminderTable.UpsertRow(Orleans.ReminderEntry)">
+            <summary>
+            Async method to put an entry into the reminder table
+            </summary>
+            <param name="entry"> The entry to put </param>
+            <returns> Return the entry ETag if entry was upsert successfully </returns>
+        </member>
+        <member name="T:Orleans.Reminders.DynamoDB.DynamoDBStorage">
+            <summary>
+            Wrapper around AWS DynamoDB SDK.
+            </summary>
+        </member>
+        <member name="F:Orleans.Reminders.DynamoDB.DynamoDBStorage.secretKey">
+            <summary> Secret key for this dynamoDB table </summary>
+        </member>
+        <member name="M:Orleans.Reminders.DynamoDB.DynamoDBStorage.#ctor(Microsoft.Extensions.Logging.ILogger,System.String,System.String,System.String,System.String,System.String,System.Int32,System.Int32,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Create a DynamoDBStorage instance
+            </summary>
+            <param name="logger"></param>
+            <param name="accessKey"></param>
+            <param name="secretKey"></param>
+            <param name="token"></param>
+            <param name="profileName"></param>
+            <param name="service"></param>
+            <param name="readCapacityUnits"></param>
+            <param name="writeCapacityUnits"></param>
+            <param name="useProvisionedThroughput"></param>
+            <param name="createIfNotExists"></param>
+            <param name="updateIfExists"></param>
+        </member>
+        <member name="M:Orleans.Reminders.DynamoDB.DynamoDBStorage.InitializeTable(System.String,System.Collections.Generic.List{Amazon.DynamoDBv2.Model.KeySchemaElement},System.Collections.Generic.List{Amazon.DynamoDBv2.Model.AttributeDefinition},System.Collections.Generic.List{Amazon.DynamoDBv2.Model.GlobalSecondaryIndex},System.String)">
+            <summary>
+            Create a DynamoDB table if it doesn't exist
+            </summary>
+            <param name="tableName">The name of the table</param>
+            <param name="keys">The keys definitions</param>
+            <param name="attributes">The attributes used on the key definition</param>
+            <param name="secondaryIndexes">(optional) The secondary index definitions</param>
+            <param name="ttlAttributeName">(optional) The name of the item attribute that indicates the item TTL (if null, ttl won't be enabled)</param>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.Reminders.DynamoDB.DynamoDBStorage.DeleTableAsync(System.String)">
+            <summary>
+            Delete a table from DynamoDB
+            </summary>
+            <param name="tableName">The name of the table to delete</param>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.Reminders.DynamoDB.DynamoDBStorage.PutEntryAsync(System.String,System.Collections.Generic.Dictionary{System.String,Amazon.DynamoDBv2.Model.AttributeValue},System.String,System.Collections.Generic.Dictionary{System.String,Amazon.DynamoDBv2.Model.AttributeValue})">
+            <summary>
+            Create or Replace an entry in a DynamoDB Table
+            </summary>
+            <param name="tableName">The name of the table to put an entry</param>
+            <param name="fields">The fields/attributes to add or replace in the table</param>
+            <param name="conditionExpression">Optional conditional expression</param>
+            <param name="conditionValues">Optional field/attribute values used in the conditional expression</param>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.Reminders.DynamoDB.DynamoDBStorage.UpsertEntryAsync(System.String,System.Collections.Generic.Dictionary{System.String,Amazon.DynamoDBv2.Model.AttributeValue},System.Collections.Generic.Dictionary{System.String,Amazon.DynamoDBv2.Model.AttributeValue},System.String,System.Collections.Generic.Dictionary{System.String,Amazon.DynamoDBv2.Model.AttributeValue},System.String,System.Collections.Generic.Dictionary{System.String,Amazon.DynamoDBv2.Model.AttributeValue})">
+            <summary>
+            Create or update an entry in a DynamoDB Table
+            </summary>
+            <param name="tableName">The name of the table to upsert an entry</param>
+            <param name="keys">The table entry keys for the entry</param>
+            <param name="fields">The fields/attributes to add or updated in the table</param>
+            <param name="conditionExpression">Optional conditional expression</param>
+            <param name="conditionValues">Optional field/attribute values used in the conditional expression</param>
+            <param name="extraExpression">Additional expression that will be added in the end of the upsert expression</param>
+            <param name="extraExpressionValues">Additional field/attribute that will be used in the extraExpression</param>
+            <remarks>The fields dictionary item values will be updated with the values returned from DynamoDB</remarks>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.Reminders.DynamoDB.DynamoDBStorage.DeleteEntryAsync(System.String,System.Collections.Generic.Dictionary{System.String,Amazon.DynamoDBv2.Model.AttributeValue},System.String,System.Collections.Generic.Dictionary{System.String,Amazon.DynamoDBv2.Model.AttributeValue})">
+            <summary>
+            Delete an entry from a DynamoDB table
+            </summary>
+            <param name="tableName">The name of the table to delete an entry</param>
+            <param name="keys">The table entry keys for the entry to be deleted</param>
+            <param name="conditionExpression">Optional conditional expression</param>
+            <param name="conditionValues">Optional field/attribute values used in the conditional expression</param>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.Reminders.DynamoDB.DynamoDBStorage.DeleteEntriesAsync(System.String,System.Collections.Generic.IReadOnlyCollection{System.Collections.Generic.Dictionary{System.String,Amazon.DynamoDBv2.Model.AttributeValue}})">
+            <summary>
+            Delete multiple entries from a DynamoDB table (Batch delete)
+            </summary>
+            <param name="tableName">The name of the table to delete entries</param>
+            <param name="toDelete">List of key values for each entry that must be deleted in the batch</param>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.Reminders.DynamoDB.DynamoDBStorage.ReadSingleEntryAsync``1(System.String,System.Collections.Generic.Dictionary{System.String,Amazon.DynamoDBv2.Model.AttributeValue},System.Func{System.Collections.Generic.Dictionary{System.String,Amazon.DynamoDBv2.Model.AttributeValue},``0})">
+            <summary>
+            Read an entry from a DynamoDB table
+            </summary>
+            <typeparam name="TResult">The result type</typeparam>
+            <param name="tableName">The name of the table to search for the entry</param>
+            <param name="keys">The table entry keys to search for</param>
+            <param name="resolver">Function that will be called to translate the returned fields into a concrete type. This Function is only called if the result is != null</param>
+            <returns>The object translated by the resolver function</returns>
+        </member>
+        <member name="M:Orleans.Reminders.DynamoDB.DynamoDBStorage.QueryAsync``1(System.String,System.Collections.Generic.Dictionary{System.String,Amazon.DynamoDBv2.Model.AttributeValue},System.String,System.Func{System.Collections.Generic.Dictionary{System.String,Amazon.DynamoDBv2.Model.AttributeValue},``0},System.String,System.Boolean,System.Collections.Generic.Dictionary{System.String,Amazon.DynamoDBv2.Model.AttributeValue},System.Boolean)">
+            <summary>
+            Query for multiple entries in a DynamoDB table by filtering its keys
+            </summary>
+            <typeparam name="TResult">The result type</typeparam>
+            <param name="tableName">The name of the table to search for the entries</param>
+            <param name="keys">The table entry keys to search for</param>
+            <param name="keyConditionExpression">the expression that will filter the keys</param>
+            <param name="resolver">Function that will be called to translate the returned fields into a concrete type. This Function is only called if the result is != null and will be called for each entry that match the query and added to the results list</param>
+            <param name="indexName">In case a secondary index is used in the keyConditionExpression</param>
+            <param name="scanIndexForward">In case an index is used, show if the seek order is ascending (true) or descending (false)</param>
+            <param name="lastEvaluatedKey">The primary key of the first item that this operation will evaluate. Use the value that was returned for LastEvaluatedKey in the previous operation</param>
+            <param name="consistentRead">Determines the read consistency model. Note that if a GSI is used, this must be false.</param>
+            <returns>The collection containing a list of objects translated by the resolver function and the LastEvaluatedKey for paged results</returns>
+        </member>
+        <member name="M:Orleans.Reminders.DynamoDB.DynamoDBStorage.QueryAllAsync``1(System.String,System.Collections.Generic.Dictionary{System.String,Amazon.DynamoDBv2.Model.AttributeValue},System.String,System.Func{System.Collections.Generic.Dictionary{System.String,Amazon.DynamoDBv2.Model.AttributeValue},``0},System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Query for multiple entries in a DynamoDB table by filtering its keys
+            </summary>
+            <typeparam name="TResult">The result type</typeparam>
+            <param name="tableName">The name of the table to search for the entries</param>
+            <param name="keys">The table entry keys to search for</param>
+            <param name="keyConditionExpression">the expression that will filter the keys</param>
+            <param name="resolver">Function that will be called to translate the returned fields into a concrete type. This Function is only called if the result is != null and will be called for each entry that match the query and added to the results list</param>
+            <param name="indexName">In case a secondary index is used in the keyConditionExpression</param>
+            <param name="scanIndexForward">In case an index is used, show if the seek order is ascending (true) or descending (false)</param>
+            <param name="consistentRead">Determines the read consistency model. Note that if a GSI is used, this must be false.</param>
+            <returns>The collection containing a list of objects translated by the resolver function</returns>
+        </member>
+        <member name="M:Orleans.Reminders.DynamoDB.DynamoDBStorage.ScanAsync``1(System.String,System.Collections.Generic.Dictionary{System.String,Amazon.DynamoDBv2.Model.AttributeValue},System.String,System.Func{System.Collections.Generic.Dictionary{System.String,Amazon.DynamoDBv2.Model.AttributeValue},``0})">
+            <summary>
+            Scan a DynamoDB table by querying the entry fields.
+            </summary>
+            <typeparam name="TResult">The result type</typeparam>
+            <param name="tableName">The name of the table to search for the entries</param>
+            <param name="attributes">The attributes used on the expression</param>
+            <param name="expression">The filter expression</param>
+            <param name="resolver">Function that will be called to translate the returned fields into a concrete type. This Function is only called if the result is != null and will be called for each entry that match the query and added to the results list</param>
+            <returns>The collection containing a list of objects translated by the resolver function</returns>
+        </member>
+        <member name="M:Orleans.Reminders.DynamoDB.DynamoDBStorage.PutEntriesAsync(System.String,System.Collections.Generic.IReadOnlyCollection{System.Collections.Generic.Dictionary{System.String,Amazon.DynamoDBv2.Model.AttributeValue}})">
+            <summary>
+            Crete or replace multiple entries in a DynamoDB table (Batch put)
+            </summary>
+            <param name="tableName">The name of the table to search for the entry</param>
+            <param name="toCreate">List of key values for each entry that must be created or replaced in the batch</param>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.Reminders.DynamoDB.DynamoDBStorage.GetEntriesTxAsync``1(System.String,System.Collections.Generic.IEnumerable{System.Collections.Generic.Dictionary{System.String,Amazon.DynamoDBv2.Model.AttributeValue}},System.Func{System.Collections.Generic.Dictionary{System.String,Amazon.DynamoDBv2.Model.AttributeValue},``0})">
+            <summary>
+            Transactionally reads entries from a DynamoDB table
+            </summary>
+            <typeparam name="TResult">The result type</typeparam>
+            <param name="tableName">The name of the table to search for the entry</param>
+            <param name="keys">The table entry keys to search for</param>
+            <param name="resolver">Function that will be called to translate the returned fields into a concrete type. This Function is only called if the result is != null</param>
+            <returns>The object translated by the resolver function</returns>
+        </member>
+        <member name="M:Orleans.Reminders.DynamoDB.DynamoDBStorage.WriteTxAsync(System.Collections.Generic.IEnumerable{Amazon.DynamoDBv2.Model.Put},System.Collections.Generic.IEnumerable{Amazon.DynamoDBv2.Model.Update},System.Collections.Generic.IEnumerable{Amazon.DynamoDBv2.Model.Delete},System.Collections.Generic.IEnumerable{Amazon.DynamoDBv2.Model.ConditionCheck})">
+            <summary>
+            Transactionally performs write requests
+            </summary>
+            <param name="puts">Any puts to be performed</param>
+            <param name="updates">Any updated to be performed</param>
+            <param name="deletes">Any deletes to be performed</param>
+            <param name="conditionChecks">Any condition checks to be performed</param>
+            <returns></returns>
+        </member>
+        <member name="P:Orleans.Reminders.DynamoDB.DynamoDBClientOptions.AccessKey">
+            <summary>
+            AccessKey string for DynamoDB Storage
+            </summary>
+        </member>
+        <member name="P:Orleans.Reminders.DynamoDB.DynamoDBClientOptions.SecretKey">
+            <summary>
+            Secret key for DynamoDB storage
+            </summary>
+        </member>
+        <member name="P:Orleans.Reminders.DynamoDB.DynamoDBClientOptions.Service">
+            <summary>
+            DynamoDB region name, such as "us-west-2"
+            </summary>
+        </member>
+        <member name="P:Orleans.Reminders.DynamoDB.DynamoDBClientOptions.Token">
+            <summary>
+            Token for DynamoDB storage
+            </summary>
+        </member>
+        <member name="P:Orleans.Reminders.DynamoDB.DynamoDBClientOptions.ProfileName">
+            <summary>
+            AWS profile name.
+            </summary>
+        </member>
+        <member name="T:Orleans.Reminders.DynamoDB.AWSUtils">
+            <summary>
+            Some basic utilities methods for AWS SDK
+            </summary>
+        </member>
+        <member name="M:Orleans.Reminders.DynamoDB.AWSUtils.ValidateDynamoDBPartitionKey(System.String)">
+            <summary>
+            Validate DynamoDB PartitionKey.
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.Reminders.DynamoDB.AWSUtils.ValidateDynamoDBRowKey(System.String)">
+            <summary>
+            Validate DynamoDB RowKey.
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

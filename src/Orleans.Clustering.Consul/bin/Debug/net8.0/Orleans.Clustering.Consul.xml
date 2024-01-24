@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Orleans.Clustering.Consul</name>
+    </assembly>
+    <members>
+        <member name="T:Orleans.Runtime.Membership.ConsulBasedMembershipTable">
+            <summary>
+            A Membership Table implementation using Consul 0.6.0  https://consul.io/
+            </summary>
+        </member>
+        <member name="M:Orleans.Runtime.Membership.ConsulBasedMembershipTable.InitializeMembershipTable(System.Boolean)">
+            <summary>
+            Initializes the Consul based membership table.
+            </summary>
+            <param name="tryInitTableVersion">Will be ignored: Consul does not support the extended Membership Protocol TableVersion</param>
+            <returns></returns>
+            <remarks>
+            Consul Membership Provider does not support the extended Membership Protocol,
+            therefore there is no MembershipTable to Initialize
+            </remarks>
+        </member>
+        <member name="T:Orleans.Runtime.Host.ConsulSiloRegistration">
+            <summary>
+            JSON Serializable Object that when serialized and Base64 encoded, forms the Value part of a Silo's Consul KVPair
+            </summary>
+        </member>
+        <member name="P:Orleans.Runtime.Host.ConsulSiloRegistration.DeploymentId">
+            <summary>
+            Persisted as part of the KV Key therefore not serialised.
+            </summary>
+        </member>
+        <member name="P:Orleans.Runtime.Host.ConsulSiloRegistration.Address">
+            <summary>
+            Persisted as part of the KV Key therefore not serialised.
+            </summary>
+        </member>
+        <member name="P:Orleans.Runtime.Host.ConsulSiloRegistration.IAmAliveTime">
+            <summary>
+            Persisted in a separate KV Subkey, therefore not serialised but held here to enable cleaner assembly to MembershipEntry.
+            </summary>
+            <remarks>
+            Stored in a separate KV otherwise the regular updates to IAmAlive cause the Silo's KV.ModifyIndex to change 
+            which in turn cause UpdateRow operations to fail.
+            </remarks>
+        </member>
+        <member name="P:Orleans.Runtime.Host.ConsulSiloRegistration.LastIndex">
+            <summary>
+            Used to compare CAS value on update, persisted as KV.ModifyIndex therefore not serialised.
+            </summary>
+        </member>
+        <member name="T:Orleans.Runtime.Host.SuspectingSilo">
+            <summary>
+            JSON Serializable Object that when serialized and Base64 encoded, forms each entry in the SuspectingSilos list
+            </summary>
+        </member>
+        <member name="T:Orleans.Runtime.Host.ConsulSiloRegistrationAssembler">
+            <summary>
+            Contains methods for converting a Consul KVPair to and from a MembershipEntry.  
+            This uses ConsulSiloRegistration objects as the serializable KV.Value and minimises conversion operations.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.ConsulUtilsHostingExtensions.UseConsulSiloClustering(Orleans.Hosting.ISiloBuilder,System.Action{Orleans.Configuration.ConsulClusteringOptions})">
+            <summary>
+            Configures the silo to use Consul for clustering.
+            </summary>
+            <param name="builder">
+            The builder.
+            </param>
+            <param name="configureOptions">
+            The configuration delegate.
+            </param>
+            <returns>
+            The provided <see cref="T:Orleans.Hosting.ISiloBuilder"/>.
+            </returns>
+        </member>
+        <member name="M:Orleans.Hosting.ConsulUtilsHostingExtensions.UseConsulSiloClustering(Orleans.Hosting.ISiloBuilder,System.Action{Microsoft.Extensions.Options.OptionsBuilder{Orleans.Configuration.ConsulClusteringOptions}})">
+            <summary>
+            Configures the silo to use Consul for clustering.
+            </summary>
+            <param name="builder">
+            The builder.
+            </param>
+            <param name="configureOptions">
+            The configuration delegate.
+            </param>
+            <returns>
+            The provided <see cref="T:Orleans.Hosting.ISiloBuilder"/>.
+            </returns>
+        </member>
+        <member name="M:Orleans.Hosting.ConsulUtilsHostingExtensions.UseConsulClientClustering(Orleans.Hosting.IClientBuilder,System.Action{Orleans.Configuration.ConsulClusteringOptions})">
+            <summary>
+            Configures the client to use Consul for clustering.
+            </summary>
+            <param name="builder">
+            The builder.
+            </param>
+            <param name="configureOptions">
+            The configuration delegate.
+            </param>
+            <returns>
+            The provided <see cref="T:Orleans.Hosting.IClientBuilder"/>.
+            </returns>
+        </member>
+        <member name="M:Orleans.Hosting.ConsulUtilsHostingExtensions.UseConsulClientClustering(Orleans.Hosting.IClientBuilder,System.Action{Microsoft.Extensions.Options.OptionsBuilder{Orleans.Configuration.ConsulClusteringOptions}})">
+            <summary>
+            Configures the client to use Consul for clustering.
+            </summary>
+            <param name="builder">
+            The builder.
+            </param>
+            <param name="configureOptions">
+            The configuration delegate.
+            </param>
+            <returns>
+            The provided <see cref="T:Orleans.Hosting.IClientBuilder"/>.
+            </returns>
+        </member>
+        <member name="T:Orleans.Configuration.ConsulClusteringOptions">
+            <summary>
+            Base class for consul-cluster-options.
+            </summary>
+        </member>
+        <member name="P:Orleans.Configuration.ConsulClusteringOptions.KvRootFolder">
+            <summary>
+            Consul KV root folder name.
+            </summary>
+        </member>
+        <member name="P:Orleans.Configuration.ConsulClusteringOptions.CreateClient">
+            <summary>
+            Factory for the used Consul-Client.
+            </summary>
+        </member>
+        <member name="M:Orleans.Configuration.ConsulClusteringOptions.ConfigureConsulClient(System.Func{Consul.IConsulClient})">
+            <summary>
+            Configures the <see cref="P:Orleans.Configuration.ConsulClusteringOptions.CreateClient"/> using the provided callback.
+            </summary>
+        </member>
+        <member name="M:Orleans.Configuration.ConsulClusteringOptions.ConfigureConsulClient(System.Uri,System.String)">
+            <summary>
+            Configures the <see cref="P:Orleans.Configuration.ConsulClusteringOptions.CreateClient"/> using the consul-address and a acl-token.
+            </summary>
+        </member>
+    </members>
+</doc>

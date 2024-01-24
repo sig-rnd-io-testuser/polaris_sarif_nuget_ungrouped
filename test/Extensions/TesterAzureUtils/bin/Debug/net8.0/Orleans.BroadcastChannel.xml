@@ -1,0 +1,409 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Orleans.BroadcastChannel</name>
+    </assembly>
+    <members>
+        <member name="T:Orleans.BroadcastChannel.BroadcastChannelOptions">
+            <summary>
+            Configuration options for broadcast channel
+            </summary>
+        </member>
+        <member name="P:Orleans.BroadcastChannel.BroadcastChannelOptions.FireAndForgetDelivery">
+            <summary>
+            If set to true, the provider will not await calls to subscriber.
+            </summary>
+        </member>
+        <member name="T:Orleans.BroadcastChannel.IBroadcastChannelProvider">
+            <summary>
+            Functionality for providing broadcast channel to producers.
+            </summary>
+        </member>
+        <member name="M:Orleans.BroadcastChannel.IBroadcastChannelProvider.GetChannelWriter``1(Orleans.BroadcastChannel.ChannelId)">
+            <summary>
+            Get a writer to a channel.
+            </summary>
+            <typeparam name="T">The channel element type.</typeparam>
+            <param name="streamId">The channel identifier.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.BroadcastChannel.BroadcastChannelProvider.GetChannelWriter``1(Orleans.BroadcastChannel.ChannelId)">
+            <inheritdoc />
+        </member>
+        <member name="M:Orleans.BroadcastChannel.BroadcastChannelProvider.Create(System.IServiceProvider,System.String)">
+            <summary>
+            Create a new channel provider.
+            </summary>
+            <param name="sp">The service provider.</param>
+            <param name="name">The name of the provider.</param>
+            <returns>The named channel provider.</returns>
+        </member>
+        <member name="T:Orleans.BroadcastChannel.IBroadcastChannelWriter`1">
+            <summary>
+            Interface to allow writing to a channel.
+            </summary>
+            <typeparam name="T">The channel element type.</typeparam>
+        </member>
+        <member name="M:Orleans.BroadcastChannel.IBroadcastChannelWriter`1.Publish(`0)">
+            <summary>
+            Publish an element to the channel.
+            </summary>
+            <param name="item">The element to publish.</param>
+        </member>
+        <member name="T:Orleans.BroadcastChannel.BroadcastChannelWriter`1">
+            <inheritdoc />
+        </member>
+        <member name="M:Orleans.BroadcastChannel.BroadcastChannelWriter`1.Publish(`0)">
+            <inheritdoc />
+        </member>
+        <member name="T:Orleans.BroadcastChannel.ChannelId">
+            <summary>
+            Identifies a Channel within a provider
+            </summary>
+        </member>
+        <member name="P:Orleans.BroadcastChannel.ChannelId.FullKey">
+            <summary>
+            Gets the full key.
+            </summary>
+            <value>The full key.</value>
+        </member>
+        <member name="P:Orleans.BroadcastChannel.ChannelId.Namespace">
+            <summary>
+            Gets the namespace.
+            </summary>
+            <value>The namespace.</value>
+        </member>
+        <member name="P:Orleans.BroadcastChannel.ChannelId.Key">
+            <summary>
+            Gets the key.
+            </summary>
+            <value>The key.</value>
+        </member>
+        <member name="M:Orleans.BroadcastChannel.ChannelId.Create(System.ReadOnlySpan{System.Byte},System.ReadOnlySpan{System.Byte})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Orleans.BroadcastChannel.ChannelId"/> struct.
+            </summary>
+            <param name="ns">The namespace.</param>
+            <param name="key">The key.</param>
+        </member>
+        <member name="M:Orleans.BroadcastChannel.ChannelId.Create(System.String,System.Guid)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Orleans.BroadcastChannel.ChannelId"/> struct.
+            </summary>
+            <param name="ns">The namespace.</param>
+            <param name="key">The key.</param>
+        </member>
+        <member name="M:Orleans.BroadcastChannel.ChannelId.Create(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Orleans.BroadcastChannel.ChannelId"/> struct.
+            </summary>
+            <param name="ns">The namespace.</param>
+            <param name="key">The key.</param>
+        </member>
+        <member name="M:Orleans.BroadcastChannel.ChannelId.CompareTo(Orleans.BroadcastChannel.ChannelId)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.BroadcastChannel.ChannelId.Equals(Orleans.BroadcastChannel.ChannelId)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.BroadcastChannel.ChannelId.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.BroadcastChannel.ChannelId.op_Equality(Orleans.BroadcastChannel.ChannelId,Orleans.BroadcastChannel.ChannelId)">
+            <summary>
+            Compares two <see cref="T:Orleans.BroadcastChannel.ChannelId"/> instances for equality.
+            </summary>
+            <param name="s1">The first stream identity.</param>
+            <param name="s2">The second stream identity.</param>
+            <returns>The result of the operator.</returns>
+        </member>
+        <member name="M:Orleans.BroadcastChannel.ChannelId.op_Inequality(Orleans.BroadcastChannel.ChannelId,Orleans.BroadcastChannel.ChannelId)">
+            <summary>
+            Compares two <see cref="T:Orleans.BroadcastChannel.ChannelId"/> instances for equality.
+            </summary>
+            <param name="s1">The first stream identity.</param>
+            <param name="s2">The second stream identity.</param>
+            <returns>The result of the operator.</returns>
+        </member>
+        <member name="M:Orleans.BroadcastChannel.ChannelId.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.BroadcastChannel.ChannelId.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.BroadcastChannel.ChannelId.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.BroadcastChannel.ChannelId.GetKeyAsString">
+            <summary>
+            Returns the <see cref="P:Orleans.BroadcastChannel.ChannelId.Key"/> component of this instance as a string.
+            </summary>
+            <returns>The key component of this instance.</returns>
+        </member>
+        <member name="M:Orleans.BroadcastChannel.ChannelId.GetNamespace">
+            <summary>
+            Returns the <see cref="P:Orleans.BroadcastChannel.ChannelId.Namespace"/> component of this instance as a string.
+            </summary>
+            <returns>The namespace component of this instance.</returns>
+        </member>
+        <member name="T:Orleans.BroadcastChannel.DefaultChannelIdMapper">
+            <summary>
+            The default <see cref="T:Orleans.BroadcastChannel.IChannelIdMapper"/> implementation.
+            </summary>
+        </member>
+        <member name="F:Orleans.BroadcastChannel.DefaultChannelIdMapper.Name">
+            <summary>
+            The name of this stream identity mapper.
+            </summary>
+        </member>
+        <member name="M:Orleans.BroadcastChannel.DefaultChannelIdMapper.GetGrainKeyId(Orleans.Metadata.GrainBindings,Orleans.BroadcastChannel.ChannelId)">
+            <inheritdoc />
+        </member>
+        <member name="T:Orleans.BroadcastChannel.IChannelIdMapper">
+            <summary>
+            Common interface for component that map a <see cref="T:Orleans.BroadcastChannel.ChannelId"/> to a <see cref="P:Orleans.Runtime.GrainId.Key"/>
+            </summary>
+        </member>
+        <member name="M:Orleans.BroadcastChannel.IChannelIdMapper.GetGrainKeyId(Orleans.Metadata.GrainBindings,Orleans.BroadcastChannel.ChannelId)">
+            <summary>
+            Get the <see cref="P:Orleans.Runtime.GrainId.Key" /> which maps to the provided <see cref="T:Orleans.BroadcastChannel.ChannelId" />
+            </summary>
+            <param name="grainBindings">The grain bindings.</param>
+            <param name="streamId">The stream identifier.</param>
+            <returns>The <see cref="P:Orleans.Runtime.GrainId.Key"/> component.</returns>
+        </member>
+        <member name="M:Orleans.BroadcastChannel.SubscriberTable.ImplicitChannelSubscriberTable.GetImplicitSubscribers(Orleans.BroadcastChannel.InternalChannelId,Orleans.IGrainFactory)">
+            <summary>
+            Retrieve a map of implicit subscriptionsIds to implicit subscribers, given a channel ID. This method throws an exception if there's no namespace associated with the channel ID.
+            </summary>
+            <param name="channelId">A channel ID.</param>
+            <param name="grainFactory">The grain factory used to get consumer references.</param>
+            <returns>A set of references to implicitly subscribed grains. They are expected to support the broadcast channel consumer extension.</returns>
+            <exception cref="T:System.ArgumentException">The channel ID doesn't have an associated namespace.</exception>
+            <exception cref="T:System.InvalidOperationException">Internal invariant violation.</exception>
+        </member>
+        <member name="M:Orleans.BroadcastChannel.SubscriberTable.ImplicitChannelSubscriberTable.MakeSubscriptionGuid(Orleans.Runtime.GrainType,Orleans.BroadcastChannel.InternalChannelId)">
+            <summary>
+            Create a subscriptionId that is unique per grainId, grainType, namespace combination.
+            </summary>
+        </member>
+        <member name="M:Orleans.BroadcastChannel.SubscriberTable.ImplicitChannelSubscriberTable.FindImplicitSubscribers(System.String,System.Collections.Generic.List{Orleans.BroadcastChannel.SubscriberTable.ImplicitChannelSubscriberTable.BroadcastChannelSubscriberPredicate})">
+            <summary>
+            Finds all implicit subscribers for the given channel namespace.
+            </summary>
+        </member>
+        <member name="M:Orleans.BroadcastChannel.SubscriberTable.ImplicitChannelSubscriberTable.MakeConsumerReference(Orleans.IGrainFactory,Orleans.BroadcastChannel.InternalChannelId,Orleans.BroadcastChannel.SubscriberTable.ImplicitChannelSubscriberTable.BroadcastChannelSubscriber)">
+            <summary>
+            Create a reference to a grain that we expect to support the broadcast channel consumer extension.
+            </summary>
+            <param name="grainFactory">The grain factory used to get consumer references.</param>
+            <param name="channelId">The channel ID to use for the grain ID construction.</param>
+            <param name="channelSubscriber">The GrainBindings for the grain to create</param>
+            <returns></returns>
+        </member>
+        <member name="T:Orleans.BroadcastChannel.AllStreamNamespacesPredicate">
+            <summary>
+            A stream namespace predicate which matches all namespaces.
+            </summary>
+        </member>
+        <member name="P:Orleans.BroadcastChannel.AllStreamNamespacesPredicate.PredicatePattern">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.BroadcastChannel.AllStreamNamespacesPredicate.IsMatch(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Orleans.BroadcastChannel.DefaultChannelNamespacePredicateProvider">
+            <summary>
+            Default implementation of <see cref="T:Orleans.BroadcastChannel.IChannelNamespacePredicateProvider"/> for internally supported stream predicates.
+            </summary>
+        </member>
+        <member name="M:Orleans.BroadcastChannel.DefaultChannelNamespacePredicateProvider.TryGetPredicate(System.String,Orleans.BroadcastChannel.IChannelNamespacePredicate@)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Orleans.BroadcastChannel.ConstructorChannelNamespacePredicateProvider">
+            <summary>
+            Stream namespace predicate provider which supports objects which can be constructed and optionally accept a string as a constructor argument.
+            </summary>
+        </member>
+        <member name="F:Orleans.BroadcastChannel.ConstructorChannelNamespacePredicateProvider.Prefix">
+            <summary>
+            The prefix used to identify this predicate provider.
+            </summary>
+        </member>
+        <member name="M:Orleans.BroadcastChannel.ConstructorChannelNamespacePredicateProvider.FormatPattern(System.Type,System.String)">
+            <summary>
+            Formats a stream namespace predicate which indicates a concrete <see cref="T:Orleans.BroadcastChannel.IChannelNamespacePredicate"/> type to be constructed, along with an optional argument.
+            </summary>
+        </member>
+        <member name="M:Orleans.BroadcastChannel.ConstructorChannelNamespacePredicateProvider.TryGetPredicate(System.String,Orleans.BroadcastChannel.IChannelNamespacePredicate@)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Orleans.BroadcastChannel.ExactMatchChannelNamespacePredicate">
+            <summary>
+            Stream namespace predicate which matches exactly one, specified
+            </summary>
+        </member>
+        <member name="M:Orleans.BroadcastChannel.ExactMatchChannelNamespacePredicate.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Orleans.BroadcastChannel.ExactMatchChannelNamespacePredicate"/> class.
+            </summary>
+            <param name="targetStreamNamespace">The target stream namespace.</param>
+        </member>
+        <member name="P:Orleans.BroadcastChannel.ExactMatchChannelNamespacePredicate.PredicatePattern">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.BroadcastChannel.ExactMatchChannelNamespacePredicate.IsMatch(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Orleans.BroadcastChannel.IChannelNamespacePredicate">
+            <summary>
+            Stream namespace predicate used for filtering implicit subscriptions using 
+            <see cref="T:Orleans.ImplicitChannelSubscriptionAttribute"/>.
+            </summary>
+            <remarks>All implementations must be serializable.</remarks>
+        </member>
+        <member name="M:Orleans.BroadcastChannel.IChannelNamespacePredicate.IsMatch(System.String)">
+            <summary>
+            Defines if the consumer grain should subscribe to the specified namespace.
+            </summary>
+            <param name="streamNamespace">The target stream namespace to check.</param>
+            <returns><c>true</c>, if the grain should subscribe to the specified namespace; <c>false</c>, otherwise.
+            </returns>
+        </member>
+        <member name="P:Orleans.BroadcastChannel.IChannelNamespacePredicate.PredicatePattern">
+            <summary>
+            Gets a pattern to describe this predicate. This value is passed to instances of <see cref="T:Orleans.BroadcastChannel.IChannelNamespacePredicateProvider"/> to recreate this predicate.
+            </summary>
+        </member>
+        <member name="T:Orleans.BroadcastChannel.IChannelNamespacePredicateProvider">
+            <summary>
+            Converts predicate pattern strings to <see cref="T:Orleans.BroadcastChannel.IChannelNamespacePredicate"/> instances.
+            </summary>
+            <seealso cref="P:Orleans.BroadcastChannel.IChannelNamespacePredicate.PredicatePattern"/>
+        </member>
+        <member name="M:Orleans.BroadcastChannel.IChannelNamespacePredicateProvider.TryGetPredicate(System.String,Orleans.BroadcastChannel.IChannelNamespacePredicate@)">
+            <summary>
+            Get the predicate matching the provided pattern. Returns <see langword="false"/> if this provider cannot match the predicate.
+            </summary>
+        </member>
+        <member name="T:Orleans.BroadcastChannel.RegexChannelNamespacePredicate">
+            <summary>
+            <see cref="T:Orleans.BroadcastChannel.IChannelNamespacePredicate"/> implementation allowing to filter stream namespaces by regular
+            expression.
+            </summary>
+        </member>
+        <member name="P:Orleans.BroadcastChannel.RegexChannelNamespacePredicate.PredicatePattern">
+            <summary>
+            Returns a pattern used to describe this instance. The pattern will be parsed by an <see cref="T:Orleans.BroadcastChannel.IChannelNamespacePredicateProvider"/> instance on each node.
+            </summary>
+        </member>
+        <member name="M:Orleans.BroadcastChannel.RegexChannelNamespacePredicate.#ctor(System.String)">
+            <summary>
+            Creates an instance of <see cref="T:Orleans.BroadcastChannel.RegexChannelNamespacePredicate"/> with the specified regular expression.
+            </summary>
+            <param name="regex">The stream namespace regular expression.</param>
+        </member>
+        <member name="M:Orleans.BroadcastChannel.RegexChannelNamespacePredicate.IsMatch(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Orleans.Hosting.ChannelHostingExtensions.AddBroadcastChannel(Orleans.Hosting.ISiloBuilder,System.String,System.Action{Orleans.BroadcastChannel.BroadcastChannelOptions})">
+            <summary>
+            Add a new broadcast channel to the silo.
+            </summary>
+            <param name="this">The builder.</param>
+            <param name="name">The name of the provider</param>
+            <param name="configureOptions">The configuration delegate.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.Hosting.ChannelHostingExtensions.AddBroadcastChannel(Orleans.Hosting.ISiloBuilder,System.String,System.Action{Microsoft.Extensions.Options.OptionsBuilder{Orleans.BroadcastChannel.BroadcastChannelOptions}})">
+            <summary>
+            Add a new broadcast channel to the silo.
+            </summary>
+            <param name="this">The builder.</param>
+            <param name="name">The name of the provider</param>
+            <param name="configureOptions">The configuration delegate.</param>
+        </member>
+        <member name="M:Orleans.Hosting.ChannelHostingExtensions.AddBroadcastChannel(Orleans.Hosting.IClientBuilder,System.String,System.Action{Orleans.BroadcastChannel.BroadcastChannelOptions})">
+            <summary>
+            Add a new broadcast channel to the client.
+            </summary>
+            <param name="this">The builder.</param>
+            <param name="name">The name of the provider</param>
+            <param name="configureOptions">The configuration delegate.</param>
+        </member>
+        <member name="M:Orleans.Hosting.ChannelHostingExtensions.AddBroadcastChannel(Orleans.Hosting.IClientBuilder,System.String,System.Action{Microsoft.Extensions.Options.OptionsBuilder{Orleans.BroadcastChannel.BroadcastChannelOptions}})">
+            <summary>
+            Add a new broadcast channel to the client.
+            </summary>
+            <param name="this">The builder.</param>
+            <param name="name">The name of the provider</param>
+            <param name="configureOptions">The configuration delegate.</param>
+        </member>
+        <member name="M:Orleans.Hosting.ChannelHostingExtensions.GetBroadcastChannelProvider(Orleans.IClusterClient,System.String)">
+            <summary>
+            Get the named broadcast channel provided.
+            </summary>
+            <param name="this">The client.</param>
+            <param name="name">The name of the provider</param>
+        </member>
+        <member name="T:Orleans.ImplicitChannelSubscriptionAttribute">
+            <summary>
+            The [Orleans.ImplicitStreamSubscription] attribute is used to mark grains as implicit stream subscriptions.
+            </summary>
+        </member>
+        <member name="P:Orleans.ImplicitChannelSubscriptionAttribute.Predicate">
+            <summary>
+            Gets the stream namespace filter predicate.
+            </summary>
+        </member>
+        <member name="P:Orleans.ImplicitChannelSubscriptionAttribute.ChannelIdMapper">
+            <summary>
+            Gets the name of the channel identifier mapper.
+            </summary>
+            <value>The name of the channel identifier mapper.</value>
+        </member>
+        <member name="M:Orleans.ImplicitChannelSubscriptionAttribute.#ctor">
+            <summary>
+            Used to subscribe to all stream namespaces.
+            </summary>
+        </member>
+        <member name="M:Orleans.ImplicitChannelSubscriptionAttribute.#ctor(System.String,System.String)">
+            <summary>
+            Used to subscribe to the specified stream namespace.
+            </summary>
+            <param name="streamNamespace">The stream namespace to subscribe.</param>
+            <param name="channelIdMapper">The name of the stream identity mapper.</param>
+        </member>
+        <member name="M:Orleans.ImplicitChannelSubscriptionAttribute.#ctor(System.Type,System.String)">
+            <summary>
+            Allows to pass an arbitrary predicate type to filter stream namespaces to subscribe. The predicate type 
+            must have a constructor without parameters.
+            </summary>
+            <param name="predicateType">The stream namespace predicate type.</param>
+            <param name="channelIdMapper">The name of the stream identity mapper.</param>
+        </member>
+        <member name="M:Orleans.ImplicitChannelSubscriptionAttribute.#ctor(Orleans.BroadcastChannel.IChannelNamespacePredicate,System.String)">
+            <summary>
+            Allows to pass an instance of the stream namespace predicate. To be used mainly as an extensibility point
+            via inheriting attributes.
+            </summary>
+            <param name="predicate">The stream namespace predicate.</param>
+            <param name="channelIdMapper">The name of the stream identity mapper.</param>
+        </member>
+        <member name="M:Orleans.ImplicitChannelSubscriptionAttribute.GetBindings(System.IServiceProvider,System.Type,Orleans.Runtime.GrainType)">
+            <inheritdoc />
+        </member>
+        <member name="T:Orleans.RegexImplicitChannelSubscriptionAttribute">
+            <summary>
+            The [Orleans.RegexImplicitStreamSubscription] attribute is used to mark grains as implicit stream
+            subscriptions by filtering stream namespaces to subscribe using a regular expression.
+            </summary>
+        </member>
+        <member name="M:Orleans.RegexImplicitChannelSubscriptionAttribute.#ctor(System.String)">
+            <summary>
+            Allows to pass a regular expression to filter stream namespaces to subscribe to.
+            </summary>
+            <param name="pattern">The stream namespace regular expression filter.</param>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,747 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Orleans.Persistence.AzureStorage</name>
+    </assembly>
+    <members>
+        <member name="T:Orleans.Hosting.AzureBlobGrainStorageServiceCollectionExtensions">
+            <summary>
+            <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> extensions.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.AzureBlobGrainStorageServiceCollectionExtensions.AddAzureBlobGrainStorageAsDefault(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Orleans.Configuration.AzureBlobStorageOptions})">
+            <summary>
+            Configure silo to use azure blob storage as the default grain storage.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.AzureBlobGrainStorageServiceCollectionExtensions.AddAzureBlobGrainStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String,System.Action{Orleans.Configuration.AzureBlobStorageOptions})">
+            <summary>
+            Configure silo to use azure blob storage for grain storage.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.AzureBlobGrainStorageServiceCollectionExtensions.AddAzureBlobGrainStorageAsDefault(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.Extensions.Options.OptionsBuilder{Orleans.Configuration.AzureBlobStorageOptions}})">
+            <summary>
+            Configure silo to use azure blob storage as the default grain storage.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.AzureBlobGrainStorageServiceCollectionExtensions.AddAzureBlobGrainStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String,System.Action{Microsoft.Extensions.Options.OptionsBuilder{Orleans.Configuration.AzureBlobStorageOptions}})">
+            <summary>
+            Configure silo to use azure blob storage for grain storage.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.AzureBlobSiloBuilderExtensions.AddAzureBlobGrainStorageAsDefault(Orleans.Hosting.ISiloBuilder,System.Action{Orleans.Configuration.AzureBlobStorageOptions})">
+            <summary>
+            Configure silo to use azure blob storage as the default grain storage.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.AzureBlobSiloBuilderExtensions.AddAzureBlobGrainStorage(Orleans.Hosting.ISiloBuilder,System.String,System.Action{Orleans.Configuration.AzureBlobStorageOptions})">
+            <summary>
+            Configure silo to use azure blob storage for grain storage.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.AzureBlobSiloBuilderExtensions.AddAzureBlobGrainStorageAsDefault(Orleans.Hosting.ISiloBuilder,System.Action{Microsoft.Extensions.Options.OptionsBuilder{Orleans.Configuration.AzureBlobStorageOptions}})">
+            <summary>
+            Configure silo to use azure blob storage as the default grain storage.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.AzureBlobSiloBuilderExtensions.AddAzureBlobGrainStorage(Orleans.Hosting.ISiloBuilder,System.String,System.Action{Microsoft.Extensions.Options.OptionsBuilder{Orleans.Configuration.AzureBlobStorageOptions}})">
+            <summary>
+            Configure silo to use azure blob storage for grain storage.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.AzureTableSiloBuilderExtensions.AddAzureTableGrainStorageAsDefault(Orleans.Hosting.ISiloBuilder,System.Action{Orleans.Configuration.AzureTableStorageOptions})">
+            <summary>
+            Configure silo to use azure table storage as the default grain storage.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.AzureTableSiloBuilderExtensions.AddAzureTableGrainStorage(Orleans.Hosting.ISiloBuilder,System.String,System.Action{Orleans.Configuration.AzureTableStorageOptions})">
+            <summary>
+            Configure silo to use azure table storage for grain storage.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.AzureTableSiloBuilderExtensions.AddAzureTableGrainStorageAsDefault(Orleans.Hosting.ISiloBuilder,System.Action{Microsoft.Extensions.Options.OptionsBuilder{Orleans.Configuration.AzureTableStorageOptions}})">
+            <summary>
+            Configure silo to use azure table storage as the default grain storage.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.AzureTableSiloBuilderExtensions.AddAzureTableGrainStorage(Orleans.Hosting.ISiloBuilder,System.String,System.Action{Microsoft.Extensions.Options.OptionsBuilder{Orleans.Configuration.AzureTableStorageOptions}})">
+            <summary>
+            Configure silo to use azure table storage for grain storage.
+            </summary>
+        </member>
+        <member name="T:Orleans.Storage.AzureBlobGrainStorage">
+            <summary>
+            Simple storage provider for writing grain state data to Azure blob storage in JSON format.
+            </summary>
+        </member>
+        <member name="M:Orleans.Storage.AzureBlobGrainStorage.#ctor(System.String,Orleans.Configuration.AzureBlobStorageOptions,Orleans.Storage.IBlobContainerFactory,Microsoft.Extensions.Logging.ILogger{Orleans.Storage.AzureBlobGrainStorage})">
+            <summary> Default constructor </summary>
+        </member>
+        <member name="M:Orleans.Storage.AzureBlobGrainStorage.ReadStateAsync``1(System.String,Orleans.Runtime.GrainId,Orleans.IGrainState{``0})">
+            <summary> Read state data function for this storage provider. </summary>
+            <see cref="M:Orleans.Storage.IGrainStorage.ReadStateAsync``1(System.String,Orleans.Runtime.GrainId,Orleans.IGrainState{``0})"/>
+        </member>
+        <member name="M:Orleans.Storage.AzureBlobGrainStorage.WriteStateAsync``1(System.String,Orleans.Runtime.GrainId,Orleans.IGrainState{``0})">
+            <summary> Write state data function for this storage provider. </summary>
+            <see cref="M:Orleans.Storage.IGrainStorage.WriteStateAsync``1(System.String,Orleans.Runtime.GrainId,Orleans.IGrainState{``0})"/>
+        </member>
+        <member name="M:Orleans.Storage.AzureBlobGrainStorage.ClearStateAsync``1(System.String,Orleans.Runtime.GrainId,Orleans.IGrainState{``0})">
+            <summary> Clear / Delete state data function for this storage provider. </summary>
+            <see cref="M:Orleans.Storage.IGrainStorage.ClearStateAsync``1(System.String,Orleans.Runtime.GrainId,Orleans.IGrainState{``0})"/>
+        </member>
+        <member name="M:Orleans.Storage.AzureBlobGrainStorage.Init(System.Threading.CancellationToken)">
+            <summary> Initialization function for this storage provider. </summary>
+        </member>
+        <member name="M:Orleans.Storage.AzureBlobGrainStorage.ConvertToStorageFormat``1(``0)">
+            <summary>
+            Serialize to the configured storage format
+            </summary>
+            <param name="grainState">The grain state data to be serialized</param>
+        </member>
+        <member name="M:Orleans.Storage.AzureBlobGrainStorage.ConvertFromStorageFormat``1(System.BinaryData)">
+            <summary>
+            Deserialize from the configured storage format
+            </summary>
+            <param name="contents">The serialized contents.</param>
+        </member>
+        <member name="T:Orleans.Storage.AzureTableGrainStorage">
+            <summary>
+            Simple storage for writing grain state data to Azure table storage.
+            </summary>
+        </member>
+        <member name="M:Orleans.Storage.AzureTableGrainStorage.#ctor(System.String,Orleans.Configuration.AzureTableStorageOptions,Microsoft.Extensions.Options.IOptions{Orleans.Configuration.ClusterOptions},System.IServiceProvider,Microsoft.Extensions.Logging.ILogger{Orleans.Storage.AzureTableGrainStorage})">
+            <summary> Default constructor </summary>
+        </member>
+        <member name="M:Orleans.Storage.AzureTableGrainStorage.ReadStateAsync``1(System.String,Orleans.Runtime.GrainId,Orleans.IGrainState{``0})">
+            <summary> Read state data function for this storage provider. </summary>
+            <see cref="M:Orleans.Storage.IGrainStorage.ReadStateAsync``1(System.String,Orleans.Runtime.GrainId,Orleans.IGrainState{``0})"/>
+        </member>
+        <member name="M:Orleans.Storage.AzureTableGrainStorage.WriteStateAsync``1(System.String,Orleans.Runtime.GrainId,Orleans.IGrainState{``0})">
+            <summary> Write state data function for this storage provider. </summary>
+            <see cref="M:Orleans.Storage.IGrainStorage.WriteStateAsync``1(System.String,Orleans.Runtime.GrainId,Orleans.IGrainState{``0})"/>
+        </member>
+        <member name="M:Orleans.Storage.AzureTableGrainStorage.ClearStateAsync``1(System.String,Orleans.Runtime.GrainId,Orleans.IGrainState{``0})">
+            <summary> Clear / Delete state data function for this storage provider. </summary>
+            <remarks>
+            If the <c>DeleteStateOnClear</c> is set to <c>true</c> then the table row
+            for this grain will be deleted / removed, otherwise the table row will be
+            cleared by overwriting with default / null values.
+            </remarks>
+            <see cref="M:Orleans.Storage.IGrainStorage.ClearStateAsync``1(System.String,Orleans.Runtime.GrainId,Orleans.IGrainState{``0})"/>
+        </member>
+        <member name="M:Orleans.Storage.AzureTableGrainStorage.ConvertToStorageFormat``1(``0,Azure.Data.Tables.TableEntity)">
+            <summary>
+            Serialize to Azure storage format in either binary or JSON format.
+            </summary>
+            <param name="grainState">The grain state data to be serialized</param>
+            <param name="entity">The Azure table entity the data should be stored in</param>
+            <remarks>
+            See:
+            http://msdn.microsoft.com/en-us/library/system.web.script.serialization.javascriptserializer.aspx
+            for more on the JSON serializer.
+            </remarks>
+        </member>
+        <member name="M:Orleans.Storage.AzureTableGrainStorage.ConvertFromStorageFormat``1(Azure.Data.Tables.TableEntity)">
+            <summary>
+            Deserialize from Azure storage format
+            </summary>
+            <param name="entity">The Azure table entity the stored data</param>
+        </member>
+        <member name="M:Orleans.Storage.AzureTableGrainStorage.DecodeException(System.Exception,System.Net.HttpStatusCode@,System.String@,System.Boolean)">
+            <summary> Decodes Storage exceptions.</summary>
+        </member>
+        <member name="T:Orleans.Storage.IBlobContainerFactory">
+            <summary>
+            A factory for building container clients for blob storage using grainType and grainId
+            </summary>
+        </member>
+        <member name="M:Orleans.Storage.IBlobContainerFactory.GetBlobContainerClient(Orleans.Runtime.GrainId)">
+            <summary>
+            Gets the container which should be used for the specified grain.
+            </summary>
+            <param name="grainId">The grain id</param>
+            <returns>A configured blob client</returns>
+        </member>
+        <member name="M:Orleans.Storage.IBlobContainerFactory.InitializeAsync(Azure.Storage.Blobs.BlobServiceClient)">
+            <summary>
+            Initialize any required dependencies using the provided client and options.
+            </summary>
+            <param name="client">The connected blob client</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the asynchronous operation.</returns>
+        </member>
+        <member name="T:Orleans.Storage.DefaultBlobContainerFactory">
+            <summary>
+            A default blob container factory that uses the default container name.
+            </summary>
+        </member>
+        <member name="M:Orleans.Storage.DefaultBlobContainerFactory.#ctor(Orleans.Configuration.AzureBlobStorageOptions)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Orleans.Storage.DefaultBlobContainerFactory"/> class.
+            </summary>
+            <param name="options">The blob storage options</param>
+        </member>
+        <member name="M:Orleans.Storage.DefaultBlobContainerFactory.GetBlobContainerClient(Orleans.Runtime.GrainId)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.Storage.DefaultBlobContainerFactory.InitializeAsync(Azure.Storage.Blobs.BlobServiceClient)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Orleans.Storage.TableStorageUpdateConditionNotSatisfiedException">
+            <summary>
+            Exception thrown when a storage provider detects an Etag inconsistency when attempting to perform a WriteStateAsync operation.
+            </summary>
+        </member>
+        <member name="M:Orleans.Storage.TableStorageUpdateConditionNotSatisfiedException.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,System.Exception)">
+            <summary>
+            Exception thrown when an azure table storage exception is thrown due to update conditions not being satisfied.
+            </summary>
+        </member>
+        <member name="M:Orleans.Storage.TableStorageUpdateConditionNotSatisfiedException.#ctor(System.String,System.String,System.String,System.String,System.String,System.Exception)">
+            <summary>
+            Exception thrown when an azure table storage exception is thrown due to update conditions not being satisfied.
+            </summary>
+        </member>
+        <member name="P:Orleans.Storage.TableStorageUpdateConditionNotSatisfiedException.GrainId">
+            <summary>
+            Id of grain
+            </summary>
+        </member>
+        <member name="P:Orleans.Storage.TableStorageUpdateConditionNotSatisfiedException.GrainType">
+            <summary>
+            Type of grain that throw this exception
+            </summary>
+        </member>
+        <member name="P:Orleans.Storage.TableStorageUpdateConditionNotSatisfiedException.TableName">
+            <summary>
+            Azure table name
+            </summary>
+        </member>
+        <member name="M:Orleans.Storage.TableStorageUpdateConditionNotSatisfiedException.#ctor">
+            <summary>
+            Exception thrown when an azure table storage exception is thrown due to update conditions not being satisfied.
+            </summary>
+        </member>
+        <member name="M:Orleans.Storage.TableStorageUpdateConditionNotSatisfiedException.#ctor(System.String)">
+            <summary>
+            Exception thrown when an azure table storage exception is thrown due to update conditions not being satisfied.
+            </summary>
+        </member>
+        <member name="M:Orleans.Storage.TableStorageUpdateConditionNotSatisfiedException.#ctor(System.String,System.Exception)">
+            <summary>
+            Exception thrown when an azure table storage exception is thrown due to update conditions not being satisfied.
+            </summary>
+        </member>
+        <member name="M:Orleans.Storage.TableStorageUpdateConditionNotSatisfiedException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Exception thrown when an azure table storage exception is thrown due to update conditions not being satisfied.
+            </summary>
+        </member>
+        <member name="M:Orleans.Storage.TableStorageUpdateConditionNotSatisfiedException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <inheritdoc />   
+        </member>
+        <member name="P:Orleans.Configuration.AzureBlobStorageOptions.ContainerName">
+            <summary>
+            Container name where grain stage is stored
+            </summary>
+        </member>
+        <member name="P:Orleans.Configuration.AzureBlobStorageOptions.ClientOptions">
+            <summary>
+            Options to be used when configuring the blob storage client, or <see langword="null"/> to use the default options.
+            </summary>
+        </member>
+        <member name="P:Orleans.Configuration.AzureBlobStorageOptions.CreateClient">
+            <summary>
+            The optional delegate used to create a <see cref="P:Orleans.Configuration.AzureBlobStorageOptions.BlobServiceClient"/> instance.
+            </summary>
+        </member>
+        <member name="P:Orleans.Configuration.AzureBlobStorageOptions.InitStage">
+            <summary>
+            Stage of silo lifecycle where storage should be initialized.  Storage must be initialized prior to use.
+            </summary>
+        </member>
+        <member name="P:Orleans.Configuration.AzureBlobStorageOptions.GrainStorageSerializer">
+            <inheritdoc/>
+        </member>
+        <member name="P:Orleans.Configuration.AzureBlobStorageOptions.BlobServiceClient">
+            <summary>
+            Gets or sets the client used to access the Azure Blob Service.
+            </summary>
+        </member>
+        <member name="P:Orleans.Configuration.AzureBlobStorageOptions.BuildContainerFactory">
+            <summary>
+            A function for building container factory instances
+            </summary>
+        </member>
+        <member name="M:Orleans.Configuration.AzureBlobStorageOptions.ConfigureBlobServiceClient(System.String)">
+            <summary>
+            Configures the <see cref="P:Orleans.Configuration.AzureBlobStorageOptions.BlobServiceClient"/> using a connection string.
+            </summary>
+        </member>
+        <member name="M:Orleans.Configuration.AzureBlobStorageOptions.ConfigureBlobServiceClient(System.Uri)">
+            <summary>
+            Configures the <see cref="P:Orleans.Configuration.AzureBlobStorageOptions.BlobServiceClient"/> using an authenticated service URI.
+            </summary>
+        </member>
+        <member name="M:Orleans.Configuration.AzureBlobStorageOptions.ConfigureBlobServiceClient(System.Func{System.Threading.Tasks.Task{Azure.Storage.Blobs.BlobServiceClient}})">
+            <summary>
+            Configures the <see cref="P:Orleans.Configuration.AzureBlobStorageOptions.BlobServiceClient"/> using the provided callback.
+            </summary>
+        </member>
+        <member name="M:Orleans.Configuration.AzureBlobStorageOptions.ConfigureBlobServiceClient(System.Uri,Azure.Core.TokenCredential)">
+            <summary>
+            Configures the <see cref="P:Orleans.Configuration.AzureBlobStorageOptions.BlobServiceClient"/> using an authenticated service URI and a <see cref="T:Azure.Core.TokenCredential"/>.
+            </summary>
+        </member>
+        <member name="M:Orleans.Configuration.AzureBlobStorageOptions.ConfigureBlobServiceClient(System.Uri,Azure.AzureSasCredential)">
+            <summary>
+            Configures the <see cref="P:Orleans.Configuration.AzureBlobStorageOptions.BlobServiceClient"/> using an authenticated service URI and a <see cref="T:Azure.AzureSasCredential"/>.
+            </summary>
+        </member>
+        <member name="M:Orleans.Configuration.AzureBlobStorageOptions.ConfigureBlobServiceClient(System.Uri,Azure.Storage.StorageSharedKeyCredential)">
+            <summary>
+            Configures the <see cref="P:Orleans.Configuration.AzureBlobStorageOptions.BlobServiceClient"/> using an authenticated service URI and a <see cref="T:Azure.Storage.StorageSharedKeyCredential"/>.
+            </summary>
+        </member>
+        <member name="T:Orleans.Configuration.AzureBlobStorageOptionsValidator">
+            <summary>
+            Configuration validator for AzureBlobStorageOptions
+            </summary>
+        </member>
+        <member name="M:Orleans.Configuration.AzureBlobStorageOptionsValidator.#ctor(Orleans.Configuration.AzureBlobStorageOptions,System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="options">The option to be validated.</param>
+            <param name="name">The option name to be validated.</param>
+        </member>
+        <member name="T:Orleans.Configuration.AzureTableStorageOptions">
+            <summary>
+            Configuration for AzureTableGrainStorage
+            </summary>
+        </member>
+        <member name="P:Orleans.Configuration.AzureTableStorageOptions.TableName">
+            <summary>
+            Table name where grain stage is stored
+            </summary>
+        </member>
+        <member name="P:Orleans.Configuration.AzureTableStorageOptions.DeleteStateOnClear">
+            <summary>
+            Indicates if grain data should be deleted or reset to defaults when a grain clears it's state.
+            </summary>
+        </member>
+        <member name="P:Orleans.Configuration.AzureTableStorageOptions.InitStage">
+            <summary>
+            Stage of silo lifecycle where storage should be initialized.  Storage must be initialized prior to use.
+            </summary>
+        </member>
+        <member name="P:Orleans.Configuration.AzureTableStorageOptions.GrainStorageSerializer">
+            <inheritdoc/>
+        </member>
+        <member name="T:Orleans.Configuration.AzureTableGrainStorageOptionsValidator">
+            <summary>
+            Configuration validator for AzureTableStorageOptions
+            </summary>
+        </member>
+        <member name="M:Orleans.Configuration.AzureTableGrainStorageOptionsValidator.#ctor(Orleans.Configuration.AzureTableStorageOptions,System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="options">The option to be validated.</param>
+            <param name="name">The option name to be validated.</param>
+        </member>
+        <member name="T:Orleans.Persistence.AzureStorage.AzureBlobUtils">
+            <summary>
+            General utility functions related to Azure Blob storage.
+            </summary>
+        </member>
+        <member name="M:Orleans.Persistence.AzureStorage.AzureBlobUtils.ContainerNameRegex">
+            <remarks>
+            Pattern:<br/>
+            <code>^[a-z0-9]+(-[a-z0-9]+)*$</code><br/>
+            Options:<br/>
+            <code>RegexOptions.ExplicitCapture | RegexOptions.Singleline | RegexOptions.CultureInvariant</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ Match a character in the set [0-9a-z] greedily at least once.<br/>
+            ○ Loop greedily any number of times.<br/>
+                ○ Match '-'.<br/>
+                ○ Match a character in the set [0-9a-z] atomically at least once.<br/>
+            ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="P:Orleans.Persistence.AzureStorage.AzureStorageOperationOptions.TableName">
+            <summary>
+            Table name for Azure Storage
+            </summary>
+        </member>
+        <member name="P:Orleans.Persistence.AzureStorage.AzureStorageOperationOptions.StoragePolicyOptions">
+            <summary>
+            Azure Storage Policy Options
+            </summary>
+        </member>
+        <member name="P:Orleans.Persistence.AzureStorage.AzureStorageOperationOptions.ClientOptions">
+            <summary>
+            Options to be used when configuring the table storage client, or <see langword="null"/> to use the default options.
+            </summary>
+        </member>
+        <member name="P:Orleans.Persistence.AzureStorage.AzureStorageOperationOptions.CreateClient">
+            <summary>
+            The delegate used to create a <see cref="P:Orleans.Persistence.AzureStorage.AzureStorageOperationOptions.TableServiceClient"/> instance.
+            </summary>
+        </member>
+        <member name="P:Orleans.Persistence.AzureStorage.AzureStorageOperationOptions.TableServiceClient">
+            <summary>
+            Gets or sets the client used to access the Azure Table Service.
+            </summary>
+        </member>
+        <member name="M:Orleans.Persistence.AzureStorage.AzureStorageOperationOptions.ConfigureTableServiceClient(System.String)">
+            <summary>
+            Configures the <see cref="P:Orleans.Persistence.AzureStorage.AzureStorageOperationOptions.TableServiceClient"/> using a connection string.
+            </summary>
+        </member>
+        <member name="M:Orleans.Persistence.AzureStorage.AzureStorageOperationOptions.ConfigureTableServiceClient(System.Uri)">
+            <summary>
+            Configures the <see cref="P:Orleans.Persistence.AzureStorage.AzureStorageOperationOptions.TableServiceClient"/> using an authenticated service URI.
+            </summary>
+        </member>
+        <member name="M:Orleans.Persistence.AzureStorage.AzureStorageOperationOptions.ConfigureTableServiceClient(System.Func{System.Threading.Tasks.Task{Azure.Data.Tables.TableServiceClient}})">
+            <summary>
+            Configures the <see cref="P:Orleans.Persistence.AzureStorage.AzureStorageOperationOptions.TableServiceClient"/> using the provided callback.
+            </summary>
+        </member>
+        <member name="M:Orleans.Persistence.AzureStorage.AzureStorageOperationOptions.ConfigureTableServiceClient(System.Uri,Azure.Core.TokenCredential)">
+            <summary>
+            Configures the <see cref="P:Orleans.Persistence.AzureStorage.AzureStorageOperationOptions.TableServiceClient"/> using an authenticated service URI and a <see cref="T:Azure.Core.TokenCredential"/>.
+            </summary>
+        </member>
+        <member name="M:Orleans.Persistence.AzureStorage.AzureStorageOperationOptions.ConfigureTableServiceClient(System.Uri,Azure.AzureSasCredential)">
+            <summary>
+            Configures the <see cref="P:Orleans.Persistence.AzureStorage.AzureStorageOperationOptions.TableServiceClient"/> using an authenticated service URI and a <see cref="T:Azure.AzureSasCredential"/>.
+            </summary>
+        </member>
+        <member name="M:Orleans.Persistence.AzureStorage.AzureStorageOperationOptions.ConfigureTableServiceClient(System.Uri,Azure.Data.Tables.TableSharedKeyCredential)">
+            <summary>
+            Configures the <see cref="P:Orleans.Persistence.AzureStorage.AzureStorageOperationOptions.TableServiceClient"/> using an authenticated service URI and a <see cref="T:Azure.Data.Tables.TableSharedKeyCredential"/>.
+            </summary>
+        </member>
+        <member name="T:Orleans.Persistence.AzureStorage.AzureTableDataManager`1">
+            <summary>
+            Utility class to encapsulate row-based access to Azure table storage.
+            </summary>
+            <typeparam name="T">Table data entry used by this table / manager.</typeparam>
+        </member>
+        <member name="P:Orleans.Persistence.AzureStorage.AzureTableDataManager`1.TableName">
+            <summary> Name of the table this instance is managing. </summary>
+        </member>
+        <member name="P:Orleans.Persistence.AzureStorage.AzureTableDataManager`1.Logger">
+            <summary> Logger for this table manager instance. </summary>
+        </member>
+        <member name="M:Orleans.Persistence.AzureStorage.AzureTableDataManager`1.#ctor(Orleans.Persistence.AzureStorage.AzureStorageOperationOptions,Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            Creates a new <see cref="T:Orleans.Persistence.AzureStorage.AzureTableDataManager`1"/> instance.
+            </summary>
+            <param name="options">Storage configuration.</param>
+            <param name="logger">Logger to use.</param>
+        </member>
+        <member name="M:Orleans.Persistence.AzureStorage.AzureTableDataManager`1.InitTableAsync">
+            <summary>
+            Connects to, or creates and initializes a new Azure table if it does not already exist.
+            </summary>
+            <returns>Completion promise for this operation.</returns>
+        </member>
+        <member name="M:Orleans.Persistence.AzureStorage.AzureTableDataManager`1.DeleteTableAsync">
+            <summary>
+            Deletes the Azure table.
+            </summary>
+            <returns>Completion promise for this operation.</returns>
+        </member>
+        <member name="M:Orleans.Persistence.AzureStorage.AzureTableDataManager`1.ClearTableAsync">
+            <summary>
+            Deletes all entities the Azure table.
+            </summary>
+            <returns>Completion promise for this operation.</returns>
+        </member>
+        <member name="M:Orleans.Persistence.AzureStorage.AzureTableDataManager`1.CreateTableEntryAsync(`0)">
+            <summary>
+            Create a new data entry in the Azure table (insert new, not update existing).
+            Fails if the data already exists.
+            </summary>
+            <param name="data">Data to be inserted into the table.</param>
+            <returns>Value promise with new Etag for this data entry after completing this storage operation.</returns>
+        </member>
+        <member name="M:Orleans.Persistence.AzureStorage.AzureTableDataManager`1.UpsertTableEntryAsync(`0)">
+            <summary>
+            Inserts a data entry in the Azure table: creates a new one if does not exists or overwrites (without eTag) an already existing version (the "update in place" semantics).
+            </summary>
+            <param name="data">Data to be inserted or replaced in the table.</param>
+            <returns>Value promise with new Etag for this data entry after completing this storage operation.</returns>
+        </member>
+        <member name="M:Orleans.Persistence.AzureStorage.AzureTableDataManager`1.InsertTableEntryAsync(`0)">
+            <summary>
+            Inserts a data entry in the Azure table: creates a new one if does not exists
+            </summary>
+            <param name="data">Data to be inserted or replaced in the table.</param>
+            <returns>Value promise with new Etag for this data entry after completing this storage operation.</returns>
+        </member>
+        <member name="M:Orleans.Persistence.AzureStorage.AzureTableDataManager`1.MergeTableEntryAsync(`0,System.String)">
+            <summary>
+            Merges a data entry in the Azure table.
+            </summary>
+            <param name="data">Data to be merged in the table.</param>
+            <param name="eTag">ETag to apply.</param>
+            <returns>Value promise with new Etag for this data entry after completing this storage operation.</returns>
+        </member>
+        <member name="M:Orleans.Persistence.AzureStorage.AzureTableDataManager`1.MergeTableEntryAsync(`0,Azure.ETag)">
+            <summary>
+            Merges a data entry in the Azure table.
+            </summary>
+            <param name="data">Data to be merged in the table.</param>
+            <param name="eTag">ETag to apply.</param>
+            <returns>Value promise with new Etag for this data entry after completing this storage operation.</returns>
+        </member>
+        <member name="M:Orleans.Persistence.AzureStorage.AzureTableDataManager`1.UpdateTableEntryAsync(`0,System.String)">
+            <summary>
+            Updates a data entry in the Azure table: updates an already existing data in the table, by using eTag.
+            Fails if the data does not already exist or of eTag does not match.
+            </summary>
+            <param name="data">Data to be updated into the table.</param>
+            /// <param name="dataEtag">ETag to use.</param>
+            <returns>Value promise with new Etag for this data entry after completing this storage operation.</returns>
+        </member>
+        <member name="M:Orleans.Persistence.AzureStorage.AzureTableDataManager`1.UpdateTableEntryAsync(`0,Azure.ETag)">
+            <summary>
+            Updates a data entry in the Azure table: updates an already existing data in the table, by using eTag.
+            Fails if the data does not already exist or of eTag does not match.
+            </summary>
+            <param name="data">Data to be updated into the table.</param>
+            /// <param name="dataEtag">ETag to use.</param>
+            <returns>Value promise with new Etag for this data entry after completing this storage operation.</returns>
+        </member>
+        <member name="M:Orleans.Persistence.AzureStorage.AzureTableDataManager`1.DeleteTableEntryAsync(`0,System.String)">
+            <summary>
+            Deletes an already existing data in the table, by using eTag.
+            Fails if the data does not already exist or if eTag does not match.
+            </summary>
+            <param name="data">Data entry to be deleted from the table.</param>
+            <param name="eTag">ETag to use.</param>
+            <returns>Completion promise for this storage operation.</returns>
+        </member>
+        <member name="M:Orleans.Persistence.AzureStorage.AzureTableDataManager`1.DeleteTableEntryAsync(`0,Azure.ETag)">
+            <summary>
+            Deletes an already existing data in the table, by using eTag.
+            Fails if the data does not already exist or if eTag does not match.
+            </summary>
+            <param name="data">Data entry to be deleted from the table.</param>
+            <param name="eTag">ETag to use.</param>
+            <returns>Completion promise for this storage operation.</returns>
+        </member>
+        <member name="M:Orleans.Persistence.AzureStorage.AzureTableDataManager`1.ReadSingleTableEntryAsync(System.String,System.String)">
+            <summary>
+            Read a single table entry from the storage table.
+            </summary>
+            <param name="partitionKey">The partition key for the entry.</param>
+            <param name="rowKey">The row key for the entry.</param>
+            <returns>Value promise for tuple containing the data entry and its corresponding etag.</returns>
+        </member>
+        <member name="M:Orleans.Persistence.AzureStorage.AzureTableDataManager`1.ReadAllTableEntriesForPartitionAsync(System.String)">
+            <summary>
+            Read all entries in one partition of the storage table.
+            NOTE: This could be an expensive and slow operation for large table partitions!
+            </summary>
+            <param name="partitionKey">The key for the partition to be searched.</param>
+            <returns>Enumeration of all entries in the specified table partition.</returns>
+        </member>
+        <member name="M:Orleans.Persistence.AzureStorage.AzureTableDataManager`1.ReadAllTableEntriesAsync">
+            <summary>
+            Read all entries in the table.
+            NOTE: This could be a very expensive and slow operation for large tables!
+            </summary>
+            <returns>Enumeration of all entries in the table.</returns>
+        </member>
+        <member name="M:Orleans.Persistence.AzureStorage.AzureTableDataManager`1.DeleteTableEntriesAsync(System.Collections.Generic.List{System.ValueTuple{`0,System.String}})">
+            <summary>
+            Deletes a set of already existing data entries in the table, by using eTag.
+            Fails if the data does not already exist or if eTag does not match.
+            </summary>
+            <param name="collection">Data entries and their corresponding etags to be deleted from the table.</param>
+            <returns>Completion promise for this storage operation.</returns>
+        </member>
+        <member name="M:Orleans.Persistence.AzureStorage.AzureTableDataManager`1.ReadTableEntriesAndEtagsAsync(System.String)">
+            <summary>
+            Read data entries and their corresponding eTags from the Azure table.
+            </summary>
+            <param name="filter">Filter string to use for querying the table and filtering the results.</param>
+            <returns>Enumeration of entries in the table which match the query condition.</returns>
+        </member>
+        <member name="M:Orleans.Persistence.AzureStorage.AzureTableDataManager`1.BulkInsertTableEntries(System.Collections.Generic.IReadOnlyCollection{`0})">
+            <summary>
+            Inserts a set of new data entries into the table.
+            Fails if the data does already exists.
+            </summary>
+            <param name="collection">Data entries to be inserted into the table.</param>
+            <returns>Completion promise for this storage operation.</returns>
+        </member>
+        <member name="T:Orleans.Persistence.AzureStorage.AzureTableConstants">
+            <summary>
+            Constants related to Azure Table storage (also applies to Table endpoints in Cosmos DB).
+            </summary>
+        </member>
+        <member name="T:Orleans.Persistence.AzureStorage.AzureTableUtils">
+            <summary>
+            General utility functions related to Azure Table storage (also applies to Table endpoints in Cosmos DB).
+            </summary>
+        </member>
+        <member name="F:Orleans.Persistence.AzureStorage.AzureTableUtils.ANY_ETAG">
+            <summary>
+            ETag of value "*" to match any etag for conditional table operations (update, merge, delete).
+            </summary>
+        </member>
+        <member name="M:Orleans.Persistence.AzureStorage.AzureTableUtils.TableStorageDataNotFound(System.Exception)">
+            <summary>
+            Inspect an exception returned from Azure storage libraries to check whether it means that attempt was made to read some data that does not exist in storage table.
+            </summary>
+            <param name="exc">Exception that was returned by Azure storage library operation</param>
+            <returns><c>True</c> if this exception means the data being read was not present in Azure table storage</returns>
+        </member>
+        <member name="M:Orleans.Persistence.AzureStorage.AzureTableUtils.ExtractRestErrorCode(System.Exception)">
+            <summary>
+            Extract REST error code from DataServiceClientException or DataServiceQueryException
+            </summary>
+            <param name="exc">Exception to be inspected.</param>
+            <returns>Returns REST error code if found, otherwise <c>null</c></returns>
+        </member>
+        <member name="M:Orleans.Persistence.AzureStorage.AzureTableUtils.EvaluateException(System.Exception,System.Net.HttpStatusCode@,System.String@,System.Boolean)">
+            <summary>
+            Examine a storage exception, and if applicable extracts the HTTP status code, and REST error code if <c>getRESTErrors=true</c>.
+            </summary>
+            <param name="e">Exception to be examined.</param>
+            <param name="httpStatusCode">Output HTTP status code if applicable, otherwise HttpStatusCode.Unused (306)</param>
+            <param name="restStatus">When <c>getRESTErrors=true</c>, will output REST error code if applicable, otherwise <c>null</c></param>
+            <param name="getRESTErrors">Whether REST error code should also be examined / extracted.</param>
+            <returns>Returns <c>true</c> if HTTP status code and REST error were extracted.</returns>
+        </member>
+        <member name="M:Orleans.Persistence.AzureStorage.AzureTableUtils.IsRetriableHttpError(System.Net.HttpStatusCode,System.String)">
+            <summary>
+            Returns true if the specified HTTP status / error code is returned in a transient / retriable error condition
+            </summary>
+            <param name="httpStatusCode">HTTP error code value</param>
+            <param name="restStatusCode">REST error code value</param>
+            <returns><c>true</c> if this is a transient / retriable error condition</returns>
+        </member>
+        <member name="M:Orleans.Persistence.AzureStorage.AzureTableUtils.IsContentionError(System.Net.HttpStatusCode)">
+            <summary>
+            Check whether a HTTP status code returned from a REST call might be due to a (temporary) storage contention error.
+            </summary>
+            <param name="httpStatusCode">HTTP status code to be examined.</param>
+            <returns>Returns <c>true</c> if the HTTP status code is due to storage contention.</returns>
+        </member>
+        <member name="M:Orleans.Persistence.AzureStorage.AzureTableUtils.IsNotFoundError(System.Net.HttpStatusCode)">
+            <summary>
+            Check whether a HTTP status code returned from a REST call might be due to a (temporary) storage contention error.
+            </summary>
+            <param name="httpStatusCode">HTTP status code to be examined.</param>
+            <returns>Returns <c>true</c> if the HTTP status code is due to storage contention.</returns>
+        </member>
+        <member name="M:Orleans.Persistence.AzureStorage.AzureTableUtils.TableNameRegex">
+            <remarks>
+            Pattern:<br/>
+            <code>^[A-Za-z][A-Za-z0-9]{2,62}$</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ Match a character in the set [A-Za-z].<br/>
+            ○ Match a character in the set [0-9A-Za-z] atomically at least 2 and at most 62 times.<br/>
+            ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Orleans.Persistence.AzureStorage.AzureTableUtils.SanitizeTableProperty(System.String)">
+            <summary>
+            Remove any characters that can't be used in Azure PartitionKey or RowKey values.
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.ContainerNameRegex_0">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the ContainerNameRegex method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.ContainerNameRegex_0.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.ContainerNameRegex_0.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.ContainerNameRegex_0.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.ContainerNameRegex_0.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.ContainerNameRegex_0.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.ContainerNameRegex_0.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.ContainerNameRegex_0.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.ContainerNameRegex_0.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.TableNameRegex_1">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the TableNameRegex method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.TableNameRegex_1.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.TableNameRegex_1.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.TableNameRegex_1.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.TableNameRegex_1.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.TableNameRegex_1.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.TableNameRegex_1.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.TableNameRegex_1.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.TableNameRegex_1.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.Utilities">
+            <summary>Helper methods used by generated <see cref="T:System.Text.RegularExpressions.Regex"/>-derived implementations.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout">
+            <summary>Default timeout value set in <see cref="T:System.AppContext"/>, or <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout"/> if none was set.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_hasTimeout">
+            <summary>Whether <see cref="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout"/> is non-infinite.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.Utilities.StackPush(System.Int32[]@,System.Int32@,System.Int32)">
+            <summary>Pushes 1 value onto the backtracking stack.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_ascii_FF0300000000FEFFFF07">
+            <summary>Supports searching for characters in or not in "0123456789abcdefghijklmnopqrstuvwxyz".</summary>
+        </member>
+    </members>
+</doc>

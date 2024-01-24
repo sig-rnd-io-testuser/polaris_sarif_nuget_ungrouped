@@ -1,0 +1,16 @@
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization/bin/Debug/net8.0/Orleans.Serialization.deps.json
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization/bin/Debug/net8.0/Orleans.Serialization.dll
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization/bin/Debug/net8.0/Orleans.Serialization.xml
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization/bin/Debug/net8.0/Orleans.Serialization.Abstractions.dll
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization/bin/Debug/net8.0/Orleans.Serialization.Abstractions.xml
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization/obj/Debug/net8.0/Orleans.Serialization.csproj.AssemblyReference.cache
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization/obj/Debug/net8.0/Orleans.Serialization.GeneratedMSBuildEditorConfig.editorconfig
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization/obj/Debug/net8.0/Orleans.Serialization.AssemblyInfoInputs.cache
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization/obj/Debug/net8.0/Orleans.Serialization.AssemblyInfo.cs
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization/obj/Debug/net8.0/Orleans.Serialization.csproj.CoreCompileInputs.cache
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization/obj/Debug/net8.0/Orleans.Serialization.sourcelink.json
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization/obj/Debug/net8.0/Orleans.Serialization.csproj.CopyComplete
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization/obj/Debug/net8.0/Orleans.Serialization.dll
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization/obj/Debug/net8.0/refint/Orleans.Serialization.dll
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization/obj/Debug/net8.0/Orleans.Serialization.xml
+/Users/chakrava/go/src/scan_projects/orleans/src/Orleans.Serialization/obj/Debug/net8.0/ref/Orleans.Serialization.dll

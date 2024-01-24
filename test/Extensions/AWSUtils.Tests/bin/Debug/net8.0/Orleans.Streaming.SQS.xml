@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Orleans.Streaming.SQS</name>
+    </assembly>
+    <members>
+        <member name="M:Orleans.Hosting.ClientBuilderExtensions.AddSqsStreams(Orleans.Hosting.IClientBuilder,System.String,System.Action{Orleans.Configuration.SqsOptions})">
+            <summary>
+            Configure cluster client to use SQS persistent streams with default settings
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.ClientBuilderExtensions.AddSqsStreams(Orleans.Hosting.IClientBuilder,System.String,System.Action{Orleans.Hosting.ClusterClientSqsStreamConfigurator})">
+            <summary>
+            Configure cluster client to use SQS persistent streams.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.SiloBuilderExtensions.AddSqsStreams(Orleans.Hosting.ISiloBuilder,System.String,System.Action{Orleans.Configuration.SqsOptions})">
+            <summary>
+            Configure silo to use SQS persistent streams.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.SiloBuilderExtensions.AddSqsStreams(Orleans.Hosting.ISiloBuilder,System.String,System.Action{Orleans.Hosting.SiloSqsStreamConfigurator})">
+            <summary>
+            Configure silo to use SQS persistent streams.
+            </summary>
+        </member>
+        <member name="T:Orleans.Streaming.SQS.AWSUtils">
+            <summary>
+            Some basic utilities methods for AWS SDK
+            </summary>
+        </member>
+        <member name="M:Orleans.Streaming.SQS.AWSUtils.ValidateDynamoDBPartitionKey(System.String)">
+            <summary>
+            Validate DynamoDB PartitionKey.
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.Streaming.SQS.AWSUtils.ValidateDynamoDBRowKey(System.String)">
+            <summary>
+            Validate DynamoDB RowKey.
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="T:OrleansAWSUtils.Storage.SQSStorage">
+            <summary>
+            Wrapper/Helper class around AWS SQS queue service
+            </summary>
+        </member>
+        <member name="F:OrleansAWSUtils.Storage.SQSStorage.MAX_NUMBER_OF_MESSAGE_TO_PEAK">
+            <summary>
+            Maximum number of messages allowed by SQS to peak per request
+            </summary>
+        </member>
+        <member name="P:OrleansAWSUtils.Storage.SQSStorage.QueueName">
+            <summary>
+            The queue Name
+            </summary>
+        </member>
+        <member name="M:OrleansAWSUtils.Storage.SQSStorage.#ctor(Microsoft.Extensions.Logging.ILoggerFactory,System.String,System.String,System.String)">
+            <summary>
+            Default Ctor
+            </summary>
+            <param name="loggerFactory">logger factory to use</param>
+            <param name="queueName">The name of the queue</param>
+            <param name="connectionString">The connection string</param>
+            <param name="serviceId">The service ID</param>
+        </member>
+        <member name="M:OrleansAWSUtils.Storage.SQSStorage.InitQueueAsync">
+            <summary>
+            Initialize SQSStorage by creating or connecting to an existent queue
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:OrleansAWSUtils.Storage.SQSStorage.DeleteQueue">
+            <summary>
+            Delete the queue
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:OrleansAWSUtils.Storage.SQSStorage.AddMessage(Amazon.SQS.Model.SendMessageRequest)">
+            <summary>
+            Add a message to the SQS queue
+            </summary>
+            <param name="message">Message request</param>
+            <returns></returns>
+        </member>
+        <member name="M:OrleansAWSUtils.Storage.SQSStorage.GetMessages(System.Int32)">
+            <summary>
+            Get Messages from SQS Queue.
+            </summary>
+            <param name="count">The number of messages to peak. Min 1 and max 10</param>
+            <returns>Collection with messages from the queue</returns>
+        </member>
+        <member name="M:OrleansAWSUtils.Storage.SQSStorage.DeleteMessage(Amazon.SQS.Model.Message)">
+            <summary>
+            Delete a message from SQS queue
+            </summary>
+            <param name="message">The message to be deleted</param>
+            <returns></returns>
+        </member>
+        <member name="T:OrleansAWSUtils.Streams.SQSAdapterFactory">
+            <summary> Factory class for Azure Queue based stream provider.</summary>
+        </member>
+        <member name="P:OrleansAWSUtils.Streams.SQSAdapterFactory.StreamFailureHandlerFactory">
+            <summary>
+            Application level failure handler override.
+            </summary>
+        </member>
+        <member name="M:OrleansAWSUtils.Streams.SQSAdapterFactory.Init">
+            <summary> Init the factory.</summary>
+        </member>
+        <member name="M:OrleansAWSUtils.Streams.SQSAdapterFactory.CreateAdapter">
+            <summary>Creates the Azure Queue based adapter.</summary>
+        </member>
+        <member name="M:OrleansAWSUtils.Streams.SQSAdapterFactory.GetQueueAdapterCache">
+            <summary>Creates the adapter cache.</summary>
+        </member>
+        <member name="M:OrleansAWSUtils.Streams.SQSAdapterFactory.GetStreamQueueMapper">
+            <summary>Creates the factory stream queue mapper.</summary>
+        </member>
+        <member name="M:OrleansAWSUtils.Streams.SQSAdapterFactory.GetDeliveryFailureHandler(Orleans.Streams.QueueId)">
+            <summary>
+            Creates a delivery failure handler for the specified queue.
+            </summary>
+            <param name="queueId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:OrleansAWSUtils.Streams.SQSAdapterReceiver">
+            <summary>
+            Receives batches of messages from a single partition of a message queue.  
+            </summary>
+        </member>
+        <member name="T:OrleansAWSUtils.Streams.SQSStreamProviderUtils">
+            <summary>
+            SQS utility functions
+            </summary>
+        </member>
+        <member name="M:OrleansAWSUtils.Streams.SQSStreamProviderUtils.DeleteAllUsedQueues(System.String,System.String,System.String,Microsoft.Extensions.Logging.ILoggerFactory)">
+            <summary>
+            Async method to delete all used queues, for specific provider and clusterId
+            </summary>
+            <returns> Task object for this async method </returns>
+        </member>
+    </members>
+</doc>

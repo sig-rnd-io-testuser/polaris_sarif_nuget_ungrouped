@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Orleans.Transactions.TestKit.xUnit</name>
+    </assembly>
+    <members>
+        <member name="M:Orleans.Transactions.TestKit.xUnit.TransactionalStateStorageTestRunnerxUnit`1.#ctor(System.Func{System.Threading.Tasks.Task{Orleans.Transactions.Abstractions.ITransactionalStateStorage{`0}}},System.Func{System.Int32,`0},Orleans.IGrainFactory,Xunit.Abstractions.ITestOutputHelper,System.Func{FluentAssertions.Equivalency.EquivalencyAssertionOptions{`0},FluentAssertions.Equivalency.EquivalencyAssertionOptions{`0}})">
+            <summary>
+            Constructor
+            </summary>
+            <param name="stateStorageFactory">factory to create ITransactionalStateStorage, the test runner are assuming the state 
+            in storage is empty when ITransactionalStateStorage was created </param>
+            <param name="stateFactory">factory to create TState for test</param>
+            <param name="grainFactory">grain Factory needed for test runner</param>
+            <param name="testOutput">test output to helpful messages</param>
+            <param name="assertConfig">A reference to the FluentAssertions.Equivalency.EquivalencyAssertionOptions`1
+                configuration object that can be used to influence the way the object graphs
+                are compared</param>
+        </member>
+        <member name="M:Orleans.Transactions.TestKit.xUnit.TransactionConcurrencyTestRunnerxUnit.SingleSharedGrainTest(System.String)">
+            <summary>
+            Two transaction share a single grain
+            </summary>
+            <param name="grainStates"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.Transactions.TestKit.xUnit.TransactionConcurrencyTestRunnerxUnit.TransactionChainTest(System.String)">
+            <summary>
+            Chain of transactions, each dependent on the results of the previous
+            </summary>
+            <param name="grainStates"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.Transactions.TestKit.xUnit.TransactionConcurrencyTestRunnerxUnit.TransactionTreeTest(System.String)">
+            <summary>
+            Single transaction containing two grains is dependent on two other transaction, one from each grain
+            </summary>
+            <param name="grainStates"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,525 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Orleans.Reminders</name>
+    </assembly>
+    <members>
+        <member name="F:Orleans.ReminderOptionsDefaults.MinimumReminderPeriodMinutes">
+            <summary>
+            Minimum period for registering a reminder ... we want to enforce a lower bound <see cref="P:Orleans.Hosting.ReminderOptions.MinimumReminderPeriod"/>.
+            </summary>
+            <remarks>Increase this period, reminders are supposed to be less frequent ... we use 2 seconds just to reduce the running time of the unit tests</remarks>
+        </member>
+        <member name="F:Orleans.ReminderOptionsDefaults.RefreshReminderListPeriodMinutes">
+            <summary>
+            Period (in minutes) between refreshing local reminder list to reflect the global reminder table every <see cref="P:Orleans.Hosting.ReminderOptions.RefreshReminderListPeriod"/>.
+            </summary>
+        </member>
+        <member name="F:Orleans.ReminderOptionsDefaults.InitializationTimeoutMinutes">
+            <summary>
+            The maximum amount of time (in minutes) to attempt to initialize reminders giving up <see cref="P:Orleans.Hosting.ReminderOptions.InitializationTimeout"/>.
+            </summary>
+        </member>
+        <member name="T:Orleans.Reminders.RSErrorCode">
+            <summary>
+            The set of error codes used by the Orleans runtime libraries for logging errors. For Reminders.
+            </summary>
+        </member>
+        <member name="T:Orleans.GrainReminderExtensions">
+            <summary>
+            Extension methods for accessing reminders from a <see cref="T:Orleans.Grain"/> or <see cref="T:Orleans.IGrainBase"/> implementation.
+            </summary>
+        </member>
+        <member name="M:Orleans.GrainReminderExtensions.RegisterOrUpdateReminder(Orleans.Grain,System.String,System.TimeSpan,System.TimeSpan)">
+            <summary>
+            Registers a persistent, reliable reminder to send regular notifications (reminders) to the grain.
+            The grain must implement the <c>Orleans.IRemindable</c> interface, and reminders for this grain will be sent to the <c>ReceiveReminder</c> callback method.
+            If the current grain is deactivated when the timer fires, a new activation of this grain will be created to receive this reminder.
+            If an existing reminder with the same name already exists, that reminder will be overwritten with this new reminder.
+            Reminders will always be received by one activation of this grain, even if multiple activations exist for this grain.
+            </summary>
+            <param name="grain">The grain instance.</param>
+            <param name="reminderName">Name of this reminder</param>
+            <param name="dueTime">Due time for this reminder</param>
+            <param name="period">Frequency period for this reminder</param>
+            <returns>Promise for Reminder handle.</returns>
+        </member>
+        <member name="M:Orleans.GrainReminderExtensions.RegisterOrUpdateReminder(Orleans.IGrainBase,System.String,System.TimeSpan,System.TimeSpan)">
+            <summary>
+            Registers a persistent, reliable reminder to send regular notifications (reminders) to the grain.
+            The grain must implement the <c>Orleans.IRemindable</c> interface, and reminders for this grain will be sent to the <c>ReceiveReminder</c> callback method.
+            If the current grain is deactivated when the timer fires, a new activation of this grain will be created to receive this reminder.
+            If an existing reminder with the same name already exists, that reminder will be overwritten with this new reminder.
+            Reminders will always be received by one activation of this grain, even if multiple activations exist for this grain.
+            </summary>
+            <param name="grain">The grain instance.</param>
+            <param name="reminderName">Name of this reminder</param>
+            <param name="dueTime">Due time for this reminder</param>
+            <param name="period">Frequency period for this reminder</param>
+            <returns>Promise for Reminder handle.</returns>
+        </member>
+        <member name="M:Orleans.GrainReminderExtensions.UnregisterReminder(Orleans.Grain,Orleans.Runtime.IGrainReminder)">
+            <summary>
+            Unregisters a previously registered reminder.
+            </summary>
+            <param name="grain">The grain instance.</param>
+            <param name="reminder">Reminder to unregister.</param>
+            <returns>Completion promise for this operation.</returns>
+        </member>
+        <member name="M:Orleans.GrainReminderExtensions.UnregisterReminder(Orleans.IGrainBase,Orleans.Runtime.IGrainReminder)">
+            <summary>
+            Unregisters a previously registered reminder.
+            </summary>
+            <param name="grain">The grain instance.</param>
+            <param name="reminder">Reminder to unregister.</param>
+            <returns>Completion promise for this operation.</returns>
+        </member>
+        <member name="M:Orleans.GrainReminderExtensions.GetReminder(Orleans.Grain,System.String)">
+            <summary>
+            Returns a previously registered reminder.
+            </summary>
+            <param name="grain">The grain instance.</param>
+            <param name="reminderName">Reminder to return</param>
+            <returns>Promise for Reminder handle.</returns>
+        </member>
+        <member name="M:Orleans.GrainReminderExtensions.GetReminder(Orleans.IGrainBase,System.String)">
+            <summary>
+            Returns a previously registered reminder.
+            </summary>
+            <param name="grain">A grain.</param>
+            <param name="reminderName">Reminder to return</param>
+            <returns>Promise for Reminder handle.</returns>
+        </member>
+        <member name="M:Orleans.GrainReminderExtensions.GetReminders(Orleans.Grain)">
+            <summary>
+            Returns a list of all reminders registered by the grain.
+            </summary>
+            <returns>Promise for list of Reminders registered for this grain.</returns>
+        </member>
+        <member name="M:Orleans.GrainReminderExtensions.GetReminders(Orleans.IGrainBase)">
+            <summary>
+            Returns a list of all reminders registered by the grain.
+            </summary>
+            <returns>Promise for list of Reminders registered for this grain.</returns>
+        </member>
+        <member name="M:Orleans.GrainReminderExtensions.GetReminderRegistry(Orleans.Runtime.IGrainContext)">
+            <summary>
+            Gets the <see cref="T:Orleans.Timers.IReminderRegistry"/>.
+            </summary>
+        </member>
+        <member name="M:Orleans.Runtime.ReminderService.LocalReminderService.Start">
+            <summary>
+            Attempt to retrieve reminders, that are my responsibility, from the global reminder table when starting this silo (reminder service instance)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.Runtime.ReminderService.LocalReminderService.UnregisterReminder(Orleans.Runtime.IGrainReminder)">
+            <summary>
+            Stop the reminder locally, and remove it from the external storage system
+            </summary>
+            <param name="reminder"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.Runtime.ReminderService.LocalReminderService.ReadAndUpdateReminders">
+            <summary>
+            Attempt to retrieve reminders from the global reminder table
+            </summary>
+        </member>
+        <member name="P:Orleans.Runtime.ReminderService.LocalReminderService.LocalReminderData.LocalSequenceNumber">
+            <summary>
+            Locally, we use this for resolving races between the periodic table reader, and any concurrent local register/unregister requests
+            </summary>
+        </member>
+        <member name="P:Orleans.Runtime.ReminderService.LocalReminderService.LocalReminderData.IsRunning">
+            <summary>
+            Gets a value indicating whether this instance is running.
+            </summary>
+        </member>
+        <member name="T:Orleans.Runtime.IGrainReminder">
+            <summary>
+            Handle for a persistent Reminder.
+            </summary>
+        </member>
+        <member name="P:Orleans.Runtime.IGrainReminder.ReminderName">
+            <summary>
+            Gets the name of this reminder.
+            </summary>
+        </member>
+        <member name="T:Orleans.Runtime.TickStatus">
+            <summary>
+            The status of a tick when the tick is delivered to the registrar grain.
+            In case of failures, it may happen that a tick is not delivered on time. The app can notice such missed ticks as follows.
+            Upon receiving a tick, the app can calculate the theoretical number of ticks since start of the reminder as: 
+            curCount = (Now - FirstTickTime) / Period
+            The app can keep track of it as 'count'. Upon receiving a tick, the number of missed ticks = curCount - count - 1
+            Thereafter, the app can set count = curCount
+            </summary>
+        </member>
+        <member name="P:Orleans.Runtime.TickStatus.FirstTickTime">
+            <summary>
+            Gets the time at which the first tick of this reminder is due, or was triggered.
+            </summary>
+        </member>
+        <member name="P:Orleans.Runtime.TickStatus.Period">
+            <summary>
+            Gets the period of the reminder.
+            </summary>
+        </member>
+        <member name="P:Orleans.Runtime.TickStatus.CurrentTickTime">
+            <summary>
+            Gets the time on the runtime silo when the silo initiated the delivery of this tick.
+            </summary>
+        </member>
+        <member name="M:Orleans.Runtime.TickStatus.#ctor(System.DateTime,System.TimeSpan,System.DateTime)">
+            <summary>
+            Creates a new <see cref="T:Orleans.Runtime.TickStatus"/> instance.
+            </summary>
+            <param name="firstTickTime">The time at which the first tick of the reminder is due.</param>
+            <param name="period">The period of the reminder.</param>
+            <param name="timeStamp">The time when delivery of the current tick was initiated.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.Runtime.TickStatus.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="T:Orleans.Runtime.ReminderException">
+            <summary>
+            Exception related to Orleans Reminder functions or Reminder service.
+            </summary>
+        </member>
+        <member name="M:Orleans.Runtime.ReminderException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Orleans.Runtime.ReminderException"/> class.
+            </summary>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:Orleans.Runtime.ReminderException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Orleans.Runtime.ReminderException"/> class.
+            </summary>
+            <param name="info">The serialization info.</param>
+            <param name="context">The context.</param>
+        </member>
+        <member name="M:Orleans.Hosting.SiloBuilderReminderExtensions.AddReminders(Orleans.Hosting.ISiloBuilder)">
+            <summary>
+            Adds support for reminders to this silo.
+            </summary>
+            <param name="builder">The builder.</param>
+            <returns>The silo builder.</returns>
+        </member>
+        <member name="M:Orleans.Hosting.SiloBuilderReminderExtensions.AddReminders(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Add support for reminders to this client.
+            </summary>
+            <param name="services">The services.</param>
+        </member>
+        <member name="T:Orleans.Hosting.SiloBuilderReminderMemoryExtensions">
+            <summary>
+            Extensions to <see cref="T:Orleans.Hosting.ISiloBuilder"/> for configuring reminder provider <see cref="T:Orleans.Runtime.ReminderService.InMemoryReminderTable"/>.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.SiloBuilderReminderMemoryExtensions.UseInMemoryReminderService(Orleans.Hosting.ISiloBuilder)">
+            <summary>
+            Configures reminder storage using an in-memory, non-persistent store.
+            </summary>
+            <remarks>
+            Note that this is for development and testing scenarios only and should not be used in production.
+            </remarks>
+            <param name="builder">The silo host builder.</param>
+            <returns>The provided <see cref="T:Orleans.Hosting.ISiloBuilder"/>, for chaining.</returns>
+        </member>
+        <member name="M:Orleans.Hosting.SiloBuilderReminderMemoryExtensions.UseInMemoryReminderService(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Configures reminder storage using an in-memory, non-persistent store.
+            </summary>
+            <remarks>
+            Note that this is for development and testing scenarios only and should not be used in production.
+            </remarks>
+            <param name="services">The service collection.</param>
+            <returns>The provided <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>, for chaining.</returns>
+        </member>
+        <member name="T:Orleans.Hosting.ReminderOptions">
+            <summary>
+            Options for the reminder service.
+            </summary>
+        </member>
+        <member name="P:Orleans.Hosting.ReminderOptions.MinimumReminderPeriod">
+            <summary>
+            Gets or sets the minimum period for reminders.
+            </summary>
+            <remarks>
+            High-frequency reminders are dangerous for production systems.
+            </remarks>
+        </member>
+        <member name="P:Orleans.Hosting.ReminderOptions.RefreshReminderListPeriod">
+            <summary>
+            Gets or sets the period between reminder table refreshes.
+            </summary>
+            <value>Refresh the reminder table every 5 minutes by default.</value>
+        </member>
+        <member name="P:Orleans.Hosting.ReminderOptions.InitializationTimeout">
+            <summary>
+            Gets or sets the maximum amount of time to attempt to initialize reminders before giving up.
+            </summary>
+            <value>Attempt to initialize for 5 minutes before giving up by default.</value>
+        </member>
+        <member name="T:Orleans.Hosting.ReminderOptionsValidator">
+            <summary>
+            Validator for <see cref="T:Orleans.Hosting.ReminderOptions"/>.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.ReminderOptionsValidator.#ctor(Microsoft.Extensions.Logging.ILogger{Orleans.Hosting.ReminderOptionsValidator},Microsoft.Extensions.Options.IOptions{Orleans.Hosting.ReminderOptions})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Orleans.Hosting.ReminderOptionsValidator"/> class.
+            </summary>
+            <param name="logger">
+            The logger.
+            </param>
+            <param name="reminderOptions">
+            The reminder options.
+            </param>
+        </member>
+        <member name="M:Orleans.Hosting.ReminderOptionsValidator.ValidateConfiguration">
+            <inheritdoc />
+        </member>
+        <member name="T:Orleans.IReminderService">
+            <summary>
+            Functionality for managing reminders.
+            </summary>
+        </member>
+        <member name="M:Orleans.IReminderService.Start">
+            <summary>
+            Starts the service.
+            </summary>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the operation.</returns>
+        </member>
+        <member name="M:Orleans.IReminderService.Stop">
+            <summary>
+            Stops the service.
+            </summary>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the operation.</returns>
+        </member>
+        <member name="M:Orleans.IReminderService.RegisterOrUpdateReminder(Orleans.Runtime.GrainId,System.String,System.TimeSpan,System.TimeSpan)">
+            <summary>
+            Registers a new reminder or updates an existing one.
+            </summary>
+            <param name="grainId">A reference to the grain which the reminder is being registered or updated on behalf of.</param>
+            <param name="reminderName">The reminder name.</param>
+            <param name="dueTime">The amount of time to delay before firing the reminder initially.</param>
+            <param name="period">The time interval between invocations of the reminder.</param>
+            <returns>The reminder.</returns>
+        </member>
+        <member name="M:Orleans.IReminderService.UnregisterReminder(Orleans.Runtime.IGrainReminder)">
+            <summary>
+            Unregisters the specified reminder.
+            </summary>
+            <param name="reminder">The reminder.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the operation.</returns>
+        </member>
+        <member name="M:Orleans.IReminderService.GetReminder(Orleans.Runtime.GrainId,System.String)">
+            <summary>
+            Gets the reminder registered to the specified grain with the provided name.
+            </summary>
+            <param name="grainId">A reference to the grain which the reminder is registered on.</param>
+            <param name="reminderName">The name of the reminder.</param>
+            <returns>The reminder.</returns>
+        </member>
+        <member name="M:Orleans.IReminderService.GetReminders(Orleans.Runtime.GrainId)">
+            <summary>
+            Gets all reminders registered for the specified grain.
+            </summary>
+            <param name="grainId">A reference to the grain.</param>
+            <returns>A list of all registered reminders for the specified grain.</returns>
+        </member>
+        <member name="T:Orleans.IReminderTable">
+            <summary>
+            Interface for implementations of the underlying storage for reminder data:
+            Azure Table, SQL, development emulator grain, and a mock implementation.
+            Defined as a grain interface for the development emulator grain case.
+            </summary>  
+        </member>
+        <member name="M:Orleans.IReminderTable.Init">
+            <summary>
+            Initializes this instance.
+            </summary>
+            <returns>A Task representing the work performed.</returns>
+        </member>
+        <member name="M:Orleans.IReminderTable.ReadRows(Orleans.Runtime.GrainId)">
+            <summary>
+            Reads the reminder table entries associated with the specified grain.
+            </summary>
+            <param name="grainId">The grain ID.</param>
+            <returns>The reminder table entries associated with the specified grain.</returns>
+        </member>
+        <member name="M:Orleans.IReminderTable.ReadRows(System.UInt32,System.UInt32)">
+            <summary>
+            Return all rows that have their <see cref="M:Orleans.Runtime.GrainId.GetUniformHashCode"/> in the range (start, end]
+            </summary>
+            <param name="begin">The exclusive lower bound.</param>
+            <param name="end">The inclusive upper bound.</param>
+            <returns>The reminder table entries which fall within the specified range.</returns>
+        </member>
+        <member name="M:Orleans.IReminderTable.ReadRow(Orleans.Runtime.GrainId,System.String)">
+            <summary>
+            Reads a specifie entry.
+            </summary>
+            <param name="grainId">The grain ID.</param>
+            <param name="reminderName">Name of the reminder.</param>
+            <returns>The reminder table entry.</returns>
+        </member>
+        <member name="M:Orleans.IReminderTable.UpsertRow(Orleans.ReminderEntry)">
+            <summary>
+            Upserts the specified entry.
+            </summary>
+            <param name="entry">The entry.</param>
+            <returns>The row's new ETag.</returns>
+        </member>
+        <member name="M:Orleans.IReminderTable.RemoveRow(Orleans.Runtime.GrainId,System.String,System.String)">
+            <summary>
+            Removes a row from the table.
+            </summary>
+            <param name="grainId">The grain ID.</param>
+            <param name="reminderName">The reminder name.</param>
+            /// <param name="eTag">The ETag.</param>
+            <returns>true if a row with <paramref name="grainId"/> and <paramref name="reminderName"/> existed and was removed successfully, false otherwise</returns>
+        </member>
+        <member name="M:Orleans.IReminderTable.TestOnlyClearTable">
+            <summary>
+            Clears the table.
+            </summary>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the work performed.</returns>
+        </member>
+        <member name="T:Orleans.IReminderTableGrain">
+            <summary>
+            Reminder table interface for grain based implementation.
+            </summary>
+        </member>
+        <member name="T:Orleans.ReminderTableData">
+            <summary>
+            Represents a collection of reminder table entries.
+            </summary>
+        </member>
+        <member name="M:Orleans.ReminderTableData.#ctor(System.Collections.Generic.IEnumerable{Orleans.ReminderEntry})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Orleans.ReminderTableData"/> class.
+            </summary>
+            <param name="list">The entries.</param>
+        </member>
+        <member name="M:Orleans.ReminderTableData.#ctor(Orleans.ReminderEntry)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Orleans.ReminderTableData"/> class.
+            </summary>
+            <param name="entry">The entry.</param>
+        </member>
+        <member name="M:Orleans.ReminderTableData.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Orleans.ReminderTableData"/> class.
+            </summary>
+        </member>
+        <member name="P:Orleans.ReminderTableData.Reminders">
+            <summary>
+            Gets the reminders.
+            </summary>
+            <value>The reminders.</value>
+        </member>
+        <member name="M:Orleans.ReminderTableData.ToString">
+            <summary>
+            Returns a <see cref="T:System.String" /> that represents this instance.
+            </summary>
+            <returns>A <see cref="T:System.String" /> that represents this instance.</returns>
+        </member>
+        <member name="T:Orleans.ReminderEntry">
+            <summary>
+            Represents a reminder table entry.
+            </summary>
+        </member>
+        <member name="P:Orleans.ReminderEntry.GrainId">
+            <summary>
+            Gets or sets the grain ID of the grain that created the reminder. Forms the reminder
+            primary key together with <see cref="P:Orleans.ReminderEntry.ReminderName"/>.
+            </summary>
+        </member>
+        <member name="P:Orleans.ReminderEntry.ReminderName">
+            <summary>
+            Gets or sets the name of the reminder. Forms the reminder primary key together with 
+            <see cref="P:Orleans.ReminderEntry.GrainId"/>.
+            </summary>
+        </member>
+        <member name="P:Orleans.ReminderEntry.StartAt">
+            <summary>
+            Gets or sets the time when the reminder was supposed to tick in the first time
+            </summary>
+        </member>
+        <member name="P:Orleans.ReminderEntry.Period">
+            <summary>
+            Gets or sets the time period for the reminder
+            </summary>
+        </member>
+        <member name="P:Orleans.ReminderEntry.ETag">
+            <summary>
+            Gets or sets the ETag.
+            </summary>
+            <value>The ETag.</value>
+        </member>
+        <member name="M:Orleans.ReminderEntry.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.ReminderEntry.ToIGrainReminder">
+            <summary>
+            Returns an <see cref="T:Orleans.Runtime.IGrainReminder"/> representing the data in this instance.
+            </summary>
+            <returns>The <see cref="T:Orleans.Runtime.IGrainReminder"/>.</returns>
+        </member>
+        <member name="T:Orleans.IRemindable">
+            <summary>
+            Callback interface that grains must implement in order to be able to register and receive Reminders.
+            </summary>
+        </member>
+        <member name="M:Orleans.IRemindable.ReceiveReminder(System.String,Orleans.Runtime.TickStatus)">
+            <summary>
+            Receive a new Reminder.
+            </summary>
+            <param name="reminderName">Name of this Reminder</param>
+            <param name="status">Status of this Reminder tick</param>
+            <returns>Completion promise which the grain will resolve when it has finished processing this Reminder tick.</returns>
+        </member>
+        <member name="T:Orleans.Timers.IReminderRegistry">
+            <summary>
+            Functionality for managing reminders.
+            </summary>
+        </member>
+        <member name="M:Orleans.Timers.IReminderRegistry.RegisterOrUpdateReminder(Orleans.Runtime.GrainId,System.String,System.TimeSpan,System.TimeSpan)">
+            <summary>
+            Register or update the reminder with the specified name for the currently active grain.
+            </summary>
+            <param name="callingGrainId">The ID of the the currently executing grain</param>
+            <param name="reminderName">The reminder name.</param>
+            <param name="dueTime">The amount of time to delay before initially invoking the reminder.</param>
+            <param name="period">The time interval between invocations of the reminder.</param>
+            <returns>The reminder.</returns>
+        </member>
+        <member name="M:Orleans.Timers.IReminderRegistry.UnregisterReminder(Orleans.Runtime.GrainId,Orleans.Runtime.IGrainReminder)">
+            <summary>
+            Unregisters a reminder from the currently active grain.
+            </summary>
+            <param name="callingGrainId">The ID of the the currently executing grain</param>
+            <param name="reminder">The reminder to unregister.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the operation.</returns>
+        </member>
+        <member name="M:Orleans.Timers.IReminderRegistry.GetReminder(Orleans.Runtime.GrainId,System.String)">
+            <summary>
+            Gets the reminder with the specified name which is registered to the currently active grain.
+            </summary>
+            <param name="callingGrainId">The ID of the the currently executing grain</param>
+            <param name="reminderName">The reminder name.</param>
+            <returns>The reminder.</returns>
+        </member>
+        <member name="M:Orleans.Timers.IReminderRegistry.GetReminders(Orleans.Runtime.GrainId)">
+            <summary>
+            Gets all reminders which are currently registered to the active grain.
+            </summary>
+            <param name="callingGrainId">The ID of the the currently executing grain</param>
+            <returns>All reminders which are currently registered to the active grain.</returns>
+        </member>
+    </members>
+</doc>

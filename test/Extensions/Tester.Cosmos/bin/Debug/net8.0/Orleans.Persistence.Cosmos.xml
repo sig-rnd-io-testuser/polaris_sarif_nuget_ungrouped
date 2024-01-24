@@ -1,0 +1,354 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Orleans.Persistence.Cosmos</name>
+    </assembly>
+    <members>
+        <member name="T:Orleans.Persistence.Cosmos.CosmosConditionNotSatisfiedException">
+            <summary>
+            Exception thrown when a storage provider detects an Etag inconsistency when attempting to perform a WriteStateAsync operation.
+            </summary>
+        </member>
+        <member name="M:Orleans.Persistence.Cosmos.CosmosConditionNotSatisfiedException.#ctor(System.String,System.String,Orleans.Runtime.GrainId,System.String,System.String,System.String)">
+            <summary>
+            Exception thrown when a Cosmos DB exception is thrown due to update conditions not being satisfied.
+            </summary>
+        </member>
+        <member name="M:Orleans.Persistence.Cosmos.CosmosConditionNotSatisfiedException.#ctor(System.String,Orleans.Runtime.GrainId,System.String,System.String,System.String)">
+            <summary>
+            Exception thrown when a Cosmos DB exception is thrown due to update conditions not being satisfied.
+            </summary>
+        </member>
+        <member name="P:Orleans.Persistence.Cosmos.CosmosConditionNotSatisfiedException.GrainId">
+            <summary>
+            Gets the id of the affected grain.
+            </summary>
+        </member>
+        <member name="P:Orleans.Persistence.Cosmos.CosmosConditionNotSatisfiedException.GrainType">
+            <summary>
+            Gets the grain type of the affected grain.
+            </summary>
+        </member>
+        <member name="P:Orleans.Persistence.Cosmos.CosmosConditionNotSatisfiedException.Collection">
+            <summary>
+            Gets the collection name
+            </summary>
+        </member>
+        <member name="M:Orleans.Persistence.Cosmos.CosmosConditionNotSatisfiedException.#ctor">
+            <summary>
+            Exception thrown when a Cosmos DB exception is thrown due to update conditions not being satisfied.
+            </summary>
+        </member>
+        <member name="M:Orleans.Persistence.Cosmos.CosmosConditionNotSatisfiedException.#ctor(System.String)">
+            <summary>
+            Exception thrown when a Cosmos DB exception is thrown due to update conditions not being satisfied.
+            </summary>
+        </member>
+        <member name="M:Orleans.Persistence.Cosmos.CosmosConditionNotSatisfiedException.#ctor(System.String,System.Exception)">
+            <summary>
+            Exception thrown when a Cosmos DB exception is thrown due to update conditions not being satisfied.
+            </summary>
+        </member>
+        <member name="M:Orleans.Persistence.Cosmos.CosmosConditionNotSatisfiedException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Exception thrown when a Cosmos DB exception is thrown due to update conditions not being satisfied.
+            </summary>
+        </member>
+        <member name="M:Orleans.Persistence.Cosmos.CosmosConditionNotSatisfiedException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <inheritdoc />
+        </member>
+        <member name="T:Orleans.Persistence.Cosmos.CosmosGrainStorageOptions">
+            <summary>
+            Options for Azure Cosmos DB grain persistence.
+            </summary>
+        </member>
+        <member name="P:Orleans.Persistence.Cosmos.CosmosGrainStorageOptions.InitStage">
+            <summary>
+            Stage of silo lifecycle where storage should be initialized. Storage must be initialized prior to use.
+            </summary>
+        </member>
+        <member name="P:Orleans.Persistence.Cosmos.CosmosGrainStorageOptions.DeleteStateOnClear">
+            <summary>
+            Gets or sets a value indicating whether state should be deleted when <see cref="M:Orleans.Core.IStorage.ClearStateAsync"/> is called.
+            </summary>
+        </member>
+        <member name="P:Orleans.Persistence.Cosmos.CosmosGrainStorageOptions.StateFieldsToIndex">
+            <summary>
+            List of JSON path strings.
+            Each entry on this list represents a property in the State Object that will be included in the document index.
+            The default is to not add any property in the State object.
+            </summary>
+        </member>
+        <member name="M:Orleans.Persistence.Cosmos.CosmosGrainStorageOptions.#ctor">
+            <summary>
+            Initializes a new <see cref="T:Orleans.Persistence.Cosmos.CosmosGrainStorageOptions"/> instance.
+            </summary>
+        </member>
+        <member name="T:Orleans.Persistence.Cosmos.IPartitionKeyProvider">
+            <summary>
+            Creates a partition key for the provided grain.
+            </summary>
+        </member>
+        <member name="M:Orleans.Persistence.Cosmos.IPartitionKeyProvider.GetPartitionKey(System.String,Orleans.Runtime.GrainId)">
+            <summary>
+            Creates a partition key for the provided grain.
+            </summary>
+            <param name="grainType">The grain type.</param>
+            <param name="grainId">The grain identifier.</param>
+            <returns>The partition key.</returns>
+        </member>
+        <member name="T:Orleans.Persistence.Cosmos.CosmosOptions">
+            <summary>
+            Options for Azure Cosmos DB storage.
+            </summary>
+        </member>
+        <member name="P:Orleans.Persistence.Cosmos.CosmosOptions.IsResourceCreationEnabled">
+            <summary>
+            Tries to create the database and container used for clustering if it does not exist. Defaults to <see langword="false"/>.
+            </summary>
+        </member>
+        <member name="P:Orleans.Persistence.Cosmos.CosmosOptions.DatabaseThroughput">
+            <summary>
+            Database configured throughput. If set to <see langword="null"/>, which is the default value, it will not be configured. 
+            </summary>
+            <seealso href="https://learn.microsoft.com/azure/cosmos-db/set-throughput"/>
+        </member>
+        <member name="P:Orleans.Persistence.Cosmos.CosmosOptions.DatabaseName">
+            <summary>
+            The name of the database to use for clustering information. Defaults to <c>Orleans</c>.
+            </summary>
+        </member>
+        <member name="P:Orleans.Persistence.Cosmos.CosmosOptions.ContainerName">
+            <summary>
+            The name of the container to use to store clustering information.
+            </summary>
+        </member>
+        <member name="P:Orleans.Persistence.Cosmos.CosmosOptions.ContainerThroughputProperties">
+            <summary>
+            Throughput properties for containers. The default value is <see langword="null"/>, which indicates that the serverless throughput mode will be used.
+            </summary>
+            <seealso href="https://learn.microsoft.com/azure/cosmos-db/set-throughput"/>
+        </member>
+        <member name="P:Orleans.Persistence.Cosmos.CosmosOptions.CleanResourcesOnInitialization">
+            <summary>
+            Delete the database on initialization. Intended only for testing scenarios.
+            </summary>
+            <remarks>This is only intended for use in testing scenarios.</remarks>
+        </member>
+        <member name="P:Orleans.Persistence.Cosmos.CosmosOptions.ClientOptions">
+            <summary>
+            The options passed to the Cosmos DB client.
+            </summary>
+        </member>
+        <member name="P:Orleans.Persistence.Cosmos.CosmosOptions.OperationExecutor">
+            <summary>
+            The operation executor used to execute operations using the Cosmos DB client.
+            </summary>
+        </member>
+        <member name="M:Orleans.Persistence.Cosmos.CosmosOptions.ConfigureCosmosClient(System.String)">
+            <summary>
+            Configures the Cosmos DB client.
+            </summary>
+            <param name="connectionString">The connection string.</param>
+            <see cref="M:Microsoft.Azure.Cosmos.CosmosClient.#ctor(System.String,Microsoft.Azure.Cosmos.CosmosClientOptions)"/>
+        </member>
+        <member name="M:Orleans.Persistence.Cosmos.CosmosOptions.ConfigureCosmosClient(System.String,Azure.AzureKeyCredential)">
+            <summary>
+            Configures the Cosmos DB client.
+            </summary>
+            <param name="accountEndpoint">The account endpoint. In the form of <code>https://{databaseaccount}.documents.azure.com:443/</code>, <see href="https://learn.microsoft.com/rest/api/cosmos-db/cosmosdb-resource-uri-syntax-for-rest"/></param>
+            <param name="authKeyOrResourceTokenCredential"><see cref="T:Azure.AzureKeyCredential"/> with master-key or resource token.</param>
+            <see cref="M:Microsoft.Azure.Cosmos.CosmosClient.#ctor(System.String,Azure.AzureKeyCredential,Microsoft.Azure.Cosmos.CosmosClientOptions)"/>
+        </member>
+        <member name="M:Orleans.Persistence.Cosmos.CosmosOptions.ConfigureCosmosClient(System.String,Azure.Core.TokenCredential)">
+            <summary>
+            Configures the Cosmos DB client.
+            </summary>
+            <param name="accountEndpoint">The account endpoint. In the form of <code>https://{databaseaccount}.documents.azure.com:443/</code>, <see href="https://learn.microsoft.com/rest/api/cosmos-db/cosmosdb-resource-uri-syntax-for-rest"/></param>
+            <param name="tokenCredential">The token to provide AAD for authorization.</param>
+            <see cref="M:Microsoft.Azure.Cosmos.CosmosClient.#ctor(System.String,Azure.Core.TokenCredential,Microsoft.Azure.Cosmos.CosmosClientOptions)"/>
+        </member>
+        <member name="M:Orleans.Persistence.Cosmos.CosmosOptions.ConfigureCosmosClient(System.String,System.String)">
+            <summary>
+            Configures the Cosmos DB client.
+            </summary>
+            <param name="accountEndpoint">The account endpoint. In the form of <code>https://{databaseaccount}.documents.azure.com:443/</code>, <see href="https://learn.microsoft.com/rest/api/cosmos-db/cosmosdb-resource-uri-syntax-for-rest"/></param>
+            <param name="authKeyOrResourceToken">The Cosmos account key or resource token to use to create the client.</param>
+            <see cref="M:Microsoft.Azure.Cosmos.CosmosClient.#ctor(System.String,Azure.Core.TokenCredential,Microsoft.Azure.Cosmos.CosmosClientOptions)"/>
+        </member>
+        <member name="M:Orleans.Persistence.Cosmos.CosmosOptions.ConfigureCosmosClient(System.Func{System.IServiceProvider,System.Threading.Tasks.ValueTask{Microsoft.Azure.Cosmos.CosmosClient}})">
+            <summary>
+            Configures the Cosmos DB client.
+            </summary>
+            <param name="createClient">The delegate used to create the Cosmos DB client.</param>
+        </member>
+        <member name="P:Orleans.Persistence.Cosmos.CosmosOptions.CreateClient">
+            <summary>
+            Factory method for creating a <see cref="T:Microsoft.Azure.Cosmos.CosmosClient"/>.
+            </summary>
+        </member>
+        <member name="T:Orleans.Persistence.Cosmos.ICosmosOperationExecutor">
+            <summary>
+            Functionality for executing operations using the Cosmos DB client.
+            </summary>
+        </member>
+        <member name="M:Orleans.Persistence.Cosmos.ICosmosOperationExecutor.ExecuteOperation``2(System.Func{``0,System.Threading.Tasks.Task{``1}},``0)">
+            <summary>
+            Executes the provided Cosmos DB operation.
+            </summary>
+            <typeparam name="TArg">The function argument.</typeparam>
+            <typeparam name="TResult">The result value.</typeparam>
+            <param name="func">The delegate to execute.</param>
+            <param name="arg">The argument to pass to delegate invocations.</param>
+            <returns>The result of invoking the delegate.</returns>
+        </member>
+        <member name="T:Orleans.Persistence.Cosmos.CosmosOptionsValidator`1">
+            <summary>
+            Validates instances of <see cref="T:Orleans.Persistence.Cosmos.CosmosOptions"/>.
+            </summary>
+            <typeparam name="TOptions">The options type.</typeparam>
+        </member>
+        <member name="M:Orleans.Persistence.Cosmos.CosmosOptionsValidator`1.#ctor(`0,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Orleans.Persistence.Cosmos.CosmosOptionsValidator`1"/> type.
+            </summary>
+            <param name="options">The instance to be validated.</param>
+            <param name="name">The option name to be validated.</param>
+        </member>
+        <member name="M:Orleans.Persistence.Cosmos.CosmosOptionsValidator`1.ValidateConfiguration">
+            <inheritdoc/>
+        </member>
+        <member name="T:Orleans.Hosting.HostingExtensions">
+            <summary>
+            Extension methods for configuring Azure Cosmos DB persistence.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.HostingExtensions.AddCosmosGrainStorageAsDefault``1(Orleans.Hosting.ISiloBuilder,System.Action{Orleans.Persistence.Cosmos.CosmosGrainStorageOptions})">
+            <summary>
+            Configure silo to use Azure Cosmos DB storage as the default grain storage using a custom Partition Key Provider.
+            </summary>
+            <typeparam name="TPartitionKeyProvider">The custom partition key provider type.</typeparam>
+            <param name="builder">The silo builder.</param>
+            <param name="configureOptions">The delegate used to configure the provider.</param>
+        </member>
+        <member name="M:Orleans.Hosting.HostingExtensions.AddCosmosGrainStorage``1(Orleans.Hosting.ISiloBuilder,System.String,System.Action{Orleans.Persistence.Cosmos.CosmosGrainStorageOptions})">
+            <summary>
+            Configure silo to use Azure Cosmos DB storage for grain storage using a custom Partition Key Provider.
+            </summary>
+            <typeparam name="TPartitionKeyProvider">The custom partition key provider type.</typeparam>
+            <param name="builder">The silo builder.</param>
+            <param name="name">The storage provider name.</param>
+            <param name="configureOptions">The delegate used to configure the provider.</param>
+        </member>
+        <member name="M:Orleans.Hosting.HostingExtensions.AddCosmosGrainStorageAsDefault(Orleans.Hosting.ISiloBuilder,System.Action{Orleans.Persistence.Cosmos.CosmosGrainStorageOptions},System.Type)">
+            <summary>
+            Configure silo to use Azure Cosmos DB storage as the default grain storage using a custom Partition Key Provider.
+            </summary>
+            <param name="builder">The silo builder.</param>
+            <param name="configureOptions">The delegate used to configure the provider.</param>
+            <param name="customPartitionKeyProviderType">The custom partition key provider type.</param>
+        </member>
+        <member name="M:Orleans.Hosting.HostingExtensions.AddCosmosGrainStorage(Orleans.Hosting.ISiloBuilder,System.String,System.Action{Orleans.Persistence.Cosmos.CosmosGrainStorageOptions},System.Type)">
+            <summary>
+            Configure silo to use Azure Cosmos DB storage for grain storage using a custom Partition Key Provider.
+            </summary>
+            <param name="builder">The silo builder.</param>
+            <param name="name">The storage provider name.</param>
+            <param name="configureOptions">The delegate used to configure the provider.</param>
+            <param name="customPartitionKeyProviderType">The custom partition key provider type.</param>
+        </member>
+        <member name="M:Orleans.Hosting.HostingExtensions.AddCosmosGrainStorageAsDefault(Orleans.Hosting.ISiloBuilder,System.Action{Orleans.Persistence.Cosmos.CosmosGrainStorageOptions})">
+            <summary>
+            Configure silo to use Azure Cosmos DB storage as the default grain storage.
+            </summary>
+            <param name="builder">The silo builder.</param>
+            <param name="configureOptions">The delegate used to configure the provider.</param>
+        </member>
+        <member name="M:Orleans.Hosting.HostingExtensions.AddCosmosGrainStorage(Orleans.Hosting.ISiloBuilder,System.String,System.Action{Orleans.Persistence.Cosmos.CosmosGrainStorageOptions})">
+            <summary>
+            Configure silo to use Azure Cosmos DB storage for grain storage.
+            </summary>
+            <param name="builder">The silo builder.</param>
+            <param name="name">The storage provider name.</param>
+            <param name="configureOptions">The delegate used to configure the provider.</param>
+        </member>
+        <member name="M:Orleans.Hosting.HostingExtensions.AddCosmosGrainStorageAsDefault``1(Orleans.Hosting.ISiloBuilder,System.Action{Microsoft.Extensions.Options.OptionsBuilder{Orleans.Persistence.Cosmos.CosmosGrainStorageOptions}})">
+            <summary>
+            Configure silo to use Azure Cosmos DB storage as the default grain storage using a custom Partition Key Provider.
+            </summary>
+            <typeparam name="TPartitionKeyProvider">The custom partition key provider type.</typeparam>
+            <param name="builder">The silo builder.</param>
+            <param name="configureOptions">The delegate used to configure the provider.</param>
+        </member>
+        <member name="M:Orleans.Hosting.HostingExtensions.AddCosmosGrainStorage``1(Orleans.Hosting.ISiloBuilder,System.String,System.Action{Microsoft.Extensions.Options.OptionsBuilder{Orleans.Persistence.Cosmos.CosmosGrainStorageOptions}})">
+            <summary>
+            Configure silo to use Azure Cosmos DB storage for grain storage using a custom Partition Key Provider.
+            </summary>
+            <typeparam name="TPartitionKeyProvider">The custom partition key provider type.</typeparam>
+            <param name="builder">The silo builder.</param>
+            <param name="name">The storage provider name.</param>
+            <param name="configureOptions">The delegate used to configure the provider.</param>
+        </member>
+        <member name="M:Orleans.Hosting.HostingExtensions.AddCosmosGrainStorageAsDefault(Orleans.Hosting.ISiloBuilder,System.Type,System.Action{Microsoft.Extensions.Options.OptionsBuilder{Orleans.Persistence.Cosmos.CosmosGrainStorageOptions}})">
+            <summary>
+            Configure silo to use Azure Cosmos DB storage as the default grain storage using a custom Partition Key Provider.
+            </summary>
+            <param name="builder">The silo builder.</param>
+            <param name="customPartitionKeyProviderType">The custom partition key provider type.</param>
+            <param name="configureOptions">The delegate used to configure the provider.</param>
+        </member>
+        <member name="M:Orleans.Hosting.HostingExtensions.AddCosmosGrainStorage(Orleans.Hosting.ISiloBuilder,System.String,System.Type,System.Action{Microsoft.Extensions.Options.OptionsBuilder{Orleans.Persistence.Cosmos.CosmosGrainStorageOptions}})">
+            <summary>
+            Configure silo to use Azure Cosmos DB storage for grain storage using a custom Partition Key Provider.
+            </summary>
+            <param name="builder">The silo builder.</param>
+            <param name="name">The storage provider name.</param>
+            <param name="configureOptions">The delegate used to configure the provider.</param>
+        </member>
+        <member name="M:Orleans.Hosting.HostingExtensions.AddCosmosGrainStorageAsDefault(Orleans.Hosting.ISiloBuilder,System.Action{Microsoft.Extensions.Options.OptionsBuilder{Orleans.Persistence.Cosmos.CosmosGrainStorageOptions}})">
+            <summary>
+            Configure silo to use Azure Cosmos DB storage as the default grain storage.
+            </summary>
+            <param name="builder">The silo builder.</param>
+            <param name="configureOptions">The delegate used to configure the provider.</param>
+        </member>
+        <member name="M:Orleans.Hosting.HostingExtensions.AddCosmosGrainStorage(Orleans.Hosting.ISiloBuilder,System.String,System.Action{Microsoft.Extensions.Options.OptionsBuilder{Orleans.Persistence.Cosmos.CosmosGrainStorageOptions}})">
+            <summary>
+            Configure silo to use Azure Cosmos DB storage for grain storage.
+            </summary>
+            <param name="builder">The silo builder.</param>
+            <param name="name">The storage provider name.</param>
+            <param name="configureOptions">The delegate used to configure the provider.</param>
+        </member>
+        <member name="M:Orleans.Hosting.HostingExtensions.AddCosmosGrainStorageAsDefault(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Orleans.Persistence.Cosmos.CosmosGrainStorageOptions})">
+            <summary>
+            Configure silo to use Azure Cosmos DB storage as the default grain storage.
+            </summary>
+            <param name="services">The service collection.</param>
+            <param name="configureOptions">The delegate used to configure the provider.</param>
+        </member>
+        <member name="M:Orleans.Hosting.HostingExtensions.AddCosmosGrainStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String,System.Action{Orleans.Persistence.Cosmos.CosmosGrainStorageOptions})">
+            <summary>
+            Configure silo to use Azure Cosmos DB storage for grain storage.
+            </summary>
+            <param name="services">The service collection.</param>
+            <param name="name">The storage provider name.</param>
+            <param name="configureOptions">The delegate used to configure the provider.</param>
+        </member>
+        <member name="M:Orleans.Hosting.HostingExtensions.AddCosmosGrainStorageAsDefault(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.Extensions.Options.OptionsBuilder{Orleans.Persistence.Cosmos.CosmosGrainStorageOptions}})">
+            <summary>
+            Configure silo to use Azure Cosmos DB storage as the default grain storage.
+            </summary>
+            <param name="services">The service collection.</param>
+            <param name="configureOptions">The delegate used to configure the provider.</param>
+        </member>
+        <member name="M:Orleans.Hosting.HostingExtensions.AddCosmosGrainStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String,System.Action{Microsoft.Extensions.Options.OptionsBuilder{Orleans.Persistence.Cosmos.CosmosGrainStorageOptions}})">
+            <summary>
+            Configure silo to use Azure Cosmos DB storage for grain storage.
+            </summary>
+            <param name="services">The service collection.</param>
+            <param name="name">The storage provider name.</param>
+            <param name="configureOptions">The delegate used to configure the provider.</param>
+        </member>
+    </members>
+</doc>

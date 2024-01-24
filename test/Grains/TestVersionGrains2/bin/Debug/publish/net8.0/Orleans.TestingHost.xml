@@ -1,0 +1,1290 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Orleans.TestingHost</name>
+    </assembly>
+    <members>
+        <member name="T:Orleans.TestingHost.ClientExtensions">
+            <summary>
+            Extension methods for <see cref="T:Orleans.IClusterClient"/>.
+            </summary>
+        </member>
+        <member name="M:Orleans.TestingHost.ClientExtensions.GetTestHooks(Orleans.IClusterClient,Orleans.TestingHost.SiloHandle)">
+            <summary>
+            Returns test hooks for the specified silo.
+            </summary>
+            <param name="client">The client.</param>
+            <param name="silo">The silo.</param>
+            <returns>Test hooks for the specified silo.</returns>
+        </member>
+        <member name="T:Orleans.TestingHost.IClientBuilderConfigurator">
+            <summary>
+            Allows implementations to configure the client builder when starting up each silo in the test cluster.
+            </summary>
+        </member>
+        <member name="M:Orleans.TestingHost.IClientBuilderConfigurator.Configure(Microsoft.Extensions.Configuration.IConfiguration,Orleans.Hosting.IClientBuilder)">
+            <summary>
+            Configures the client builder.
+            </summary>
+            <param name="configuration">The configuration.</param>
+            <param name="clientBuilder">The client builder.</param>
+        </member>
+        <member name="T:Orleans.TestingHost.IHostConfigurator">
+            <summary>
+            Allows implementations to configure the host builder when starting up each silo in the test cluster.
+            </summary>
+        </member>
+        <member name="M:Orleans.TestingHost.IHostConfigurator.Configure(Microsoft.Extensions.Hosting.IHostBuilder)">
+            <summary>
+            Configures the host builder.
+            </summary>
+            <param name="hostBuilder">The host builder.</param>
+        </member>
+        <member name="T:Orleans.TestingHost.InProcessSiloHandle">
+            <summary>
+            Represents a handle to a silo that is deployed in the same process and AppDomain.
+            </summary>
+        </member>
+        <member name="P:Orleans.TestingHost.InProcessSiloHandle.SiloHost">
+            <summary>Gets a reference to the silo host.</summary>
+        </member>
+        <member name="P:Orleans.TestingHost.InProcessSiloHandle.IsActive">
+            <inheritdoc />
+        </member>
+        <member name="M:Orleans.TestingHost.InProcessSiloHandle.CreateAsync(System.String,Microsoft.Extensions.Configuration.IConfiguration,System.Action{Microsoft.Extensions.Hosting.IHostBuilder})">
+            <summary>
+            Create a silo handle.
+            </summary>
+            <param name="siloName">Name of the silo.</param>
+            <param name="configuration">The configuration.</param>
+            <param name="postConfigureHostBuilder">An optional delegate which is invoked just prior to building the host builder.</param>
+            <returns>The silo handle.</returns>
+        </member>
+        <member name="M:Orleans.TestingHost.InProcessSiloHandle.StopSiloAsync(System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:Orleans.TestingHost.InProcessSiloHandle.StopSiloAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Orleans.TestingHost.InProcessSiloHandle.Dispose(System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:Orleans.TestingHost.InProcessSiloHandle.DisposeAsync">
+            <inheritdoc />
+        </member>
+        <member name="T:Orleans.TestingHost.ITestClusterPortAllocator">
+            <summary>
+            Functionality for finding unused ports.
+            </summary>
+        </member>
+        <member name="M:Orleans.TestingHost.ITestClusterPortAllocator.AllocateConsecutivePortPairs(System.Int32)">
+            <summary>
+            Allocates consecutive port pairs.
+            </summary>
+            <param name="numPorts">The number of consecutive ports to allocate.</param>
+            <returns>Base ports for silo and gateway endpoints.</returns>
+        </member>
+        <member name="T:Orleans.TestingHost.ISiloConfigurator">
+            <summary>
+            Allows implementations to configure the silo builder when starting up each silo in the test cluster.
+            </summary>
+        </member>
+        <member name="M:Orleans.TestingHost.ISiloConfigurator.Configure(Orleans.Hosting.ISiloBuilder)">
+            <summary>
+            Configures the silo builder.
+            </summary>
+            <param name="siloBuilder">The silo builder.</param>
+        </member>
+        <member name="T:Orleans.TestingHost.Logging.FileLoggingOutput">
+            <summary>
+            The log output which all <see cref="T:Orleans.TestingHost.Logging.FileLogger"/> share to log messages to 
+            </summary>
+        </member>
+        <member name="M:Orleans.TestingHost.Logging.FileLoggingOutput.#cctor">
+            <summary>
+            Initializes static members of the <see cref="T:Orleans.TestingHost.Logging.FileLoggingOutput"/> class.
+            </summary>
+        </member>
+        <member name="M:Orleans.TestingHost.Logging.FileLoggingOutput.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Orleans.TestingHost.Logging.FileLoggingOutput"/> class.
+            </summary>
+            <param name="fileName">Name of the log file.</param>
+        </member>
+        <member name="M:Orleans.TestingHost.Logging.FileLoggingOutput.Log``1(Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,``0,System.Exception,System.Func{``0,System.Exception,System.String},System.String)">
+            <summary>
+            Logs a message.
+            </summary>
+            <typeparam name="TState">The type of <paramref name="state"/>.</typeparam>
+            <param name="logLevel">The log level.</param>
+            <param name="eventId">The event identifier.</param>
+            <param name="state">The state.</param>
+            <param name="exception">The exception.</param>
+            <param name="formatter">The formatter.</param>
+            <param name="category">The category.</param>
+        </member>
+        <member name="M:Orleans.TestingHost.Logging.FileLoggingOutput.Dispose">
+            <inheritdoc />
+        </member>
+        <member name="T:Orleans.TestingHost.Logging.FileLogger">
+            <summary>
+            File logger, which logs messages to a file.
+            </summary>
+        </member>
+        <member name="M:Orleans.TestingHost.Logging.FileLogger.#ctor(Orleans.TestingHost.Logging.FileLoggingOutput,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Orleans.TestingHost.Logging.FileLogger"/> class.
+            </summary>
+            <param name="output">The output logger.</param>
+            <param name="category">The category.</param>
+        </member>
+        <member name="M:Orleans.TestingHost.Logging.FileLogger.BeginScope``1(``0)">
+            <inheritdoc />
+        </member>
+        <member name="M:Orleans.TestingHost.Logging.FileLogger.IsEnabled(Microsoft.Extensions.Logging.LogLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Orleans.TestingHost.Logging.FileLogger.Log``1(Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,``0,System.Exception,System.Func{``0,System.Exception,System.String})">
+            <inheritdoc />
+        </member>
+        <member name="T:Orleans.TestingHost.Logging.FileLoggerProvider">
+            <summary>
+            <see cref="T:Microsoft.Extensions.Logging.ILoggerProvider"/> which outputs to a log file.
+            </summary>
+        </member>
+        <member name="M:Orleans.TestingHost.Logging.FileLoggerProvider.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Orleans.TestingHost.Logging.FileLoggerProvider"/> class.
+            </summary>
+            <param name="filePath">The log file path.</param>
+        </member>
+        <member name="M:Orleans.TestingHost.Logging.FileLoggerProvider.CreateLogger(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Orleans.TestingHost.Logging.FileLoggerProvider.Dispose">
+            <inheritdoc />
+        </member>
+        <member name="T:Orleans.TestingHost.Logging.FileLoggerProviderExtensions">
+            <summary>
+            Extension methods to configure ILoggingBuilder with FileLoggerProvider
+            </summary>
+        </member>
+        <member name="M:Orleans.TestingHost.Logging.FileLoggerProviderExtensions.AddFile(Microsoft.Extensions.Logging.ILoggingBuilder,System.String)">
+            <summary>
+            Add <see cref="T:Orleans.TestingHost.Logging.FileLoggerProvider"/> to <paramref name="builder"/>
+            </summary>
+            <param name="builder">The logging builder.</param>
+            <param name="filePathName">The log file path</param>
+            <returns>The logging builder.</returns>
+        </member>
+        <member name="T:Orleans.TestingHost.SiloHandle">
+            <summary>
+            Represents a handle to a silo that is remotely deployed
+            </summary>
+        </member>
+        <member name="P:Orleans.TestingHost.SiloHandle.ClusterOptions">
+            <summary> Get or set configuration of the cluster </summary>
+        </member>
+        <member name="P:Orleans.TestingHost.SiloHandle.InstanceNumber">
+            <summary> Gets or sets the instance number within the cluster.</summary>
+        </member>
+        <member name="P:Orleans.TestingHost.SiloHandle.Name">
+            <summary> Get or set the name of the silo </summary>
+        </member>
+        <member name="P:Orleans.TestingHost.SiloHandle.SiloAddress">
+            <summary>Get or set the address of the silo</summary>
+        </member>
+        <member name="P:Orleans.TestingHost.SiloHandle.IsActive">
+            <summary>Gets whether the remote silo is expected to be active</summary>
+        </member>
+        <member name="M:Orleans.TestingHost.SiloHandle.StopSiloAsync(System.Boolean)">
+            <summary>Stop the remote silo</summary>
+            <param name="stopGracefully">Specifies whether the silo should be stopped gracefully or abruptly.</param>
+        </member>
+        <member name="M:Orleans.TestingHost.SiloHandle.StopSiloAsync(System.Threading.CancellationToken)">
+            <summary>Stop the remote silo. This method cannot be use with AppDomain</summary>
+            <param name="ct">Specifies the cancellation token to use for the shutdown sequence</param>
+        </member>
+        <member name="M:Orleans.TestingHost.SiloHandle.Dispose">
+            <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
+        </member>
+        <member name="M:Orleans.TestingHost.SiloHandle.Dispose(System.Boolean)">
+            <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
+        </member>
+        <member name="M:Orleans.TestingHost.SiloHandle.DisposeAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:Orleans.TestingHost.SiloHandle.Finalize">
+            <inheritdoc />
+        </member>
+        <member name="M:Orleans.TestingHost.SiloHandle.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:Orleans.TestingHost.StandaloneSiloHandle">
+            <summary>
+            A silo handle and factory which spawns a separate process for each silo.
+            </summary>
+        </member>
+        <member name="F:Orleans.TestingHost.StandaloneSiloHandle.ExecutablePathConfigKey">
+            <summary>
+            The configuration key used to identify the process to launch.
+            </summary>
+        </member>
+        <member name="P:Orleans.TestingHost.StandaloneSiloHandle.Process">
+            <summary>Gets a reference to the silo host.</summary>
+        </member>
+        <member name="P:Orleans.TestingHost.StandaloneSiloHandle.IsActive">
+            <inheritdoc />
+        </member>
+        <member name="M:Orleans.TestingHost.StandaloneSiloHandle.Create(System.String,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Spawns a new process to host a silo, using the executable provided in the configuration's "ExecutablePath" property as the entry point.
+            </summary>
+        </member>
+        <member name="M:Orleans.TestingHost.StandaloneSiloHandle.CreateDelegate(System.String)">
+            <summary>
+            Creates a delegate which spawns a silo in a new process, using the provided executable as the entry point for that silo.
+            </summary>
+            <param name="executablePath">The entry point for spawned silos.</param>
+        </member>
+        <member name="M:Orleans.TestingHost.StandaloneSiloHandle.CreateForAssembly(System.Reflection.Assembly)">
+            <summary>
+            Creates a delegate which spawns a silo in a new process, with the provided assembly (or its executable counterpart, if it is a library) being the entry point for that silo.
+            </summary>
+            <param name="assembly">The entry point for spawned silos. If the provided assembly is a library (dll), then its executable sibling assembly will be invoked instead.</param>
+        </member>
+        <member name="M:Orleans.TestingHost.StandaloneSiloHandle.StopSiloAsync(System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:Orleans.TestingHost.StandaloneSiloHandle.StopSiloAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Orleans.TestingHost.StandaloneSiloHandle.Dispose(System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:Orleans.TestingHost.StandaloneSiloHandle.DisposeAsync">
+            <inheritdoc />
+        </member>
+        <member name="T:Orleans.TestingHost.StandaloneSiloHost">
+            <summary>
+            The entry point for standalone silo processes. See <see cref="T:Orleans.TestingHost.StandaloneSiloHandle" />.
+            </summary>
+        </member>
+        <member name="T:Orleans.TestingHost.TestCluster">
+            <summary>
+            A host class for local testing with Orleans using in-process silos. 
+            Runs a Primary and optionally secondary silos in separate app domains, and client in the main app domain.
+            Additional silos can also be started in-process on demand if required for particular test cases.
+            </summary>
+            <remarks>
+            Make sure that your test project references your test grains and test grain interfaces 
+            projects, and has CopyLocal=True set on those references [which should be the default].
+            </remarks>
+        </member>
+        <member name="P:Orleans.TestingHost.TestCluster.Primary">
+            <summary>
+            Primary silo handle, if applicable.
+            </summary>
+            <remarks>This handle is valid only when using Grain-based membership.</remarks>
+        </member>
+        <member name="P:Orleans.TestingHost.TestCluster.SecondarySilos">
+            <summary>
+            List of handles to the secondary silos.
+            </summary>
+        </member>
+        <member name="P:Orleans.TestingHost.TestCluster.Silos">
+            <summary>
+            Collection of all known silos.
+            </summary>
+        </member>
+        <member name="P:Orleans.TestingHost.TestCluster.Options">
+            <summary>
+            Options used to configure the test cluster.
+            </summary>
+            <remarks>This is the options you configured your test cluster with, or the default one. 
+            If the cluster is being configured via ClusterConfiguration, then this object may not reflect the true settings.
+            </remarks>
+        </member>
+        <member name="P:Orleans.TestingHost.TestCluster.ClientHost">
+            <summary>
+            The internal client interface.
+            </summary>
+        </member>
+        <member name="P:Orleans.TestingHost.TestCluster.InternalClient">
+            <summary>
+            The internal client interface.
+            </summary>
+        </member>
+        <member name="P:Orleans.TestingHost.TestCluster.Client">
+            <summary>
+            The client.
+            </summary>
+        </member>
+        <member name="P:Orleans.TestingHost.TestCluster.GrainFactory">
+            <summary>
+            GrainFactory to use in the tests
+            </summary>
+        </member>
+        <member name="P:Orleans.TestingHost.TestCluster.InternalGrainFactory">
+            <summary>
+            GrainFactory to use in the tests
+            </summary>
+        </member>
+        <member name="P:Orleans.TestingHost.TestCluster.ServiceProvider">
+            <summary>
+            Client-side <see cref="T:System.IServiceProvider"/> to use in the tests.
+            </summary>
+        </member>
+        <member name="P:Orleans.TestingHost.TestCluster.CreateSiloAsync">
+            <summary>
+            Delegate used to create and start an individual silo.
+            </summary>
+        </member>
+        <member name="P:Orleans.TestingHost.TestCluster.PortAllocator">
+            <summary>
+            The port allocator.
+            </summary>
+        </member>
+        <member name="M:Orleans.TestingHost.TestCluster.#ctor(Orleans.TestingHost.TestClusterOptions,System.Collections.Generic.IReadOnlyList{Microsoft.Extensions.Configuration.IConfigurationSource},Orleans.TestingHost.ITestClusterPortAllocator)">
+            <summary>
+            Configures the test cluster plus client in-process.
+            </summary>
+        </member>
+        <member name="M:Orleans.TestingHost.TestCluster.Deploy">
+            <summary>
+            Deploys the cluster using the specified configuration and starts the client in-process.
+            It will start the number of silos defined in <see cref="P:Orleans.TestingHost.TestClusterOptions.InitialSilosCount"/>.
+            </summary>
+        </member>
+        <member name="M:Orleans.TestingHost.TestCluster.DeployAsync">
+            <summary>
+            Deploys the cluster using the specified configuration and starts the client in-process.
+            </summary>
+        </member>
+        <member name="M:Orleans.TestingHost.TestCluster.GetActiveSilos">
+            <summary>
+            Get the list of current active silos.
+            </summary>
+            <returns>List of current silos.</returns>
+        </member>
+        <member name="M:Orleans.TestingHost.TestCluster.GetSiloForAddress(Orleans.Runtime.SiloAddress)">
+            <summary>
+            Find the silo handle for the specified silo address.
+            </summary>
+            <param name="siloAddress">Silo address to be found.</param>
+            <returns>SiloHandle of the appropriate silo, or <c>null</c> if not found.</returns>
+        </member>
+        <member name="M:Orleans.TestingHost.TestCluster.WaitForLivenessToStabilizeAsync(System.Boolean)">
+            <summary>
+            Wait for the silo liveness sub-system to detect and act on any recent cluster membership changes.
+            </summary>
+            <param name="didKill">Whether recent membership changes we done by graceful Stop.</param>
+        </member>
+        <member name="M:Orleans.TestingHost.TestCluster.GetLivenessStabilizationTime(Orleans.Configuration.ClusterMembershipOptions,System.Boolean)">
+            <summary>
+            Get the timeout value to use to wait for the silo liveness sub-system to detect and act on any recent cluster membership changes.
+            <seealso cref="M:Orleans.TestingHost.TestCluster.WaitForLivenessToStabilizeAsync(System.Boolean)"/>
+            </summary>
+        </member>
+        <member name="M:Orleans.TestingHost.TestCluster.StartAdditionalSilo(System.Boolean)">
+            <summary>
+            Start an additional silo, so that it joins the existing cluster.
+            </summary>
+            <returns>SiloHandle for the newly started silo.</returns>
+        </member>
+        <member name="M:Orleans.TestingHost.TestCluster.StartAdditionalSiloAsync(System.Boolean)">
+            <summary>
+            Start an additional silo, so that it joins the existing cluster.
+            </summary>
+            <returns>SiloHandle for the newly started silo.</returns>
+        </member>
+        <member name="M:Orleans.TestingHost.TestCluster.StartAdditionalSilosAsync(System.Int32,System.Boolean)">
+            <summary>
+            Start a number of additional silo, so that they join the existing cluster.
+            </summary>
+            <param name="silosToStart">Number of silos to start.</param>
+            <param name="startAdditionalSiloOnNewPort"></param>
+            <returns>List of SiloHandles for the newly started silos.</returns>
+        </member>
+        <member name="M:Orleans.TestingHost.TestCluster.StopSecondarySilosAsync">
+            <summary>
+            Stop any additional silos, not including the default Primary silo.
+            </summary>
+        </member>
+        <member name="M:Orleans.TestingHost.TestCluster.StopPrimarySiloAsync">
+            <summary>
+            Stops the default Primary silo.
+            </summary>
+        </member>
+        <member name="M:Orleans.TestingHost.TestCluster.StopClusterClientAsync">
+            <summary>
+            Stop cluster client as an asynchronous operation.
+            </summary>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the asynchronous operation.</returns>
+        </member>
+        <member name="M:Orleans.TestingHost.TestCluster.StopAllSilos">
+            <summary>
+            Stop all current silos.
+            </summary>
+        </member>
+        <member name="M:Orleans.TestingHost.TestCluster.StopAllSilosAsync">
+            <summary>
+            Stop all current silos.
+            </summary>
+        </member>
+        <member name="M:Orleans.TestingHost.TestCluster.StopSiloAsync(Orleans.TestingHost.SiloHandle)">
+            <summary>
+            Do a semi-graceful Stop of the specified silo.
+            </summary>
+            <param name="instance">Silo to be stopped.</param>
+        </member>
+        <member name="M:Orleans.TestingHost.TestCluster.KillSiloAsync(Orleans.TestingHost.SiloHandle)">
+            <summary>
+            Do an immediate Kill of the specified silo.
+            </summary>
+            <param name="instance">Silo to be killed.</param>
+        </member>
+        <member name="M:Orleans.TestingHost.TestCluster.KillClientAsync">
+            <summary>
+            Performs a hard kill on client.  Client will not cleanup resources.
+            </summary>
+        </member>
+        <member name="M:Orleans.TestingHost.TestCluster.RestartSiloAsync(Orleans.TestingHost.SiloHandle)">
+            <summary>
+            Do a Stop or Kill of the specified silo, followed by a restart.
+            </summary>
+            <param name="instance">Silo to be restarted.</param>
+        </member>
+        <member name="M:Orleans.TestingHost.TestCluster.RestartStoppedSecondarySiloAsync(System.String)">
+            <summary>
+            Restart a previously stopped.
+            </summary>
+            <param name="siloName">Silo to be restarted.</param>
+        </member>
+        <member name="M:Orleans.TestingHost.TestCluster.InitializeClientAsync">
+            <summary>
+            Initialize the grain client. This should be already done by <see cref="M:Orleans.TestingHost.TestCluster.Deploy"/> or <see cref="M:Orleans.TestingHost.TestCluster.DeployAsync"/>
+            </summary>
+        </member>
+        <member name="P:Orleans.TestingHost.TestCluster.ConfigurationSources">
+            <summary>
+            Gets the configuration sources.
+            </summary>
+            <value>The configuration sources.</value>
+        </member>
+        <member name="M:Orleans.TestingHost.TestCluster.DefaultCreateSiloAsync(System.String,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Default value for <see cref="P:Orleans.TestingHost.TestCluster.CreateSiloAsync"/>, which creates a new silo handle.
+            </summary>
+            <param name="siloName">Name of the silo.</param>
+            <param name="configuration">The configuration.</param>
+            <returns>The silo handle.</returns>
+        </member>
+        <member name="M:Orleans.TestingHost.TestCluster.StartSiloAsync(Orleans.TestingHost.TestCluster,System.Int32,Orleans.TestingHost.TestClusterOptions,System.Collections.Generic.IReadOnlyList{Microsoft.Extensions.Configuration.IConfigurationSource},System.Boolean)">
+            <summary>
+            Start a new silo in the target cluster
+            </summary>
+            <param name="cluster">The TestCluster in which the silo should be deployed</param>
+            <param name="instanceNumber">The instance number to deploy</param>
+            <param name="clusterOptions">The options to use.</param>
+            <param name="configurationOverrides">Configuration overrides.</param>
+            <param name="startSiloOnNewPort">Whether we start this silo on a new port, instead of the default one</param>
+            <returns>A handle to the silo deployed</returns>
+        </member>
+        <member name="M:Orleans.TestingHost.TestCluster.StartSiloAsync(System.Int32,Orleans.TestingHost.TestClusterOptions,System.Collections.Generic.IReadOnlyList{Microsoft.Extensions.Configuration.IConfigurationSource},System.Boolean)">
+            <summary>
+            Starts a new silo.
+            </summary>
+            <param name="instanceNumber">The instance number to deploy</param>
+            <param name="clusterOptions">The options to use.</param>
+            <param name="configurationOverrides">Configuration overrides.</param>
+            <param name="startSiloOnNewPort">Whether we start this silo on a new port, instead of the default one</param>
+            <returns>A handle to the deployed silo.</returns>
+        </member>
+        <member name="M:Orleans.TestingHost.TestCluster.GetLog">
+            <summary>
+            Gets the log.
+            </summary>
+            <returns>The log contents.</returns>
+        </member>
+        <member name="M:Orleans.TestingHost.TestCluster.DisposeAsync">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.TestingHost.TestCluster.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="T:Orleans.TestingHost.TestClusterBuilder">
+            <summary>Configuration builder for starting a <see cref="T:Orleans.TestingHost.TestCluster"/>.</summary>
+        </member>
+        <member name="M:Orleans.TestingHost.TestClusterBuilder.#ctor">
+            <summary>
+            Initializes a new instance of <see cref="T:Orleans.TestingHost.TestClusterBuilder"/> using the default options.
+            </summary>
+        </member>
+        <member name="M:Orleans.TestingHost.TestClusterBuilder.#ctor(System.Int16)">
+            <summary>
+            Initializes a new instance of <see cref="T:Orleans.TestingHost.TestClusterBuilder"/> overriding the initial silos count.
+            </summary>
+            <param name="initialSilosCount">The number of initial silos to deploy.</param>
+        </member>
+        <member name="P:Orleans.TestingHost.TestClusterBuilder.PortAllocator">
+            <summary>
+            Gets or sets the port allocator used to allocate consecutive silo ports.
+            </summary>
+        </member>
+        <member name="P:Orleans.TestingHost.TestClusterBuilder.Properties">
+            <summary>
+            Configuration values which will be provided to the silos and clients created by this builder.
+            </summary>
+        </member>
+        <member name="P:Orleans.TestingHost.TestClusterBuilder.Options">
+            <summary>
+            Gets the options.
+            </summary>
+            <value>The options.</value>
+        </member>
+        <member name="P:Orleans.TestingHost.TestClusterBuilder.CreateSiloAsync">
+            <summary>
+            Gets or sets the delegate used to create and start an individual silo.
+            </summary>
+        </member>
+        <member name="M:Orleans.TestingHost.TestClusterBuilder.ConfigureBuilder(System.Action)">
+            <summary>
+            Adds a configuration delegate to the builder
+            </summary>        
+            <param name="configureDelegate">The configuration delegate.</param>
+        </member>
+        <member name="M:Orleans.TestingHost.TestClusterBuilder.ConfigureHostConfiguration(System.Action{Microsoft.Extensions.Configuration.IConfigurationBuilder})">
+            <summary>
+            Set up the configuration for the builder itself. This will be used as a base to initialize each silo host
+            for use later in the build process. This can be called multiple times and the results will be additive.
+            </summary>
+            <param name="configureDelegate">The delegate for configuring the <see cref="T:Microsoft.Extensions.Configuration.IConfigurationBuilder"/> that will be used
+            to construct the <see cref="T:Microsoft.Extensions.Configuration.IConfiguration"/> for the host.</param>
+            <returns>The same instance of the host builder for chaining.</returns>
+        </member>
+        <member name="M:Orleans.TestingHost.TestClusterBuilder.AddSiloBuilderConfigurator``1">
+            <summary>
+            Adds an implementation of <see cref="T:Orleans.TestingHost.ISiloConfigurator"/> or <see cref="T:Orleans.TestingHost.IHostConfigurator"/> to configure silos created by the test cluster.
+            </summary>
+            <typeparam name="T">The configurator type.</typeparam>
+            <returns>The builder.</returns>
+        </member>
+        <member name="M:Orleans.TestingHost.TestClusterBuilder.AddClientBuilderConfigurator``1">
+            <summary>
+            Adds an implementation of <see cref="T:Orleans.TestingHost.IClientBuilderConfigurator"/> or <see cref="T:Orleans.TestingHost.IHostConfigurator"/> to configure the client created for the test cluster
+            </summary>
+            <typeparam name="T">The client builder type</typeparam>
+            <returns>The builder.</returns>
+        </member>
+        <member name="M:Orleans.TestingHost.TestClusterBuilder.Build">
+            <summary>
+            Builds this instance.
+            </summary>
+            <returns>TestCluster.</returns>
+        </member>
+        <member name="M:Orleans.TestingHost.TestClusterBuilder.CreateClusterId">
+            <summary>
+            Creates a cluster identifier.
+            </summary>
+            <returns>A new cluster identifier.</returns>
+        </member>
+        <member name="T:Orleans.TestingHost.TestClusterExtensions">
+            <summary>
+            Extension methods for test clusters.
+            </summary>
+        </member>
+        <member name="M:Orleans.TestingHost.TestClusterExtensions.GetConfiguration(Microsoft.Extensions.Hosting.IHostBuilder)">
+            <summary>
+            Gets the configuration from the specified host builder.
+            </summary>        
+            <param name="builder">
+            The builder.
+            </param>
+        </member>
+        <member name="M:Orleans.TestingHost.TestClusterExtensions.GetConfigurationValue(Microsoft.Extensions.Hosting.IHostBuilder,System.String)">
+            <summary>
+            Gets a configuration value.
+            </summary>
+            <param name="hostBuilder">The host builder.</param>
+            <param name="key">The key.</param>
+            <returns>The configuration value.</returns>
+        </member>
+        <member name="M:Orleans.TestingHost.TestClusterExtensions.GetTestClusterOptions(Microsoft.Extensions.Hosting.IHostBuilder)">
+            <summary>
+            Gets the test cluster options.
+            </summary>
+            <param name="hostBuilder">The host builder.</param>
+            <returns>The test cluster options.</returns>
+        </member>
+        <member name="M:Orleans.TestingHost.TestClusterExtensions.GetTestClusterOptions(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Gets the test cluster options.
+            </summary>
+            <param name="config">The configuration.</param>
+            <returns>The test cluster options.</returns>
+        </member>
+        <member name="T:Orleans.TestingHost.TestClusterHostFactory">
+            <summary>
+            Utility for creating silos given a name and collection of configuration sources.
+            </summary>
+        </member>
+        <member name="M:Orleans.TestingHost.TestClusterHostFactory.CreateSiloHost(System.String,Microsoft.Extensions.Configuration.IConfiguration,System.Action{Microsoft.Extensions.Hosting.IHostBuilder})">
+            <summary>
+            Creates an returns a new silo.
+            </summary>
+            <param name="hostName">The silo name if it is not already specified in the configuration.</param>
+            <param name="configuration">The configuration.</param>
+            <param name="postConfigureHostBuilder">An optional delegate which can be used to configure the host builder just prior to a host being built.</param>
+            <returns>A new silo.</returns>
+        </member>
+        <member name="M:Orleans.TestingHost.TestClusterHostFactory.CreateClusterClient(System.String,Microsoft.Extensions.Configuration.IConfiguration,System.Action{Microsoft.Extensions.Hosting.IHostBuilder})">
+            <summary>
+            Creates the cluster client.
+            </summary>
+            <param name="hostName">Name of the host.</param>
+            <param name="configuration">The configuration.</param>
+            <param name="postConfigureHostBuilder">An optional delegate which can be used to configure the host builder just prior to a host being built.</param>
+            <returns>The cluster client host.</returns>
+        </member>
+        <member name="M:Orleans.TestingHost.TestClusterHostFactory.SerializeConfiguration(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Serializes configuration to a string.
+            </summary>
+            <param name="configuration">The configuration.</param>
+            <returns>The serialized configuration.</returns>
+        </member>
+        <member name="M:Orleans.TestingHost.TestClusterHostFactory.DeserializeConfiguration(System.String)">
+            <summary>
+            Deserializes a configuration string.
+            </summary>
+            <param name="serializedSources">The serialized sources.</param>
+            <returns>The deserialized configuration.</returns>
+        </member>
+        <member name="T:Orleans.TestingHost.TestClusterOptions">
+            <summary>
+            Configuration options for test clusters.
+            </summary>
+        </member>
+        <member name="P:Orleans.TestingHost.TestClusterOptions.ClusterId">
+            <summary>
+            Gets or sets the cluster identifier.
+            </summary>
+            <seealso cref="P:Orleans.Configuration.ClusterOptions.ClusterId"/>
+            <value>The cluster identifier.</value>
+        </member>
+        <member name="P:Orleans.TestingHost.TestClusterOptions.ServiceId">
+            <summary>
+            Gets or sets the service identifier.
+            </summary>
+            <seealso cref="P:Orleans.Configuration.ClusterOptions.ServiceId"/>
+            <value>The service identifier.</value>
+        </member>
+        <member name="P:Orleans.TestingHost.TestClusterOptions.BaseSiloPort">
+            <summary>
+            Gets or sets the base silo port, which is the port for the first silo. Other silos will use subsequent ports.
+            </summary>
+            <value>The base silo port.</value>
+        </member>
+        <member name="P:Orleans.TestingHost.TestClusterOptions.BaseGatewayPort">
+            <summary>
+            Gets or sets the base gateway port, which is the gateway port for the first silo. Other silos will use subsequent ports.
+            </summary>
+            <value>The base gateway port.</value>
+        </member>
+        <member name="P:Orleans.TestingHost.TestClusterOptions.UseTestClusterMembership">
+            <summary>
+            Gets or sets a value indicating whether to use test cluster membership.
+            </summary>
+            <value><see langword="true" /> if test cluster membership should be used; otherwise, <see langword="false" />.</value>
+        </member>
+        <member name="P:Orleans.TestingHost.TestClusterOptions.InitializeClientOnDeploy">
+            <summary>
+            Gets or sets a value indicating whether to initialize the client immediately on deployment.
+            </summary>
+            <value><see langword="true" /> if the client should be initialized immediately on deployment; otherwise, <see langword="false" />.</value>
+        </member>
+        <member name="P:Orleans.TestingHost.TestClusterOptions.InitialSilosCount">
+            <summary>
+            Gets or sets the initial silos count.
+            </summary>
+            <value>The initial silos count.</value>
+        </member>
+        <member name="P:Orleans.TestingHost.TestClusterOptions.ApplicationBaseDirectory">
+            <summary>
+            Gets or sets the application base directory.
+            </summary>
+            <value>The application base directory.</value>
+        </member>
+        <member name="P:Orleans.TestingHost.TestClusterOptions.ConfigureFileLogging">
+            <summary>
+            Gets or sets a value indicating whether to configure file logging.
+            </summary>
+            <value><see langword="true" /> if file logging should be configured; otherwise, <see langword="false" />.</value>
+        </member>
+        <member name="P:Orleans.TestingHost.TestClusterOptions.AssumeHomogenousSilosForTesting">
+            <summary>
+            Gets or sets a value indicating whether to assume homogeneous silos for testing purposes.
+            </summary>
+            <value><see langword="true" /> if the cluster should assume homogeneous silos; otherwise, <see langword="false" />.</value>
+        </member>
+        <member name="P:Orleans.TestingHost.TestClusterOptions.GatewayPerSilo">
+            <summary>
+            Gets or sets a value indicating whether each silo should host a gateway.
+            </summary>
+            <value><see langword="true" /> if each silo should host a gateway; otherwise, <see langword="false" />.</value>
+        </member>
+        <member name="P:Orleans.TestingHost.TestClusterOptions.SiloBuilderConfiguratorTypes">
+            <summary>
+            Gets the silo builder configurator types.
+            </summary>
+            <value>The silo builder configurator types.</value>
+        </member>
+        <member name="P:Orleans.TestingHost.TestClusterOptions.ClientBuilderConfiguratorTypes">
+            <summary>
+            Gets the client builder configurator types.
+            </summary>
+            <value>The client builder configurator types.</value>
+        </member>
+        <member name="P:Orleans.TestingHost.TestClusterOptions.ConnectionTransport">
+            <summary>
+            Gets or sets a value indicating what transport to use for connecting silos and clients.
+            </summary>
+            <remarks>
+            Defaults to InMemory.
+            </remarks>
+        </member>
+        <member name="M:Orleans.TestingHost.TestClusterOptions.ToDictionary">
+            <summary>
+            Converts these options into a dictionary.
+            </summary>
+            <returns>The options dictionary.</returns>
+        </member>
+        <member name="T:Orleans.TestingHost.TestSiloSpecificOptions">
+            <summary>
+            Configuration overrides for individual silos.
+            </summary>
+        </member>
+        <member name="P:Orleans.TestingHost.TestSiloSpecificOptions.SiloPort">
+            <summary>
+            Gets or sets the silo port.
+            </summary>
+            <value>The silo port.</value>
+        </member>
+        <member name="P:Orleans.TestingHost.TestSiloSpecificOptions.GatewayPort">
+            <summary>
+            Gets or sets the gateway port.
+            </summary>
+            <value>The gateway port.</value>
+        </member>
+        <member name="P:Orleans.TestingHost.TestSiloSpecificOptions.SiloName">
+            <summary>
+            Gets or sets the name of the silo.
+            </summary>
+            <value>The name of the silo.</value>
+        </member>
+        <member name="P:Orleans.TestingHost.TestSiloSpecificOptions.PrimarySiloEndPoint">
+            <summary>
+            Gets or sets the primary silo port.
+            </summary>
+            <value>The primary silo port.</value>
+        </member>
+        <member name="M:Orleans.TestingHost.TestSiloSpecificOptions.Create(Orleans.TestingHost.TestCluster,Orleans.TestingHost.TestClusterOptions,System.Int32,System.Boolean)">
+            <summary>
+            Creates an instance of the <see cref="T:Orleans.TestingHost.TestSiloSpecificOptions"/> class.
+            </summary>
+            <param name="testCluster">The test cluster.</param>
+            <param name="testClusterOptions">The test cluster options.</param>
+            <param name="instanceNumber">The instance number.</param>
+            <param name="assignNewPort">if set to <see langword="true" />, assign a new port for the silo.</param>
+            <returns>The options.</returns>
+        </member>
+        <member name="M:Orleans.TestingHost.TestSiloSpecificOptions.ToDictionary">
+            <summary>
+            Converts these options into a dictionary.
+            </summary>
+            <returns>The options dictionary.</returns>
+        </member>
+        <member name="T:Orleans.TestingHost.ConnectionTransportType">
+            <summary>
+            Describe a transport method
+            </summary>
+        </member>
+        <member name="F:Orleans.TestingHost.ConnectionTransportType.TcpSocket">
+            <summary>
+            Uses real TCP socket.
+            </summary>
+        </member>
+        <member name="F:Orleans.TestingHost.ConnectionTransportType.InMemory">
+            <summary>
+            Uses in memory socket.
+            </summary>
+        </member>
+        <member name="F:Orleans.TestingHost.ConnectionTransportType.UnixSocket">
+            <summary>
+            Uses in Unix socket.
+            </summary>
+        </member>
+        <member name="T:Orleans.TestingHost.TestClusterPortAllocator">
+            <summary>
+            Default <see cref="T:Orleans.TestingHost.ITestClusterPortAllocator"/> implementation, which tries to allocate unused ports.
+            </summary>
+        </member>
+        <member name="M:Orleans.TestingHost.TestClusterPortAllocator.AllocateConsecutivePortPairs(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Orleans.TestingHost.TestClusterPortAllocator.Dispose">
+            <inheritdoc />
+        </member>
+        <member name="M:Orleans.TestingHost.TestClusterPortAllocator.Dispose(System.Boolean)">
+            <summary>
+            Releases unmanaged and - optionally - managed resources.
+            </summary>
+            <param name="disposing"><see langword="true" /> to release both managed and unmanaged resources; <see langword="false" /> to release only unmanaged resources.</param>
+        </member>
+        <member name="M:Orleans.TestingHost.TestClusterPortAllocator.Finalize">
+            <summary>
+            Finalizes an instance of the <see cref="T:Orleans.TestingHost.TestClusterPortAllocator"/> class.
+            </summary>
+        </member>
+        <member name="T:Orleans.TestingHost.FaultInjectionGrainStorageOptions">
+            <summary>
+            Options for fault injection grain storage
+            </summary>
+        </member>
+        <member name="F:Orleans.TestingHost.FaultInjectionGrainStorageOptions.DEFAULT_LATENCY">
+            <summary>
+            The default latency.
+            </summary>
+        </member>
+        <member name="P:Orleans.TestingHost.FaultInjectionGrainStorageOptions.Latency">
+            <summary>
+            Gets or sets the latency applied on storage operations.
+            </summary>
+        </member>
+        <member name="T:Orleans.TestingHost.FaultInjectionGrainStorage">
+            <summary>
+            Fault injection decorator for storage providers.  This allows users to inject storage exceptions to test error handling scenarios.
+            </summary>
+        </member>
+        <member name="M:Orleans.TestingHost.FaultInjectionGrainStorage.#ctor(Orleans.Storage.IGrainStorage,System.String,Microsoft.Extensions.Logging.ILoggerFactory,Orleans.IGrainFactory,Orleans.TestingHost.FaultInjectionGrainStorageOptions)">
+            <summary>
+            Default constructor which creates the decorated storage provider.
+            </summary>
+            <param name="realStorageProvider">The real storage provider.</param>
+            <param name="name">The storage provider name.</param>
+            <param name="loggerFactory">The logger factory.</param>
+            <param name="grainFactory">The grain factory.</param>
+            <param name="faultInjectionOptions">The fault injection options.</param>
+        </member>
+        <member name="M:Orleans.TestingHost.FaultInjectionGrainStorage.ReadStateAsync``1(System.String,Orleans.Runtime.GrainId,Orleans.IGrainState{``0})">
+            <summary>Faults if exception is provided, otherwise calls through to  decorated storage provider.</summary>
+            <returns>Completion promise for the Read operation on the specified grain.</returns>
+        </member>
+        <member name="M:Orleans.TestingHost.FaultInjectionGrainStorage.WriteStateAsync``1(System.String,Orleans.Runtime.GrainId,Orleans.IGrainState{``0})">
+            <summary>Faults if exception is provided, otherwise calls through to  decorated storage provider.</summary>
+            <returns>Completion promise for the Write operation on the specified grain.</returns>
+        </member>
+        <member name="M:Orleans.TestingHost.FaultInjectionGrainStorage.ClearStateAsync``1(System.String,Orleans.Runtime.GrainId,Orleans.IGrainState{``0})">
+            <summary>Faults if exception is provided, otherwise calls through to  decorated storage provider.</summary>
+            <returns>Completion promise for the Delete operation on the specified grain.</returns>
+        </member>
+        <member name="M:Orleans.TestingHost.FaultInjectionGrainStorage.Participate(Orleans.Runtime.ISiloLifecycle)">
+            <inheritdoc />
+        </member>
+        <member name="T:Orleans.TestingHost.FaultInjectionGrainStorageFactory">
+            <summary>
+            Factory to create FaultInjectionGrainStorage
+            </summary>
+        </member>
+        <member name="M:Orleans.TestingHost.FaultInjectionGrainStorageFactory.Create(System.IServiceProvider,System.String,System.Func{System.IServiceProvider,System.String,Orleans.Storage.IGrainStorage})">
+            <summary>
+            Creates a new <see cref="T:Orleans.TestingHost.FaultInjectionGrainStorage"/> instance.
+            </summary>
+            <param name="services">The services.</param>
+            <param name="name">The storage provider name.</param>
+            <param name="injectedGrainStorageFactory">The injected grain storage factory.</param>
+            <returns>The new instance.</returns>
+        </member>
+        <member name="T:Orleans.TestingHost.SiloBuilderExtensions">
+            <summary>
+            Extension methods for <see cref="T:Orleans.Hosting.ISiloBuilder"/>.
+            </summary>
+        </member>
+        <member name="M:Orleans.TestingHost.SiloBuilderExtensions.AddFaultInjectionMemoryStorage(Orleans.Hosting.ISiloBuilder,System.String,System.Action{Orleans.Configuration.MemoryGrainStorageOptions},System.Action{Orleans.TestingHost.FaultInjectionGrainStorageOptions})">
+            <summary>
+            Configures a silo to use <see cref="T:Orleans.TestingHost.FaultInjectionGrainStorage" />.
+            </summary>
+            <param name="builder">The builder.</param>
+            <param name="name">The storage provider name.</param>
+            <param name="configureOptions">The memory storage configuration delegate.</param>
+            <param name="configureFaultInjectionOptions">The fault injection provider configuration delegate.</param>
+            <returns>The silo builder</returns>
+        </member>
+        <member name="M:Orleans.TestingHost.SiloBuilderExtensions.AddFaultInjectionMemoryStorage(Orleans.Hosting.ISiloBuilder,System.String,System.Action{Microsoft.Extensions.Options.OptionsBuilder{Orleans.Configuration.MemoryGrainStorageOptions}},System.Action{Microsoft.Extensions.Options.OptionsBuilder{Orleans.TestingHost.FaultInjectionGrainStorageOptions}})">
+            <summary>
+            Configures a silo to use <see cref="T:Orleans.TestingHost.FaultInjectionGrainStorage" />.
+            </summary>
+            <param name="builder">The builder.</param>
+            <param name="name">The storage provider name.</param>
+            <param name="configureOptions">The memory storage configuration delegate.</param>
+            <param name="configureFaultInjectionOptions">The fault injection provider configuration delegate.</param>
+            <returns>The silo builder</returns>
+        </member>
+        <member name="T:Orleans.TestingHost.IStorageFaultGrain">
+            <summary>
+            Grain that tracks storage exceptions to be injected.
+            </summary>
+        </member>
+        <member name="M:Orleans.TestingHost.IStorageFaultGrain.AddFaultOnRead(Orleans.Runtime.GrainId,System.Exception)">
+            <summary>
+            Adds a storage exception to be thrown when the referenced grain reads state from a storage provider
+            </summary>
+            <returns>Task.</returns>
+        </member>
+        <member name="M:Orleans.TestingHost.IStorageFaultGrain.AddFaultOnWrite(Orleans.Runtime.GrainId,System.Exception)">
+            <summary>
+            Adds a storage exception to be thrown when the referenced grain writes state to a storage provider
+            </summary>
+            <returns>Task.</returns>
+        </member>
+        <member name="M:Orleans.TestingHost.IStorageFaultGrain.AddFaultOnClear(Orleans.Runtime.GrainId,System.Exception)">
+            <summary>
+            Adds a storage exception to be thrown when the referenced grain clears state in a storage provider
+            </summary>
+            <returns>Task.</returns>
+        </member>
+        <member name="M:Orleans.TestingHost.IStorageFaultGrain.OnRead(Orleans.Runtime.GrainId)">
+            <summary>
+            Throws a storage exception if one has been added for the grain reference for reading.
+            </summary>
+        </member>
+        <member name="M:Orleans.TestingHost.IStorageFaultGrain.OnWrite(Orleans.Runtime.GrainId)">
+            <summary>
+            Throws a storage exception if one has been added for the grain reference for writing.
+            </summary>
+        </member>
+        <member name="M:Orleans.TestingHost.IStorageFaultGrain.OnClear(Orleans.Runtime.GrainId)">
+            <summary>
+            Throws a storage exception if one has been added for the grain reference for clearing state.
+            </summary>
+        </member>
+        <member name="T:Orleans.TestingHost.RandomlyInjectedStorageException">
+            <summary>
+            Represents a randomly injected storage exception.
+            </summary>
+        </member>
+        <member name="M:Orleans.TestingHost.RandomlyInjectedStorageException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Orleans.TestingHost.RandomlyInjectedStorageException"/> class.
+            </summary>
+        </member>
+        <member name="M:Orleans.TestingHost.RandomlyInjectedStorageException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Orleans.TestingHost.RandomlyInjectedStorageException"/> class.
+            </summary>
+            <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo" /> that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext" /> that contains contextual information about the source or destination.</param>
+        </member>
+        <member name="T:Orleans.TestingHost.RandomlyInjectedInconsistentStateException">
+            <summary>
+            Represents a randomly injected <see cref="T:Orleans.Storage.InconsistentStateException"/>.
+            </summary>
+        </member>
+        <member name="M:Orleans.TestingHost.RandomlyInjectedInconsistentStateException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Orleans.TestingHost.RandomlyInjectedInconsistentStateException"/> class.
+            </summary>
+        </member>
+        <member name="M:Orleans.TestingHost.RandomlyInjectedInconsistentStateException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Orleans.TestingHost.RandomlyInjectedInconsistentStateException"/> class.
+            </summary>
+            <param name="info">The serialization info.</param>
+            <param name="context">The context.</param>
+        </member>
+        <member name="T:Orleans.TestingHost.StorageFaultGrain">
+            <summary>
+            Grain that tracks storage exceptions to be injected.
+            </summary>
+        </member>
+        <member name="M:Orleans.TestingHost.StorageFaultGrain.OnActivateAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Orleans.TestingHost.StorageFaultGrain.AddFaultOnRead(Orleans.Runtime.GrainId,System.Exception)">
+            <inheritdoc />
+        </member>
+        <member name="M:Orleans.TestingHost.StorageFaultGrain.AddFaultOnWrite(Orleans.Runtime.GrainId,System.Exception)">
+            <inheritdoc />
+        </member>
+        <member name="M:Orleans.TestingHost.StorageFaultGrain.AddFaultOnClear(Orleans.Runtime.GrainId,System.Exception)">
+            <inheritdoc />
+        </member>
+        <member name="M:Orleans.TestingHost.StorageFaultGrain.OnRead(Orleans.Runtime.GrainId)">
+            <inheritdoc />
+        </member>
+        <member name="M:Orleans.TestingHost.StorageFaultGrain.OnWrite(Orleans.Runtime.GrainId)">
+            <inheritdoc />
+        </member>
+        <member name="M:Orleans.TestingHost.StorageFaultGrain.OnClear(Orleans.Runtime.GrainId)">
+            <inheritdoc />
+        </member>
+        <member name="P:Orleans.TestingHost.UnixSocketTransport.UnixSocketConnectionOptions.ConvertEndpointToPath">
+            <summary>
+            Get or sets to function used to get a filename given an endpoint
+            </summary>
+        </member>
+        <member name="P:Orleans.TestingHost.UnixSocketTransport.UnixSocketConnectionOptions.MemoryPoolFactory">
+            <summary>
+            Gets or sets the memory pool factory.
+            </summary>
+        </member>
+        <member name="M:Orleans.TestingHost.UnixSocketTransport.UnixSocketConnectionOptions.ConvertEndpointRegex">
+            <remarks>
+            Pattern:<br/>
+            <code>[^a-zA-Z0-9]</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match a character in the set [^0-9A-Za-z].<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="T:Orleans.TestingHost.Utils.AsyncResultHandle">
+            <summary>
+            This class is for internal testing use only.
+            </summary>
+        </member>
+        <member name="M:Orleans.TestingHost.Utils.AsyncResultHandle.Reset">
+            <summary> Reset the current result handle </summary>
+        </member>
+        <member name="P:Orleans.TestingHost.Utils.AsyncResultHandle.Done">
+            <summary> Get or set the Done flag </summary>
+        </member>
+        <member name="P:Orleans.TestingHost.Utils.AsyncResultHandle.Continue">
+            <summary> Get or set the Continue flag </summary>
+        </member>
+        <member name="P:Orleans.TestingHost.Utils.AsyncResultHandle.Exception">
+            <summary> Get or set the exception of the result handle </summary>
+        </member>
+        <member name="P:Orleans.TestingHost.Utils.AsyncResultHandle.Result">
+            <summary> Get or set the value of the result handle </summary>
+        </member>
+        <member name="M:Orleans.TestingHost.Utils.AsyncResultHandle.WaitForFinished(System.TimeSpan)">
+            <summary>
+            </summary>
+            <param name="timeout"></param>
+            <returns>Returns <c>true</c> if operation completes before timeout</returns>
+        </member>
+        <member name="M:Orleans.TestingHost.Utils.AsyncResultHandle.WaitForContinue(System.TimeSpan)">
+            <summary>
+            </summary>
+            <param name="timeout"></param>
+            <returns>Returns <c>true</c> if operation completes before timeout</returns>
+        </member>
+        <member name="M:Orleans.TestingHost.Utils.AsyncResultHandle.WaitFor(System.TimeSpan,System.Func{System.Boolean})">
+            <summary>
+            </summary>
+            <param name="timeout"></param>
+            <param name="checkFlag"></param>
+            <returns>Returns <c>true</c> if operation completes before timeout</returns>
+        </member>
+        <member name="T:Orleans.TestingHost.Utils.StorageEmulator">
+            <summary>
+            A wrapper on Azure Storage Emulator.
+            </summary>
+            <remarks>It might be tricky to implement this as a <see cref="T:System.IDisposable">IDisposable</see>, isolated, autonomous instance, 
+            see at <see href="http://azure.microsoft.com/en-us/documentation/articles/storage-use-emulator/">Use the Azure Storage Emulator for Development and Testing</see>
+            for pointers.</remarks>
+        </member>
+        <member name="F:Orleans.TestingHost.Utils.StorageEmulator.storageEmulatorProcessNames">
+            <summary>
+            The storage emulator process name. One way to enumerate running process names is
+            Get-Process | Format-Table Id, ProcessName -autosize. If there were multiple storage emulator
+            processes running, they would named WASTOR~1, WASTOR~2, ... WASTOR~n.
+            </summary>
+        </member>
+        <member name="M:Orleans.TestingHost.Utils.StorageEmulator.IsStarted">
+            <summary>
+            Is the storage emulator already started.
+            </summary>
+            <returns><see langword="true" /> if this instance is started; otherwise, <see langword="false" />.</returns>
+        </member>
+        <member name="P:Orleans.TestingHost.Utils.StorageEmulator.Exists">
+            <summary>
+            Checks if the storage emulator exists, i.e. is installed.
+            </summary>
+            <value><see langword="true" /> if the storage emulator exists; otherwise, <see langword="false" />.</value>
+        </member>
+        <member name="M:Orleans.TestingHost.Utils.StorageEmulator.Help">
+            <summary>
+            Storage Emulator help.
+            </summary>
+            <returns>Storage emulator help.</returns>
+        </member>
+        <member name="M:Orleans.TestingHost.Utils.StorageEmulator.TryStart">
+            <summary>
+            Tries to start the storage emulator.
+            </summary>
+            <returns><see langword="true"/> if the process was started successfully; <see langword="false"/> otherwise.</returns>
+        </member>
+        <member name="M:Orleans.TestingHost.Utils.StorageEmulator.Start">
+            <summary>
+            Starts the storage emulator if not already started.
+            </summary>
+            <returns><see langword="true"/> if the process was started successfully; <see langword="false"/> otherwise.</returns>
+        </member>
+        <member name="M:Orleans.TestingHost.Utils.StorageEmulator.Stop">
+            <summary>
+            Stops the storage emulator if started.
+            </summary>
+            <returns><see langword="true"/> if the process was stopped successfully or was already stopped; <see langword="false"/> otherwise.</returns>
+        </member>
+        <member name="M:Orleans.TestingHost.Utils.StorageEmulator.CreateProcessArguments(System.String)">
+            <summary>
+            Creates a new <see cref="T:System.Diagnostics.ProcessStartInfo">ProcessStartInfo</see> to be used as an argument
+            to other operations in this class.
+            </summary>
+            <param name="arguments">The arguments.</param>
+            <returns>A new <see cref="T:System.Diagnostics.ProcessStartInfo"/> that has the given arguments.</returns>
+        </member>
+        <member name="M:Orleans.TestingHost.Utils.StorageEmulator.GetStorageEmulatorProcess">
+            <summary>
+            Queries the storage emulator process from the system.
+            </summary>
+            <returns><see langword="true" /> if the storage emulator process was found, <see langword="false" /> otherwise.</returns>
+        </member>
+        <member name="M:Orleans.TestingHost.Utils.StorageEmulator.GetStorageEmulatorPath">
+            <summary>
+            Returns a full path to the storage emulator executable, including the executable name and file extension.
+            </summary>
+            <returns>A full path to the storage emulator executable, or null if not found.</returns>
+        </member>
+        <member name="M:Orleans.TestingHost.Utils.StorageEmulator.GetProgramFilesBasePath">
+            <summary>
+            Determines the Program Files base directory.
+            </summary>
+            <returns>The Program files base directory.</returns>
+        </member>
+        <member name="T:Orleans.TestingHost.Utils.TestingUtils">
+            <summary> Collection of test utilities </summary>
+        </member>
+        <member name="M:Orleans.TestingHost.Utils.TestingUtils.ConfigureDefaultLoggingBuilder(Microsoft.Extensions.Logging.ILoggingBuilder,System.String)">
+            <summary>
+            Configure <paramref name="builder" /> with a <see cref="T:Orleans.TestingHost.Logging.FileLoggerProvider" /> which logs to <paramref name="filePath" />
+            by default;
+            </summary>
+            <param name="builder">The builder.</param>
+            <param name="filePath">The file path.</param>
+        </member>
+        <member name="M:Orleans.TestingHost.Utils.TestingUtils.CreateTraceFileName(System.String,System.String)">
+            <summary>
+            Create trace file name for a specific node or client in a specific deployment
+            </summary>
+            <param name="nodeName">Name of the node.</param>
+            <param name="clusterId">The cluster identifier.</param>
+            <returns>The new trace file name.</returns>
+        </member>
+        <member name="M:Orleans.TestingHost.Utils.TestingUtils.CreateDefaultLoggerFactory(System.String)">
+            <summary>
+            Create the default logger factory, which would configure logger factory with a <see cref="T:Orleans.TestingHost.Logging.FileLoggerProvider" /> that writes logs to <paramref name="filePath" /> and console.
+            by default;
+            </summary>
+            <param name="filePath">The file path.</param>
+            <returns>ILoggerFactory.</returns>
+        </member>
+        <member name="M:Orleans.TestingHost.Utils.TestingUtils.CreateDefaultLoggerFactory(System.String,Microsoft.Extensions.Logging.LoggerFilterOptions)">
+            <summary>
+            Create the default logger factory, which would configure logger factory with a <see cref="T:Orleans.TestingHost.Logging.FileLoggerProvider"/> that writes logs to <paramref name="filePath"/> and console.
+            by default;
+            </summary>
+            <param name="filePath">the logger file path</param>
+            <param name="filters">log filters you want to configure your logging with</param>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.TestingHost.Utils.TestingUtils.WaitUntilAsync(System.Func{System.Boolean,System.Threading.Tasks.Task{System.Boolean}},System.TimeSpan,System.Nullable{System.TimeSpan})">
+            <summary> Run the predicate until it succeed or times out </summary>
+            <param name="predicate">The predicate to run</param>
+            <param name="timeout">The timeout value</param>
+            <param name="delayOnFail">The time to delay next call upon failure</param>
+            <returns>True if the predicate succeed, false otherwise</returns>
+        </member>
+        <member name="M:Orleans.TestingHost.Utils.TestingUtils.Multiply(System.TimeSpan,System.Double)">
+            <summary>
+            Multiply a timeout by a value
+            </summary>
+            <param name="time">The time.</param>
+            <param name="value">The value.</param>
+            <returns>The resulting time span value.</returns>
+        </member>
+        <member name="M:Orleans.TestingHost.Utils.TestingUtils.ConfigureThreadPoolSettingsForStorageTests(System.Int32)">
+            <summary>
+            Configures the <see cref="T:System.Threading.ThreadPool"/> and the <see cref="T:System.Net.ServicePointManager"/> for tests.
+            </summary>
+            <param name="numDotNetPoolThreads">The minimum number of <see cref="T:System.Threading.ThreadPool"/> threads.</param>
+        </member>
+        <member name="T:Orleans.Hosting.FaultInjectionStorageServiceCollectionExtensions">
+            <summary>
+            Extension methods for <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.FaultInjectionStorageServiceCollectionExtensions.AddFaultInjectionMemoryStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String,System.Action{Orleans.Configuration.MemoryGrainStorageOptions},System.Action{Orleans.TestingHost.FaultInjectionGrainStorageOptions})">
+            <summary>
+            Configures a silo to use <see cref="T:Orleans.TestingHost.FaultInjectionGrainStorage" />.
+            </summary>
+            <param name="services">The services.</param>
+            <param name="name">The storage provider name.</param>
+            <param name="configureOptions">The memory storage configuration delegate.</param>
+            <param name="configureFaultInjectionOptions">The fault injection provider configuration delegate.</param>
+            <returns>The service collection.</returns>
+        </member>
+        <member name="M:Orleans.Hosting.FaultInjectionStorageServiceCollectionExtensions.AddFaultInjectionMemoryStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String,System.Action{Microsoft.Extensions.Options.OptionsBuilder{Orleans.Configuration.MemoryGrainStorageOptions}},System.Action{Microsoft.Extensions.Options.OptionsBuilder{Orleans.TestingHost.FaultInjectionGrainStorageOptions}})">
+            <summary>
+            Configures a silo to use <see cref="T:Orleans.TestingHost.FaultInjectionGrainStorage" />.
+            </summary>
+            <param name="services">The services.</param>
+            <param name="name">The storage provider name.</param>
+            <param name="configureOptions">The memory storage configuration delegate.</param>
+            <param name="configureFaultInjectionOptions">The fault injection provider configuration delegate.</param>
+            <returns>The service collection.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.ConvertEndpointRegex_0">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the ConvertEndpointRegex method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.ConvertEndpointRegex_0.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.ConvertEndpointRegex_0.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.ConvertEndpointRegex_0.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.ConvertEndpointRegex_0.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.ConvertEndpointRegex_0.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.ConvertEndpointRegex_0.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.ConvertEndpointRegex_0.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.Utilities">
+            <summary>Helper methods used by generated <see cref="T:System.Text.RegularExpressions.Regex"/>-derived implementations.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout">
+            <summary>Default timeout value set in <see cref="T:System.AppContext"/>, or <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout"/> if none was set.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_hasTimeout">
+            <summary>Whether <see cref="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout"/> is non-infinite.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_asciiLettersAndDigits">
+            <summary>Supports searching for characters in or not in "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".</summary>
+        </member>
+    </members>
+</doc>

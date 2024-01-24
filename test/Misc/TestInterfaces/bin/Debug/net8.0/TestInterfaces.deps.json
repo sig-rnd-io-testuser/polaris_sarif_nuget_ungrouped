@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "TestInterfaces/8.0.0-dev": {
+        "runtime": {
+          "TestInterfaces.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "TestInterfaces/8.0.0-dev": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

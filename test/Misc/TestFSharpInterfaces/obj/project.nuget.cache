@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "DKuede/q5xsS0//9eq2P0w/61o/d+q+lN1SbUmhdWborNJXWYSnGJyIe/RGKkSulYat6AiGWBNhq01OdLrMg4A==",
+  "success": true,
+  "projectFilePath": "/Users/chakrava/go/src/scan_projects/orleans/test/Misc/TestFSharpInterfaces/TestFSharpInterfaces.fsproj",
+  "expectedPackageFiles": [
+    "/Users/chakrava/.nuget/packages/fsharp.core/7.0.0/fsharp.core.7.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

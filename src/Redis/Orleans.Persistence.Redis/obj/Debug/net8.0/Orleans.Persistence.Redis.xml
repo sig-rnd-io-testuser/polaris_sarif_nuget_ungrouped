@@ -1,0 +1,179 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Orleans.Persistence.Redis</name>
+    </assembly>
+    <members>
+        <member name="T:Orleans.Hosting.RedisGrainStorageServiceCollectionExtensions">
+            <summary>
+            <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> extensions.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.RedisGrainStorageServiceCollectionExtensions.AddRedisGrainStorageAsDefault(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Orleans.Persistence.RedisStorageOptions})">
+            <summary>
+            Configures Redis as the default grain storage provider.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.RedisGrainStorageServiceCollectionExtensions.AddRedisGrainStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String,System.Action{Orleans.Persistence.RedisStorageOptions})">
+            <summary>
+            Configures Redis as a grain storage provider.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.RedisGrainStorageServiceCollectionExtensions.AddRedisGrainStorageAsDefault(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.Extensions.Options.OptionsBuilder{Orleans.Persistence.RedisStorageOptions}})">
+            <summary>
+            Configures Redis as the default grain storage provider.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.RedisGrainStorageServiceCollectionExtensions.AddRedisGrainStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String,System.Action{Microsoft.Extensions.Options.OptionsBuilder{Orleans.Persistence.RedisStorageOptions}})">
+            <summary>
+            Configures Redis as a grain storage provider.
+            </summary>
+        </member>
+        <member name="T:Orleans.Hosting.RedisSiloBuilderExtensions">
+            <summary>
+            <see cref="T:Orleans.Hosting.ISiloBuilder"/> extensions.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.RedisSiloBuilderExtensions.AddRedisGrainStorageAsDefault(Orleans.Hosting.ISiloBuilder,System.Action{Orleans.Persistence.RedisStorageOptions})">
+            <summary>
+            Configures Redis as the default grain storage provider.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.RedisSiloBuilderExtensions.AddRedisGrainStorage(Orleans.Hosting.ISiloBuilder,System.String,System.Action{Orleans.Persistence.RedisStorageOptions})">
+            <summary>
+            Configures Redis as a grain storage provider.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.RedisSiloBuilderExtensions.AddRedisGrainStorageAsDefault(Orleans.Hosting.ISiloBuilder,System.Action{Microsoft.Extensions.Options.OptionsBuilder{Orleans.Persistence.RedisStorageOptions}})">
+            <summary>
+            Configures Redis as the default grain storage provider.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.RedisSiloBuilderExtensions.AddRedisGrainStorage(Orleans.Hosting.ISiloBuilder,System.String,System.Action{Microsoft.Extensions.Options.OptionsBuilder{Orleans.Persistence.RedisStorageOptions}})">
+            <summary>
+            Configures Redis as a grain storage provider.
+            </summary>
+        </member>
+        <member name="T:Orleans.Persistence.RedisStorageOptions">
+            <summary>
+            Redis grain storage options.
+            </summary>
+        </member>
+        <member name="P:Orleans.Persistence.RedisStorageOptions.DeleteStateOnClear">
+            <summary>
+            Whether or not to delete state during a clear operation.
+            </summary>
+        </member>
+        <member name="P:Orleans.Persistence.RedisStorageOptions.InitStage">
+            <summary>
+            Stage of silo lifecycle where storage should be initialized.  Storage must be initialized prior to use.
+            </summary>
+        </member>
+        <member name="P:Orleans.Persistence.RedisStorageOptions.GrainStorageSerializer">
+            <inheritdoc/>
+        </member>
+        <member name="P:Orleans.Persistence.RedisStorageOptions.ConfigurationOptions">
+            <summary>
+            Gets or sets the Redis client configuration.
+            </summary>
+        </member>
+        <member name="P:Orleans.Persistence.RedisStorageOptions.CreateMultiplexer">
+            <summary>
+            The delegate used to create a Redis connection multiplexer.
+            </summary>
+        </member>
+        <member name="P:Orleans.Persistence.RedisStorageOptions.EntryExpiry">
+            <summary>
+            Entry expiry, null by default. A value should be set only for ephemeral environments, such as testing environments.
+            Setting a value different from <see langword="null"/> will cause duplicate activations in the cluster.
+            </summary>
+        </member>
+        <member name="P:Orleans.Persistence.RedisStorageOptions.GetStorageKey">
+            <summary>
+            Gets the Redis key for the provided grain type and grain identifier. If not set, the default implementation will be used, which is equivalent to <c>{ServiceId}/state/{grainId}/{grainType}</c>.
+            </summary>
+        </member>
+        <member name="M:Orleans.Persistence.RedisStorageOptions.DefaultCreateMultiplexer(Orleans.Persistence.RedisStorageOptions)">
+            <summary>
+            The default multiplexer creation delegate.
+            </summary>
+        </member>
+        <member name="T:Orleans.Persistence.RedisStorageOptionsExtensions">
+            <summary>
+            Extension methods for configuring <see cref="T:Orleans.Persistence.RedisStorageOptions"/>.
+            </summary>
+        </member>
+        <member name="M:Orleans.Persistence.RedisStorageOptionsExtensions.UseGetRedisKeyIgnoringGrainType(Microsoft.Extensions.Options.OptionsBuilder{Orleans.Persistence.RedisStorageOptions})">
+            <summary>
+            Configures the provided options to use a Redis key format that ignores the grain type, equivalent to <c>{ServiceId}/state/{grainId}</c>.
+            </summary>
+            <remarks>
+            This method is provided as a compatibility utility for users who are migrating from prerelease versions of the Redis storage provider.
+            </remarks>
+            <param name="optionsBuilder">The options builder.</param>
+        </member>
+        <member name="T:Orleans.Persistence.RedisGrainStorage">
+            <summary>
+            Redis-based grain storage provider
+            </summary>
+        </member>
+        <member name="M:Orleans.Persistence.RedisGrainStorage.#ctor(System.String,Orleans.Persistence.RedisStorageOptions,Orleans.Storage.IGrainStorageSerializer,Microsoft.Extensions.Options.IOptions{Orleans.Configuration.ClusterOptions},Microsoft.Extensions.Logging.ILogger{Orleans.Persistence.RedisGrainStorage})">
+            <summary>
+            Creates a new instance of the <see cref="T:Orleans.Persistence.RedisGrainStorage"/> type.
+            </summary>
+        </member>
+        <member name="M:Orleans.Persistence.RedisGrainStorage.Participate(Orleans.Runtime.ISiloLifecycle)">
+            <inheritdoc />
+        </member>
+        <member name="M:Orleans.Persistence.RedisGrainStorage.ReadStateAsync``1(System.String,Orleans.Runtime.GrainId,Orleans.IGrainState{``0})">
+            <inheritdoc />
+        </member>
+        <member name="M:Orleans.Persistence.RedisGrainStorage.WriteStateAsync``1(System.String,Orleans.Runtime.GrainId,Orleans.IGrainState{``0})">
+            <inheritdoc />
+        </member>
+        <member name="M:Orleans.Persistence.RedisGrainStorage.DefaultGetStorageKey(System.String,Orleans.Runtime.GrainId)">
+            <summary>
+            Default implementation of <see cref="P:Orleans.Persistence.RedisStorageOptions.GetStorageKey"/> which returns a key equivalent to <c>{ServiceId}/state/{grainId}/{grainType}</c>
+            </summary>
+        </member>
+        <member name="M:Orleans.Persistence.RedisGrainStorage.ClearStateAsync``1(System.String,Orleans.Runtime.GrainId,Orleans.IGrainState{``0})">
+            <inheritdoc />
+        </member>
+        <member name="T:Orleans.Persistence.RedisGrainStorageFactory">
+            <summary>
+            Factory used to create instances of Redis grain storage.
+            </summary>
+        </member>
+        <member name="M:Orleans.Persistence.RedisGrainStorageFactory.Create(System.IServiceProvider,System.String)">
+            <summary>
+            Creates a grain storage instance.
+            </summary>
+        </member>
+        <member name="T:Orleans.Persistence.Redis.RedisStorageException">
+            <summary>
+            Exception for throwing from Redis grain storage.
+            </summary>
+        </member>
+        <member name="M:Orleans.Persistence.Redis.RedisStorageException.#ctor">
+            <summary>
+            Initializes a new instance of <see cref="T:Orleans.Persistence.Redis.RedisStorageException"/>.
+            </summary>
+        </member>
+        <member name="M:Orleans.Persistence.Redis.RedisStorageException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of <see cref="T:Orleans.Persistence.Redis.RedisStorageException"/>.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+        </member>
+        <member name="M:Orleans.Persistence.Redis.RedisStorageException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of <see cref="T:Orleans.Persistence.Redis.RedisStorageException"/>.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+            <param name="inner">The exception that is the cause of the current exception, or a null reference (Nothing in Visual Basic) if no inner exception is specified.</param>
+        </member>
+        <member name="M:Orleans.Persistence.Redis.RedisStorageException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Orleans.Serialization.Protobuf</name>
+    </assembly>
+    <members>
+        <member name="T:Orleans.Serialization.ByteStringCodec">
+            <summary>
+            Serializer for <see cref="T:Google.Protobuf.ByteString"/>.
+            </summary>
+        </member>
+        <member name="M:Orleans.Serialization.ByteStringCodec.Orleans#Serialization#Codecs#IFieldCodec{Google#Protobuf#ByteString}#ReadValue``1(Orleans.Serialization.Buffers.Reader{``0}@,Orleans.Serialization.WireProtocol.Field)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.Serialization.ByteStringCodec.Orleans#Serialization#Codecs#IFieldCodec{Google#Protobuf#ByteString}#WriteField``1(Orleans.Serialization.Buffers.Writer{``0}@,System.UInt32,System.Type,Google.Protobuf.ByteString)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Orleans.Serialization.ByteStringCopier">
+            <summary>
+            Copier for <see cref="T:Google.Protobuf.ByteString"/>.
+            </summary>
+        </member>
+        <member name="M:Orleans.Serialization.ByteStringCopier.DeepCopy(Google.Protobuf.ByteString,Orleans.Serialization.Cloning.CopyContext)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Orleans.Serialization.MapFieldCodec`2">
+            <summary>
+            Serializer for <see cref="T:Google.Protobuf.Collections.MapField`2"/>.
+            </summary>
+            <typeparam name="TKey">The key type.</typeparam>
+            <typeparam name="TValue">The value type.</typeparam>
+        </member>
+        <member name="M:Orleans.Serialization.MapFieldCodec`2.#ctor(Orleans.Serialization.Codecs.IFieldCodec{`0},Orleans.Serialization.Codecs.IFieldCodec{`1})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Orleans.Serialization.MapFieldCodec`2"/> class.
+            </summary>
+            <param name="keyCodec">The key codec.</param>
+            <param name="valueCodec">The value codec.</param>
+        </member>
+        <member name="M:Orleans.Serialization.MapFieldCodec`2.WriteField``1(Orleans.Serialization.Buffers.Writer{``0}@,System.UInt32,System.Type,Google.Protobuf.Collections.MapField{`0,`1})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.Serialization.MapFieldCodec`2.ReadValue``1(Orleans.Serialization.Buffers.Reader{``0}@,Orleans.Serialization.WireProtocol.Field)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Orleans.Serialization.MapFieldCopier`2">
+            <summary>
+            Copier for <see cref="T:Google.Protobuf.Collections.MapField`2"/>.
+            </summary>
+            <typeparam name="TKey">The type of the t key.</typeparam>
+            <typeparam name="TValue">The type of the t value.</typeparam>
+        </member>
+        <member name="M:Orleans.Serialization.MapFieldCopier`2.#ctor(Orleans.Serialization.Cloning.IDeepCopier{`0},Orleans.Serialization.Cloning.IDeepCopier{`1})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Orleans.Serialization.MapFieldCopier`2"/> class.
+            </summary>
+            <param name="keyCopier">The key copier.</param>
+            <param name="valueCopier">The value copier.</param>
+        </member>
+        <member name="M:Orleans.Serialization.MapFieldCopier`2.DeepCopy(Google.Protobuf.Collections.MapField{`0,`1},Orleans.Serialization.Cloning.CopyContext)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.Serialization.MapFieldCopier`2.DeepCopy(Google.Protobuf.Collections.MapField{`0,`1},Google.Protobuf.Collections.MapField{`0,`1},Orleans.Serialization.Cloning.CopyContext)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.Serialization.ProtobufCodec.#ctor(System.Collections.Generic.IEnumerable{Orleans.Serialization.Serializers.ICodecSelector},System.Collections.Generic.IEnumerable{Orleans.Serialization.Serializers.ICopierSelector})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Orleans.Serialization.ProtobufCodec"/> class.
+            </summary>
+            <param name="serializableTypeSelectors">Filters used to indicate which types should be serialized by this codec.</param>
+            <param name="copyableTypeSelectors">Filters used to indicate which types should be copied by this codec.</param>
+        </member>
+        <member name="M:Orleans.Serialization.ProtobufCodec.DeepCopy(System.Object,Orleans.Serialization.Cloning.CopyContext)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.Serialization.ProtobufCodec.Orleans#Serialization#Serializers#IGeneralizedCodec#IsSupportedType(System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.Serialization.ProtobufCodec.Orleans#Serialization#Cloning#IGeneralizedCopier#IsSupportedType(System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.Serialization.ProtobufCodec.Orleans#Serialization#ITypeFilter#IsTypeAllowed(System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.Serialization.ProtobufCodec.Orleans#Serialization#Codecs#IFieldCodec#ReadValue``1(Orleans.Serialization.Buffers.Reader{``0}@,Orleans.Serialization.WireProtocol.Field)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.Serialization.ProtobufCodec.Orleans#Serialization#Codecs#IFieldCodec#WriteField``1(Orleans.Serialization.Buffers.Writer{``0}@,System.UInt32,System.Type,System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Orleans.Serialization.RepeatedFieldCodec`1">
+            <summary>
+            Serializer for <see cref="T:Google.Protobuf.Collections.RepeatedField`1"/>.
+            </summary>
+            <typeparam name="T">The element type.</typeparam>
+        </member>
+        <member name="M:Orleans.Serialization.RepeatedFieldCodec`1.#ctor(Orleans.Serialization.Codecs.IFieldCodec{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Orleans.Serialization.RepeatedFieldCodec`1"/> class.
+            </summary>
+            <param name="fieldCodec">The field codec.</param>
+        </member>
+        <member name="M:Orleans.Serialization.RepeatedFieldCodec`1.WriteField``1(Orleans.Serialization.Buffers.Writer{``0}@,System.UInt32,System.Type,Google.Protobuf.Collections.RepeatedField{`0})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.Serialization.RepeatedFieldCodec`1.ReadValue``1(Orleans.Serialization.Buffers.Reader{``0}@,Orleans.Serialization.WireProtocol.Field)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Orleans.Serialization.RepeatedFieldCopier`1">
+            <summary>
+            Copier for <see cref="T:Google.Protobuf.Collections.RepeatedField`1"/>.
+            </summary>
+            <typeparam name="T">The element type.</typeparam>
+        </member>
+        <member name="M:Orleans.Serialization.RepeatedFieldCopier`1.#ctor(Orleans.Serialization.Cloning.IDeepCopier{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Orleans.Serialization.RepeatedFieldCopier`1"/> class.
+            </summary>
+            <param name="valueCopier">The value copier.</param>
+        </member>
+        <member name="M:Orleans.Serialization.RepeatedFieldCopier`1.DeepCopy(Google.Protobuf.Collections.RepeatedField{`0},Orleans.Serialization.Cloning.CopyContext)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.Serialization.RepeatedFieldCopier`1.DeepCopy(Google.Protobuf.Collections.RepeatedField{`0},Google.Protobuf.Collections.RepeatedField{`0},Orleans.Serialization.Cloning.CopyContext)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Orleans.Serialization.SerializationHostingExtensions">
+            <summary>
+            Extension method for <see cref="T:Orleans.Serialization.ISerializerBuilder"/>.
+            </summary>
+        </member>
+        <member name="M:Orleans.Serialization.SerializationHostingExtensions.AddProtobufSerializer(Orleans.Serialization.ISerializerBuilder)">
+            <summary>
+            Adds support for serializing and deserializing Protobuf IMessage types using <see cref="T:Google.Protobuf.MessageParser"/>.
+            </summary>
+            <param name="serializerBuilder">The serializer builder.</param>
+        </member>
+        <member name="M:Orleans.Serialization.SerializationHostingExtensions.AddProtobufSerializer(Orleans.Serialization.ISerializerBuilder,System.Func{System.Type,System.Boolean},System.Func{System.Type,System.Boolean})">
+            <summary>
+            Adds support for serializing and deserializing Protobuf IMessage types using <see cref="T:Google.Protobuf.MessageParser"/>.
+            </summary>
+            <param name="serializerBuilder">The serializer builder.</param>
+            <param name="isSerializable">A delegate used to indicate which types should be serialized by this codec.</param>
+            <param name="isCopyable">A delegate used to indicate which types should be copied by this codec.</param>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,243 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Orleans.Persistence.Memory</name>
+    </assembly>
+    <members>
+        <member name="T:Orleans.Hosting.MemoryGrainStorageSiloBuilderExtensions">
+            <summary>
+            Silo host builder extensions
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.MemoryGrainStorageSiloBuilderExtensions.AddMemoryGrainStorageAsDefault(Orleans.Hosting.ISiloBuilder,System.Action{Orleans.Configuration.MemoryGrainStorageOptions})">
+            <summary>
+            Configure silo to use memory grain storage as the default grain storage.
+            </summary>
+            <param name="builder">The builder.</param>
+            <param name="configureOptions">The configuration delegate.</param>
+            <returns>The silo builder.</returns>
+        </member>
+        <member name="M:Orleans.Hosting.MemoryGrainStorageSiloBuilderExtensions.AddMemoryGrainStorage(Orleans.Hosting.ISiloBuilder,System.String,System.Action{Orleans.Configuration.MemoryGrainStorageOptions})">
+            <summary>
+            Configure silo to use memory grain storage.
+            </summary>
+            <param name="builder">The builder.</param>
+            <param name="name">The name of the storage provider. This must match with the <c>StorageName</c> property specified when injecting state into a grain.</param>
+            <param name="configureOptions">The configuration delegate.</param>
+            <returns>The silo builder.</returns>
+        </member>
+        <member name="M:Orleans.Hosting.MemoryGrainStorageSiloBuilderExtensions.AddMemoryGrainStorageAsDefault(Orleans.Hosting.ISiloBuilder,System.Action{Microsoft.Extensions.Options.OptionsBuilder{Orleans.Configuration.MemoryGrainStorageOptions}})">
+            <summary>
+            Configure silo to use memory grain storage as the default grain storage.
+            </summary>
+            <param name="builder">The builder.</param>
+            <param name="configureOptions">The configuration delegate.</param>
+            <returns>The silo builder.</returns>
+        </member>
+        <member name="M:Orleans.Hosting.MemoryGrainStorageSiloBuilderExtensions.AddMemoryGrainStorage(Orleans.Hosting.ISiloBuilder,System.String,System.Action{Microsoft.Extensions.Options.OptionsBuilder{Orleans.Configuration.MemoryGrainStorageOptions}})">
+            <summary>
+            Configure silo to use memory grain storage.
+            </summary>
+            <param name="builder">The builder.</param>
+            <param name="name">The name of the storage provider. This must match with the <c>StorageName</c> property specified when injecting state into a grain.</param>
+            <param name="configureOptions">The configuration delegate.</param>
+            <returns>The silo builder.</returns>
+        </member>
+        <member name="T:Orleans.Configuration.MemoryGrainStorageOptions">
+            <summary>
+            Options for MemoryGrainStorage
+            </summary>
+        </member>
+        <member name="F:Orleans.Configuration.MemoryGrainStorageOptions.NumStorageGrainsDefaultValue">
+            <summary>
+            Default number of queue storage grains.
+            </summary>
+        </member>
+        <member name="P:Orleans.Configuration.MemoryGrainStorageOptions.NumStorageGrains">
+            <summary>
+            Gets or sets the number of store grains to use.
+            </summary>
+        </member>
+        <member name="P:Orleans.Configuration.MemoryGrainStorageOptions.InitStage">
+            <summary>
+            Gets or sets the stage of silo lifecycle where storage should be initialized.  Storage must be initialized prior to use.
+            </summary>
+        </member>
+        <member name="P:Orleans.Configuration.MemoryGrainStorageOptions.GrainStorageSerializer">
+            <inheritdoc/>
+        </member>
+        <member name="F:Orleans.Configuration.MemoryGrainStorageOptions.DEFAULT_INIT_STAGE">
+            <summary>
+            Default init stage
+            </summary>
+        </member>
+        <member name="T:Orleans.Configuration.MemoryGrainStorageOptionsValidator">
+            <summary>
+            Validates <see cref="T:Orleans.Configuration.MemoryGrainStorageOptions"/>.
+            </summary>
+        </member>
+        <member name="M:Orleans.Configuration.MemoryGrainStorageOptionsValidator.#ctor(Orleans.Configuration.MemoryGrainStorageOptions,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Orleans.Configuration.MemoryGrainStorageOptionsValidator"/> class.
+            </summary>
+            <param name="options">The options.</param>
+            <param name="name">The name.</param>
+        </member>
+        <member name="M:Orleans.Configuration.MemoryGrainStorageOptionsValidator.ValidateConfiguration">
+            <inheritdoc/>
+        </member>
+        <member name="T:Orleans.Storage.MemoryGrainStorage">
+            <summary>
+            This is a simple in-memory grain implementation of a storage provider.
+            </summary>
+            <remarks>
+            This storage provider is ONLY intended for simple in-memory Development / Unit Test scenarios.
+            This class should NOT be used in Production environment, 
+             because [by-design] it does not provide any resilience 
+             or long-term persistence capabilities.
+            </remarks>
+        </member>
+        <member name="F:Orleans.Storage.MemoryGrainStorage.name">
+            <summary> Name of this storage provider instance. </summary>
+        </member>
+        <member name="M:Orleans.Storage.MemoryGrainStorage.#ctor(System.String,Orleans.Configuration.MemoryGrainStorageOptions,Microsoft.Extensions.Logging.ILogger{Orleans.Storage.MemoryGrainStorage},Orleans.IGrainFactory,Orleans.Storage.IGrainStorageSerializer)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Orleans.Storage.MemoryGrainStorage"/> class.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="options">The options.</param>
+            <param name="logger">The logger.</param>
+            <param name="grainFactory">The grain factory.</param>
+            <param name="defaultGrainStorageSerializer">The default grain storage serializer.</param>
+        </member>
+        <member name="M:Orleans.Storage.MemoryGrainStorage.ReadStateAsync``1(System.String,Orleans.Runtime.GrainId,Orleans.IGrainState{``0})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.Storage.MemoryGrainStorage.WriteStateAsync``1(System.String,Orleans.Runtime.GrainId,Orleans.IGrainState{``0})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.Storage.MemoryGrainStorage.ClearStateAsync``1(System.String,Orleans.Runtime.GrainId,Orleans.IGrainState{``0})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.Storage.MemoryGrainStorage.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.Storage.MemoryGrainStorage.ConvertFromStorageFormat``1(System.ReadOnlyMemory{System.Byte})">
+            <summary>
+            Deserialize from binary data
+            </summary>
+            <param name="data">The serialized stored data</param>
+        </member>
+        <member name="M:Orleans.Storage.MemoryGrainStorage.ConvertToStorageFormat``1(``0)">
+            <summary>
+            Serialize to the storage format.
+            </summary>
+            <param name="grainState">The grain state data to be serialized</param>
+            <remarks>
+            See:
+            http://msdn.microsoft.com/en-us/library/system.web.script.serialization.javascriptserializer.aspx
+            for more on the JSON serializer.
+            </remarks>
+        </member>
+        <member name="T:Orleans.Storage.MemoryGrainStorageFactory">
+            <summary>
+            Factory for creating MemoryGrainStorage
+            </summary>
+        </member>
+        <member name="M:Orleans.Storage.MemoryGrainStorageFactory.Create(System.IServiceProvider,System.String)">
+            <summary>
+            Creates a new <see cref="T:Orleans.Storage.MemoryGrainStorage"/> instance.
+            </summary>
+            <param name="services">The services.</param>
+            <param name="name">The name.</param>
+            <returns>The storage.</returns>
+        </member>
+        <member name="T:Orleans.Storage.Internal.MemoryStorageEtagMismatchException">
+            <summary>Exception used to communicate with the storage provider, so that it throws this exception to its caller.</summary>
+        </member>
+        <member name="P:Orleans.Storage.Internal.MemoryStorageEtagMismatchException.StoredEtag">
+            <summary>Gets the Etag value currently held in persistent storage.</summary>
+        </member>
+        <member name="P:Orleans.Storage.Internal.MemoryStorageEtagMismatchException.ReceivedEtag">
+            <summary>Gets the Etag value currently help in memory, and attempting to be updated.</summary>
+        </member>
+        <member name="M:Orleans.Storage.Internal.MemoryStorageEtagMismatchException.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Orleans.Storage.Internal.MemoryStorageEtagMismatchException"/> class.
+            </summary>
+            <param name="storedEtag">The stored etag.</param>
+            <param name="receivedEtag">The received etag.</param>
+        </member>
+        <member name="M:Orleans.Storage.Internal.MemoryStorageEtagMismatchException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Orleans.Storage.Internal.MemoryStorageEtagMismatchException"/> class.
+            </summary>
+            <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo" /> that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext" /> that contains contextual information about the source or destination.</param>
+        </member>
+        <member name="M:Orleans.Storage.Internal.MemoryStorageEtagMismatchException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.Storage.Internal.MemoryStorageEtagMismatchException.AsInconsistentStateException">
+            <summary>
+            Converts this instance into an <see cref="T:Orleans.Storage.InconsistentStateException"/>.
+            </summary>
+            <returns>A new <see cref="T:Orleans.Storage.InconsistentStateException"/>.</returns>
+        </member>
+        <member name="T:Orleans.Storage.MemoryStorageGrain">
+            <summary>
+            Implementation class for the Storage Grain used by In-memory storage provider
+            <c>Orleans.Storage.MemoryStorage</c>
+            </summary>
+        </member>
+        <member name="T:Orleans.Storage.MemoryStorageWithLatencyOptions">
+            <summary>
+            Options for the <see cref="T:Orleans.Storage.MemoryGrainStorageWithLatency"/> storage provider.
+            </summary>
+        </member>
+        <member name="F:Orleans.Storage.MemoryStorageWithLatencyOptions.DefaultLatency">
+            <summary>
+            The default latency.
+            </summary>
+        </member>
+        <member name="P:Orleans.Storage.MemoryStorageWithLatencyOptions.Latency">
+            <summary>
+            Gets or sets the latency.
+            </summary>
+            <value>The latency.</value>
+        </member>
+        <member name="P:Orleans.Storage.MemoryStorageWithLatencyOptions.MockCallsOnly">
+            <summary>
+            Gets or sets a value indicating whether to mock calls instead of issuing real storage calls.
+            </summary>
+            <value><see langword="true" /> if the provider should mock calls; otherwise, <see langword="false" />.</value>
+        </member>
+        <member name="T:Orleans.Storage.MemoryGrainStorageWithLatency">
+            <summary>
+            This is a simple in-memory implementation of a storage provider which presents fixed latency of storage calls.
+            This class is useful for system testing and investigation of the effects of storage latency.
+            </summary>
+            <remarks>
+            This storage provider is ONLY intended for simple in-memory Test scenarios.
+            This class should NOT be used in Production environment, 
+             because [by-design] it does not provide any resilience 
+             or long-term persistence capabilities.
+            </remarks>
+        </member>
+        <member name="M:Orleans.Storage.MemoryGrainStorageWithLatency.#ctor(System.String,Orleans.Storage.MemoryStorageWithLatencyOptions,Microsoft.Extensions.Logging.ILoggerFactory,Orleans.IGrainFactory,Orleans.Storage.IGrainStorageSerializer)">
+            <summary> Default constructor. </summary>
+        </member>
+        <member name="M:Orleans.Storage.MemoryGrainStorageWithLatency.ReadStateAsync``1(System.String,Orleans.Runtime.GrainId,Orleans.IGrainState{``0})">
+            <summary> Read state data function for this storage provider. </summary>
+            <see cref="M:Orleans.Storage.IGrainStorage.ReadStateAsync``1(System.String,Orleans.Runtime.GrainId,Orleans.IGrainState{``0})"/>
+        </member>
+        <member name="M:Orleans.Storage.MemoryGrainStorageWithLatency.WriteStateAsync``1(System.String,Orleans.Runtime.GrainId,Orleans.IGrainState{``0})">
+            <summary> Write state data function for this storage provider. </summary>
+            <see cref="M:Orleans.Storage.IGrainStorage.WriteStateAsync``1(System.String,Orleans.Runtime.GrainId,Orleans.IGrainState{``0})"/>
+        </member>
+        <member name="M:Orleans.Storage.MemoryGrainStorageWithLatency.ClearStateAsync``1(System.String,Orleans.Runtime.GrainId,Orleans.IGrainState{``0})">
+            <summary> Delete / Clear state data function for this storage provider. </summary>
+            <see cref="M:Orleans.Storage.IGrainStorage.ClearStateAsync``1(System.String,Orleans.Runtime.GrainId,Orleans.IGrainState{``0})"/>
+        </member>
+    </members>
+</doc>

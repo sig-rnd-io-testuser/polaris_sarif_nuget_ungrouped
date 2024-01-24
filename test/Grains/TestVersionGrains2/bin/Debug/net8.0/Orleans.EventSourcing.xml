@@ -1,0 +1,1403 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Orleans.EventSourcing</name>
+    </assembly>
+    <members>
+        <member name="T:Orleans.EventSourcing.Common.PrimaryOperationFailed">
+            <summary>
+            Describes a connection issue that occurred when communicating with primary storage.
+            </summary>
+        </member>
+        <member name="P:Orleans.EventSourcing.Common.PrimaryOperationFailed.Exception">
+            <summary>
+            The exception that was caught when communicating with the primary.
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.Common.PrimaryOperationFailed.ComputeRetryDelay(System.Nullable{System.TimeSpan})">
+            <inheritdoc/>
+        </member>
+        <member name="T:Orleans.EventSourcing.Common.INotificationMessage">
+            <summary>
+            Base class for notification messages that are sent by log view adaptors to other 
+            clusters, after updating the log. All subclasses must be serializable.
+            </summary>
+        </member>
+        <member name="P:Orleans.EventSourcing.Common.INotificationMessage.Version">
+            <summary>The version number.</summary>
+        </member>
+        <member name="T:Orleans.EventSourcing.Common.VersionNotificationMessage">
+            <summary>A simple notification message containing only the version.</summary>
+        </member>
+        <member name="P:Orleans.EventSourcing.Common.VersionNotificationMessage.Version">
+            <inheritdoc/>
+        </member>
+        <member name="T:Orleans.EventSourcing.Common.BatchedNotificationMessage">
+            <summary>A notification message containing a batch of notification messages.</summary>
+        </member>
+        <member name="P:Orleans.EventSourcing.Common.BatchedNotificationMessage.Notifications">
+            <summary>The notification messages contained in this batch.</summary>
+        </member>
+        <member name="P:Orleans.EventSourcing.Common.BatchedNotificationMessage.Version">
+            <summary>The version number - for a batch, this is the maximum version contained.</summary>
+        </member>
+        <member name="T:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3">
+             <summary>
+             A general template for constructing log view adaptors that are based on
+             a sequentially read and written primary. We use this to construct 
+             a variety of different log-consistency providers, all following the same basic pattern 
+             (read and write latest view from/to primary, and send notifications after writing).
+            <para>
+             Note that the log itself is transient, i.e. not actually saved to storage - only the latest view and some 
+             metadata (the log position, and write flags) is stored in the primary. 
+             It is safe to interleave calls to this adaptor (using grain scheduler only, of course).
+             </para>
+            <para>
+             Subclasses override ReadAsync and WriteAsync to read from / write to primary.
+             Calls to the primary are serialized, i.e. never interleave.
+             </para>
+             </summary>
+             <typeparam name="TLogView">The user-defined view of the log</typeparam>
+             <typeparam name="TLogEntry">The type of the log entries</typeparam>
+             <typeparam name="TSubmissionEntry">The type of submission entries stored in pending queue</typeparam>
+        </member>
+        <member name="M:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.InitializeConfirmedView(`0)">
+            <summary>
+            Set confirmed view the initial value (a view of the empty log)
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.LastConfirmedView">
+            <summary>
+            Read cached global state.
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.GetConfirmedVersion">
+            <summary>
+            Read version of cached global state.
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.ReadAsync">
+            <summary>
+            Read the latest primary state. Must block/retry until successful.
+            Should not throw exceptions, but record them in <see cref="F:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.LastPrimaryIssue"/>
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.WriteAsync">
+            <summary>
+            Apply pending entries to the primary. Must block/retry until successful. 
+            Should not throw exceptions, but record them in <see cref="F:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.LastPrimaryIssue"/>
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.MakeSubmissionEntry(`1)">
+            <summary>
+            Create a submission entry for the submitted log entry. 
+            Using a type parameter so we can add protocol-specific info to this class.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.SupportSubmissions">
+            <summary>
+            Whether this cluster supports submitting updates
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.OnMessageReceived(Orleans.EventSourcing.ILogConsistencyProtocolMessage)">
+            <summary>
+            Handle protocol messages.
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.OnNotificationReceived(Orleans.EventSourcing.Common.INotificationMessage)">
+            <summary>
+            Handle notification messages. Override this to handle notification subtypes.
+            </summary>
+        </member>
+        <member name="F:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.lastVersionNotified">
+            <summary>
+            The last version we have been notified of
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.ProcessNotifications">
+            <summary>
+            Process stored notifications during worker cycle. Override to handle notification subtypes.
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.Merge(Orleans.EventSourcing.Common.INotificationMessage,Orleans.EventSourcing.Common.INotificationMessage)">
+            <summary>
+            Merge two notification messages, for batching. Override to handle notification subtypes.
+            </summary>
+        </member>
+        <member name="P:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.Host">
+            <summary>
+            The grain that is using this adaptor.
+            </summary>
+        </member>
+        <member name="P:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.Services">
+            <summary>
+            The runtime services required for implementing notifications between grain instances in different cluster.
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.#ctor(Orleans.EventSourcing.ILogViewAdaptorHost{`0,`1},`0,Orleans.EventSourcing.ILogConsistencyProtocolServices)">
+            <summary>
+            Construct an instance, for the given parameters.
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.PreOnActivate">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.PostOnDeactivate">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.CopyTentativeState">
+            called at beginning of WriteAsync to the current tentative state
+        </member>
+        <member name="M:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.GetCurrentBatchOfUpdates">
+            called at beginning of WriteAsync to the current batch of updates
+        </member>
+        <member name="M:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.GetNumberPendingUpdates">
+            called at beginning of WriteAsync to get current number of pending updates
+        </member>
+        <member name="F:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.tentativeStateInternal">
+            <summary>
+             Tentative State. Represents Stable State + effects of pending updates.
+             Computed lazily (null if not in use)
+            </summary>
+        </member>
+        <member name="F:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.needRefresh">
+            <summary>
+            A flag that indicates to the worker that the client wants to refresh the state
+            </summary>
+        </member>
+        <member name="F:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.needInitialRead">
+            <summary>
+            A flag that indicates that we have not read global state at all yet, and should do so
+            </summary>
+        </member>
+        <member name="F:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.worker">
+            <summary>
+            Background worker which asynchronously sends operations to the leader
+            </summary>
+        </member>
+        <member name="F:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.stats">
+            statistics gathering. Is null unless stats collection is turned on.
+        </member>
+        <member name="M:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.IsMyClusterJoined">
+            For use by protocols. Determines if this cluster is part of the configured multicluster.
+        </member>
+        <member name="M:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.EnsureClusterJoinedAsync">
+            <summary>
+            Block until this cluster is joined to the multicluster.
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.Submit(`1)">
+            <inheritdoc />
+        </member>
+        <member name="M:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.SubmitRange(System.Collections.Generic.IEnumerable{`1})">
+            <inheritdoc />
+        </member>
+        <member name="M:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.TryAppend(`1)">
+            <inheritdoc />
+        </member>
+        <member name="M:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.TryAppendRange(System.Collections.Generic.IEnumerable{`1})">
+            <inheritdoc />
+        </member>
+        <member name="P:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.TentativeView">
+            <inheritdoc />
+        </member>
+        <member name="P:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.ConfirmedView">
+            <inheritdoc />
+        </member>
+        <member name="P:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.ConfirmedVersion">
+            <inheritdoc />
+        </member>
+        <member name="M:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.OnProtocolMessageReceived(Orleans.EventSourcing.ILogConsistencyProtocolMessage)">
+            <summary>
+            Called from network
+            </summary>
+            <param name="payLoad"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.EnableStatsCollection">
+            <summary>
+            method is virtual so subclasses can add their own events
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.DisableStatsCollection">
+            <summary>
+            Disable stats collection
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.GetStats">
+            <summary>
+            Get states
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.Work">
+            <summary>
+            batch worker performs reads from and writes to global state.
+            only one work cycle is active at any time.
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.UpdatePrimary">
+            <summary>
+            This function stores the operations in the pending queue as a batch to the primary.
+            Retries until some batch commits or there are no updates left.
+            </summary>
+        </member>
+        <member name="F:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.LastPrimaryIssue">
+            <summary>
+            Store the last issue that occurred while reading or updating primary.
+            Is null if successful.
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.Synchronize">
+            <inheritdoc />
+        </member>
+        <member name="P:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.UnconfirmedSuffix">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.ConfirmSubmittedEntries">
+            <inheritdoc />
+        </member>
+        <member name="M:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.NotifyPromises(System.Int32,System.Boolean)">
+            <summary>
+            send failure notifications
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.Common.PrimaryBasedLogViewAdaptor`3.RemoveStaleConditionalUpdates">
+            <summary>
+            go through updates and remove all the conditional updates that have already failed
+            </summary>
+        </member>
+        <member name="T:Orleans.EventSourcing.Common.SubmissionEntry`1">
+            <summary>
+            Base class for submission entries stored in pending queue. 
+            </summary>
+            <typeparam name="TLogEntry">The type of entry for this submission</typeparam>
+        </member>
+        <member name="F:Orleans.EventSourcing.Common.SubmissionEntry`1.Entry">
+            <summary> The log entry that is submitted. </summary>
+        </member>
+        <member name="F:Orleans.EventSourcing.Common.SubmissionEntry`1.SubmissionTime">
+            <summary> A timestamp for this submission. </summary>
+        </member>
+        <member name="F:Orleans.EventSourcing.Common.SubmissionEntry`1.ResultPromise">
+            <summary> For conditional updates, a promise that resolves once it is known whether the update was successful or not.</summary>
+        </member>
+        <member name="F:Orleans.EventSourcing.Common.SubmissionEntry`1.ConditionalPosition">
+            <summary> For conditional updates, the log position at which this update is supposed to be applied. </summary>
+        </member>
+        <member name="T:Orleans.EventSourcing.Common.RecordedConnectionIssue">
+            <summary>
+            Utility class for recording connection issues.
+            It is public, not internal, because it is a useful building block for implementing other consistency providers.
+            </summary>
+        </member>
+        <member name="P:Orleans.EventSourcing.Common.RecordedConnectionIssue.Issue">
+            <summary>
+            The recorded connection issue, or null if none
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.Common.RecordedConnectionIssue.Record(Orleans.EventSourcing.ConnectionIssue,Orleans.EventSourcing.IConnectionIssueListener,Orleans.EventSourcing.ILogConsistencyProtocolServices)">
+            <summary>
+            record a connection issue, filling in timestamps etc.
+            and notify the listener
+            </summary>
+            <param name="newIssue">the connection issue to be recorded</param>
+            <param name="listener">the listener for connection issues</param>
+            <param name="services">for reporting exceptions in listener</param>
+        </member>
+        <member name="M:Orleans.EventSourcing.Common.RecordedConnectionIssue.Resolve(Orleans.EventSourcing.IConnectionIssueListener,Orleans.EventSourcing.ILogConsistencyProtocolServices)">
+            <summary>
+            if there is a recorded issue, notify listener and clear it.
+            </summary>
+            <param name="listener">the listener for connection issues</param>
+            <param name="services">for reporting exceptions in listener</param>
+        </member>
+        <member name="M:Orleans.EventSourcing.Common.RecordedConnectionIssue.DelayBeforeRetry">
+            <summary>
+            delays if there was an issue in last attempt, for the duration specified by the retry delay
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.EventSourcing.Common.RecordedConnectionIssue.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.EventSourcing.Common.StringEncodedWriteVector.GetBit(System.String,System.String)">
+            <summary>
+            Gets one of the bits in writeVector
+            </summary>
+            <param name="writeVector">The write vector which we want get the bit from</param>
+            <param name="Replica">The replica for which we want to look up the bit</param>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.EventSourcing.Common.StringEncodedWriteVector.FlipBit(System.String@,System.String)">
+            <summary>
+            toggle one of the bits in writeVector and return the new value.
+            </summary>
+            <param name="writeVector">The write vector in which we want to flip the bit</param>
+            <param name="Replica">The replica for which we want to flip the bit</param>
+            <returns>the state of the bit after flipping it</returns>
+        </member>
+        <member name="T:Orleans.EventSourcing.CustomStorage.ICustomStorageInterface`2">
+            <summary>
+            The storage interface exposed by grains that want to use the CustomStorage log-consistency provider
+            <typeparam name="TState">The type for the state of the grain.</typeparam>
+            <typeparam name="TDelta">The type for delta objects that represent updates to the state.</typeparam>
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.CustomStorage.ICustomStorageInterface`2.ReadStateFromStorage">
+            <summary>
+            Reads the current state and version from storage
+            (note that the state object may be mutated by the provider, so it must not be shared).
+            </summary>
+            <returns>the version number and a  state object.</returns>
+        </member>
+        <member name="M:Orleans.EventSourcing.CustomStorage.ICustomStorageInterface`2.ApplyUpdatesToStorage(System.Collections.Generic.IReadOnlyList{`1},System.Int32)">
+            <summary>
+            Applies the given array of deltas to storage, and returns true, if the version in storage matches the expected version. 
+            Otherwise, does nothing and returns false. If successful, the version of storage must be increased by the number of deltas.
+            </summary>
+            <returns>true if the deltas were applied, false otherwise</returns>
+        </member>
+        <member name="T:Orleans.EventSourcing.CustomStorage.LogConsistencyProvider">
+            <summary>
+            A log-consistency provider that relies on grain-specific custom code for 
+            reading states from storage, and appending deltas to storage.
+            Grains that wish to use this provider must implement the <see cref="T:Orleans.EventSourcing.CustomStorage.ICustomStorageInterface`2"/>
+            interface, to define how state is read and how deltas are written.
+            If the provider attribute "PrimaryCluster" is supplied in the provider configuration, then only the specified cluster
+            accesses storage, and other clusters may not issue updates. 
+            </summary>
+        </member>
+        <member name="P:Orleans.EventSourcing.CustomStorage.LogConsistencyProvider.PrimaryCluster">
+            <summary>
+            Specifies a clusterid of the primary cluster from which to access storage exclusively, null if
+            storage should be accessed directly from all clusters.
+            </summary>
+        </member>
+        <member name="P:Orleans.EventSourcing.CustomStorage.LogConsistencyProvider.UsesStorageProvider">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.EventSourcing.CustomStorage.LogConsistencyProvider.MakeLogViewAdaptor``2(Orleans.EventSourcing.ILogViewAdaptorHost{``0,``1},``0,System.String,Orleans.Storage.IGrainStorage,Orleans.EventSourcing.ILogConsistencyProtocolServices)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Orleans.EventSourcing.CustomStorage.CustomStorageAdaptor`2">
+            <summary>
+            A log consistency adaptor that uses the user-provided storage interface <see cref="T:Orleans.EventSourcing.CustomStorage.ICustomStorageInterface`2"/>. 
+            This interface must be implemented by any grain that uses this log view adaptor.
+            </summary>
+            <typeparam name="TLogView">log view type</typeparam>
+            <typeparam name="TLogEntry">log entry type</typeparam>
+        </member>
+        <member name="M:Orleans.EventSourcing.CustomStorage.CustomStorageAdaptor`2.#ctor(Orleans.EventSourcing.ILogViewAdaptorHost{`0,`1},`0,Orleans.EventSourcing.ILogConsistencyProtocolServices,System.String)">
+            <summary>
+            Initialize a new instance of CustomStorageAdaptor class
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.CustomStorage.CustomStorageAdaptor`2.LastConfirmedView">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.EventSourcing.CustomStorage.CustomStorageAdaptor`2.GetConfirmedVersion">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.EventSourcing.CustomStorage.CustomStorageAdaptor`2.InitializeConfirmedView(`0)">
+            <inheritdoc/>
+        </member>
+        <member name="P:Orleans.EventSourcing.CustomStorage.CustomStorageAdaptor`2.SupportSubmissions">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.EventSourcing.CustomStorage.CustomStorageAdaptor`2.MakeSubmissionEntry(`1)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.EventSourcing.CustomStorage.CustomStorageAdaptor`2.OnMessageReceived(Orleans.EventSourcing.ILogConsistencyProtocolMessage)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.EventSourcing.CustomStorage.CustomStorageAdaptor`2.ReadAsync">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.EventSourcing.CustomStorage.CustomStorageAdaptor`2.WriteAsync">
+            <inheritdoc/>
+        </member>
+        <member name="T:Orleans.EventSourcing.CustomStorage.CustomStorageAdaptor`2.UpdatePrimaryFailed">
+            <summary>
+            Describes a connection issue that occurred when updating the primary storage.
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.CustomStorage.CustomStorageAdaptor`2.UpdatePrimaryFailed.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="T:Orleans.EventSourcing.CustomStorage.CustomStorageAdaptor`2.ReadFromPrimaryFailed">
+            <summary>
+            Describes a connection issue that occurred when reading from the primary storage.
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.CustomStorage.CustomStorageAdaptor`2.ReadFromPrimaryFailed.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="T:Orleans.EventSourcing.CustomStorage.CustomStorageAdaptor`2.UpdateNotificationMessage">
+            <summary>
+            A notification message that is sent to remote instances of this grain after the primary has been
+            updated, to let them know the latest version. Contains all the updates that were applied.
+            </summary>
+        </member>
+        <member name="P:Orleans.EventSourcing.CustomStorage.CustomStorageAdaptor`2.UpdateNotificationMessage.Version">
+            <inheritdoc/>
+        </member>
+        <member name="P:Orleans.EventSourcing.CustomStorage.CustomStorageAdaptor`2.UpdateNotificationMessage.Updates">
+            <summary> The list of updates that were applied. </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.CustomStorage.CustomStorageAdaptor`2.UpdateNotificationMessage.ToString">
+            <summary>
+            A representation of this notification message suitable for tracing.
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.CustomStorage.CustomStorageAdaptor`2.OnNotificationReceived(Orleans.EventSourcing.Common.INotificationMessage)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.EventSourcing.CustomStorage.CustomStorageAdaptor`2.ProcessNotifications">
+            <inheritdoc/>
+        </member>
+        <member name="T:Orleans.EventSourcing.JournaledGrain`1">
+            <summary>
+            A base class for log-consistent grains using standard event-sourcing terminology.
+            All operations are reentrancy-safe.
+            <typeparam name="TGrainState">The type for the grain state, i.e. the aggregate view of the event log.</typeparam>
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.JournaledGrain`1.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Orleans.EventSourcing.JournaledGrain`1"/> class.
+            </summary>
+        </member>
+        <member name="T:Orleans.EventSourcing.JournaledGrain`2">
+            <summary>
+            A base class for log-consistent grains using standard event-sourcing terminology.
+            All operations are reentrancy-safe.
+            <typeparam name="TGrainState">The type for the grain state, i.e. the aggregate view of the event log.</typeparam>
+            <typeparam name="TEventBase">The common base class for the events</typeparam>
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.JournaledGrain`2.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Orleans.EventSourcing.JournaledGrain`2"/> class.
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.JournaledGrain`2.RaiseEvent``1(``0)">
+            <summary>
+            Raises an event.
+            </summary>
+            <param name="event">Event to raise.</param>
+        </member>
+        <member name="M:Orleans.EventSourcing.JournaledGrain`2.RaiseEvents``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Raise multiple events, as an atomic sequence.
+            </summary>
+            <param name="events">Events to raise.</param>
+        </member>
+        <member name="M:Orleans.EventSourcing.JournaledGrain`2.RaiseConditionalEvent``1(``0)">
+            <summary>
+            Raise an event conditionally. 
+            Succeeds only if there are no conflicts, that is, no other events were raised in the meantime.
+            </summary>
+            <param name="event">Event to raise.</param>
+            <returns><see langword="true"/> if successful, <see langword="false"/> if there was a conflict.</returns>
+        </member>
+        <member name="M:Orleans.EventSourcing.JournaledGrain`2.RaiseConditionalEvents``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Raise multiple events, as an atomic sequence, conditionally. 
+            Succeeds only if there are no conflicts, that is, no other events were raised in the meantime.
+            </summary>
+            <param name="events">Events to raise</param>
+            <returns><see langword="true"/> if successful, <see langword="false"/> if there was a conflict.</returns>
+        </member>
+        <member name="P:Orleans.EventSourcing.JournaledGrain`2.State">
+            <summary>
+            Gets the current confirmed state. 
+            Includes only confirmed events.
+            </summary>
+        </member>
+        <member name="P:Orleans.EventSourcing.JournaledGrain`2.Version">
+            <summary>
+            Gets the version of the current confirmed state. 
+            Equals the total number of confirmed events.
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.JournaledGrain`2.OnTentativeStateChanged">
+            <summary>
+            Called whenever the tentative state may have changed due to local or remote events.
+            <para>Override this to react to changes of the state.</para>
+            </summary>
+        </member>
+        <member name="P:Orleans.EventSourcing.JournaledGrain`2.TentativeState">
+            <summary>
+            Gets the current tentative state.
+            Includes both confirmed and unconfirmed events.
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.JournaledGrain`2.OnStateChanged">
+            <summary>
+            Called after the confirmed state may have changed (i.e. the confirmed version number is larger).
+            <para>Override this to react to changes of the confirmed state.</para>
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.JournaledGrain`2.ConfirmEvents">
+            <summary>
+            Waits until all previously raised events have been confirmed. 
+            <para>await this after raising one or more events, to ensure events are persisted before proceeding, or to guarantee strong consistency (linearizability) even if there are multiple instances of this grain</para>
+            </summary>
+            <returns>a task that completes once the events have been confirmed.</returns>
+        </member>
+        <member name="M:Orleans.EventSourcing.JournaledGrain`2.RefreshNow">
+            <summary>
+            Retrieves the latest state now, and confirms all previously raised events. 
+            Effectively, this enforces synchronization with the global state.
+            <para>Await this before reading the state to ensure strong consistency (linearizability) even if there are multiple instances of this grain</para>
+            </summary>
+            <returns>a task that completes once the log has been refreshed and the events have been confirmed.</returns>
+        </member>
+        <member name="P:Orleans.EventSourcing.JournaledGrain`2.UnconfirmedEvents">
+            <summary>
+            Returns the current queue of unconfirmed events.
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.JournaledGrain`2.OnActivateAsync(System.Threading.CancellationToken)">
+            <summary>
+            By default, upon activation, the journaled grain waits until it has loaded the latest
+            view from storage. Subclasses can override this behavior,
+            and skip the wait if desired.
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.JournaledGrain`2.RetrieveConfirmedEvents(System.Int32,System.Int32)">
+            <summary>
+            Retrieves a segment of the confirmed event sequence, possibly from storage. 
+            Throws <see cref="T:System.NotSupportedException"/> if the events are not available to read.
+            Whether events are available, and for how long, depends on the providers used and how they are configured.
+            </summary>
+            <param name="fromVersion">the position of the event sequence from which to start</param>
+            <param name="toVersion">the position of the event sequence on which to end</param>
+            <returns>a task which returns the sequence of events between the two versions</returns>
+        </member>
+        <member name="M:Orleans.EventSourcing.JournaledGrain`2.OnConnectionIssue(Orleans.EventSourcing.ConnectionIssue)">
+            <summary>
+            Called when the underlying persistence or replication protocol is running into some sort of connection trouble.
+            <para>Override this to monitor the health of the log-consistency protocol and/or
+            to customize retry delays.
+            Any exceptions thrown are caught and logged by the <see cref="T:Orleans.EventSourcing.ILogViewAdaptorFactory"/>.</para>
+            </summary>
+            <returns>The time to wait before retrying</returns>
+        </member>
+        <member name="M:Orleans.EventSourcing.JournaledGrain`2.OnConnectionIssueResolved(Orleans.EventSourcing.ConnectionIssue)">
+            <summary>
+            Called when a previously reported connection issue has been resolved.
+            <para>Override this to monitor the health of the log-consistency protocol. 
+            Any exceptions thrown are caught and logged by the <see cref="T:Orleans.EventSourcing.ILogViewAdaptorFactory"/>.</para>
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.JournaledGrain`2.EnableStatsCollection">
+            <inheritdoc />
+        </member>
+        <member name="M:Orleans.EventSourcing.JournaledGrain`2.DisableStatsCollection">
+            <inheritdoc />
+        </member>
+        <member name="M:Orleans.EventSourcing.JournaledGrain`2.GetStats">
+            <inheritdoc />
+        </member>
+        <member name="M:Orleans.EventSourcing.JournaledGrain`2.TransitionState(`0,`1)">
+            <summary>
+            Defines how to apply events to the state. Unless it is overridden in the subclass, it calls
+            a dynamic "Apply" function on the state, with the event as a parameter.
+            All exceptions thrown by this method are caught and logged by the log view provider.
+            <para>Override this to customize how to transition the state for a given event.</para>
+            </summary>
+            <param name="state">The state.</param>
+            <param name="event">The event.</param>
+        </member>
+        <member name="P:Orleans.EventSourcing.JournaledGrain`2.LogViewAdaptor">
+            <summary>
+            Gets the adaptor for the log-consistency protocol, which is installed by the log-consistency provider.
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.JournaledGrain`2.InstallAdaptor(Orleans.EventSourcing.ILogViewAdaptorFactory,System.Object,System.String,Orleans.Storage.IGrainStorage,Orleans.EventSourcing.ILogConsistencyProtocolServices)">
+            <summary>
+            Called right after grain is constructed, to install the adaptor.
+            The log-consistency provider contains a factory method that constructs the adaptor with chosen types for this grain
+            </summary>
+        </member>
+        <member name="P:Orleans.EventSourcing.JournaledGrain`2.DefaultAdaptorFactory">
+            <summary>
+            If there is no log-consistency provider specified, store versioned state using default storage provider
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.JournaledGrain`2.Orleans#EventSourcing#ILogViewAdaptorHost{TGrainState,TEventBase}#UpdateView(`0,`1)">
+            <summary>
+            Called by adaptor to update the view when entries are appended.
+            </summary>
+            <param name="view">The log view.</param>
+            <param name="entry">The entry.</param>
+        </member>
+        <member name="M:Orleans.EventSourcing.JournaledGrain`2.Orleans#EventSourcing#ILogConsistencyProtocolParticipant#PreActivateProtocolParticipant">
+            <summary>
+            Notify log view adaptor of activation (called before user-level OnActivate)
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.JournaledGrain`2.Orleans#EventSourcing#ILogConsistencyProtocolParticipant#PostActivateProtocolParticipant">
+            <summary>
+            Notify log view adaptor of activation (called after user-level OnActivate)
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.JournaledGrain`2.Orleans#EventSourcing#ILogConsistencyProtocolParticipant#DeactivateProtocolParticipant">
+            <summary>
+            Notify log view adaptor of deactivation
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.JournaledGrain`2.Orleans#EventSourcing#ILogViewAdaptorHost{TGrainState,TEventBase}#OnViewChanged(System.Boolean,System.Boolean)">
+            <summary>
+            Called by adaptor on state change. 
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.JournaledGrain`2.Orleans#EventSourcing#IConnectionIssueListener#OnConnectionIssue(Orleans.EventSourcing.ConnectionIssue)">
+            <summary>
+            called by adaptor on connection issues. 
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.JournaledGrain`2.Orleans#EventSourcing#IConnectionIssueListener#OnConnectionIssueResolved(Orleans.EventSourcing.ConnectionIssue)">
+            <summary>
+            Called by adaptor when a connection issue is resolved. 
+            </summary>
+        </member>
+        <member name="T:Orleans.EventSourcing.ConnectionIssue">
+            <summary>
+            Represents information about connection issues encountered inside log consistency protocols.
+            It is used both inside the protocol to track retry loops, and is made visible to users 
+            who want to monitor their log-consistent grains for communication issues.
+            </summary>
+        </member>
+        <member name="P:Orleans.EventSourcing.ConnectionIssue.TimeStamp">
+            <summary>
+            The UTC timestamp of the last time at which the issue was observed
+            </summary>
+        </member>
+        <member name="P:Orleans.EventSourcing.ConnectionIssue.TimeOfFirstFailure">
+            <summary>
+            The UTC timestamp of the first time we observed this issue
+            </summary>
+        </member>
+        <member name="P:Orleans.EventSourcing.ConnectionIssue.NumberOfConsecutiveFailures">
+            <summary>
+            The number of times we have observed this issue since the first failure
+            </summary>
+        </member>
+        <member name="P:Orleans.EventSourcing.ConnectionIssue.RetryDelay">
+            <summary>
+            The delay we are waiting before the next retry
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.ConnectionIssue.ComputeRetryDelay(System.Nullable{System.TimeSpan})">
+            <summary>
+            Computes the retry delay based on the rest of the information. Is overridden by subclasses
+            that represent specific categories of issues.
+            </summary>
+            <param name="previous">The previously used retry delay</param>
+            <returns></returns>
+        </member>
+        <member name="T:Orleans.EventSourcing.IConnectionIssueListener">
+            <summary>
+            An interface that is implemented by log-consistent grains using virtual protected methods
+            that can be overridden by users, in order to monitor the connection issues.
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.IConnectionIssueListener.OnConnectionIssue(Orleans.EventSourcing.ConnectionIssue)">
+            <summary>
+            Called when running into some sort of connection trouble.
+            The called code can modify the retry delay if desired, to change the default.
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.IConnectionIssueListener.OnConnectionIssueResolved(Orleans.EventSourcing.ConnectionIssue)">
+            <summary>
+            Called when a previously reported connection issue has been resolved.
+            </summary>
+        </member>
+        <member name="T:Orleans.EventSourcing.ILogConsistencyDiagnostics">
+            <summary>
+            Interface for diagnostics.
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.ILogConsistencyDiagnostics.EnableStatsCollection">
+            <summary>Turns on the statistics collection for this log-consistent grain.</summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.ILogConsistencyDiagnostics.DisableStatsCollection">
+            <summary>Turns off the statistics collection for this log-consistent grain.</summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.ILogConsistencyDiagnostics.GetStats">
+            <summary>Gets the collected statistics for this log-consistent grain.</summary>
+        </member>
+        <member name="T:Orleans.EventSourcing.LogConsistencyStatistics">
+            <summary>
+            A collection of statistics for grains using log-consistency. See <see cref="T:Orleans.EventSourcing.LogConsistentGrain`1"/>
+            </summary>
+        </member>
+        <member name="F:Orleans.EventSourcing.LogConsistencyStatistics.EventCounters">
+            <summary>
+            A map from event names to event counts
+            </summary>
+        </member>
+        <member name="F:Orleans.EventSourcing.LogConsistencyStatistics.StabilizationLatenciesInMsecs">
+            <summary>
+            A list of all measured stabilization latencies
+            </summary>
+        </member>
+        <member name="T:Orleans.EventSourcing.ILogConsistencyProtocolServices">
+            <summary>
+            Functionality for use by log view adaptors that use custom consistency or replication protocols.
+            Abstracts communication between replicas of the log-consistent grain in different clusters.
+            </summary>
+        </member>
+        <member name="P:Orleans.EventSourcing.ILogConsistencyProtocolServices.GrainId">
+            <summary>
+            The ID for this grain.
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.ILogConsistencyProtocolServices.DeepCopy``1(``0)">
+            <summary>
+            Copies the provided argument.
+            </summary>
+        </member>
+        <member name="P:Orleans.EventSourcing.ILogConsistencyProtocolServices.MyClusterId">
+            <summary>
+            The id of this cluster. Returns "I" if no multi-cluster network is present.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.EventSourcing.ILogConsistencyProtocolServices.ProtocolError(System.String,System.Boolean)">
+            <summary>
+            Log an error that occurred in a log-consistency protocol.
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.ILogConsistencyProtocolServices.CaughtException(System.String,System.Exception)">
+            <summary>
+            Log an exception that was caught in the log-consistency protocol.
+            </summary> 
+        </member>
+        <member name="M:Orleans.EventSourcing.ILogConsistencyProtocolServices.CaughtUserCodeException(System.String,System.String,System.Exception)">
+            <summary>
+            Log an exception that occurred in user code, for some callback
+            </summary>
+            <param name="callback">The name of the callback</param>
+            <param name="where">The context from which the callback was called</param>
+            <param name="e">The caught exception</param>
+        </member>
+        <member name="M:Orleans.EventSourcing.ILogConsistencyProtocolServices.Log(Microsoft.Extensions.Logging.LogLevel,System.String,System.Object[])">
+            <summary> Output the specified message at the specified log level. </summary>
+        </member>
+        <member name="T:Orleans.EventSourcing.ProtocolTransportException">
+            <summary>
+            Exception thrown by protocol messaging layer.
+            </summary>
+        </member>
+        <member name="T:Orleans.EventSourcing.ILogViewAdaptor`2">
+             <summary>
+             A log view adaptor is the storage interface for <see cref="T:Orleans.EventSourcing.LogConsistentGrain`1"/>, whose state is defined as a log view. 
+            <para>
+             There is one adaptor per grain, which is installed by <see cref="T:Orleans.EventSourcing.ILogViewAdaptorFactory"/> when the grain is activated.
+            </para>
+             </summary>
+             <typeparam name="TLogView"> Type for the log view </typeparam>
+             <typeparam name="TLogEntry"> Type for the log entry </typeparam>
+        </member>
+        <member name="M:Orleans.EventSourcing.ILogViewAdaptor`2.PreOnActivate">
+            <summary>Called during activation, right before the user-defined <see cref="M:Orleans.Grain.OnActivateAsync(System.Threading.CancellationToken)"/>.</summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.ILogViewAdaptor`2.PostOnActivate">
+            <summary>Called during activation, right after the user-defined <see cref="M:Orleans.Grain.OnActivateAsync(System.Threading.CancellationToken)"/>..</summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.ILogViewAdaptor`2.PostOnDeactivate">
+            <summary>Called during deactivation, right after the user-defined <see cref="M:Orleans.Grain.OnDeactivateAsync(Orleans.DeactivationReason,System.Threading.CancellationToken)"/>.</summary>
+        </member>
+        <member name="T:Orleans.EventSourcing.ILogViewRead`2">
+            <summary>
+            Interface for reading the log view.
+            </summary>
+            <typeparam name="TView">The type of the view (state of the grain).</typeparam>
+            <typeparam name="TLogEntry">The type of log entries.</typeparam>
+        </member>
+        <member name="P:Orleans.EventSourcing.ILogViewRead`2.TentativeView">
+            <summary>
+            Local, tentative view of the log (reflecting both confirmed and unconfirmed entries)
+            </summary>
+        </member>
+        <member name="P:Orleans.EventSourcing.ILogViewRead`2.ConfirmedView">
+            <summary>
+            Confirmed view of the log (reflecting only confirmed entries)
+            </summary>
+        </member>
+        <member name="P:Orleans.EventSourcing.ILogViewRead`2.ConfirmedVersion">
+            <summary>
+            The length of the confirmed prefix of the log
+            </summary>
+        </member>
+        <member name="P:Orleans.EventSourcing.ILogViewRead`2.UnconfirmedSuffix">
+            <summary>
+            A list of the submitted entries that do not yet appear in the confirmed prefix.
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.ILogViewRead`2.RetrieveLogSegment(System.Int32,System.Int32)">
+            <summary>
+            Attempt to retrieve a segment of the log, possibly from storage. Throws <see cref="T:System.NotSupportedException"/> if
+            the log cannot be read, which depends on the providers used and how they are configured.
+            </summary>
+            <param name="fromVersion">the start position </param>
+            <param name="toVersion">the end position</param>
+            <returns>a </returns>
+        </member>
+        <member name="T:Orleans.EventSourcing.ILogViewUpdate`1">
+            <summary>
+            Interface for updating the log.
+            </summary>
+            <typeparam name="TLogEntry">The type of log entries.</typeparam>
+        </member>
+        <member name="M:Orleans.EventSourcing.ILogViewUpdate`1.Submit(`0)">
+            <summary>
+            Submit a single log entry to be appended to the global log,
+            either at the current or at any later position.
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.ILogViewUpdate`1.SubmitRange(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Submit a range of log entries to be appended atomically to the global log,
+            either at the current or at any later position.
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.ILogViewUpdate`1.TryAppend(`0)">
+            <summary>
+            Try to append a single log entry at the current position of the log.
+            </summary>
+            <returns>true if the entry was appended successfully, or false 
+            if there was a concurrency conflict (i.e. some other entries were previously appended).
+            </returns>
+        </member>
+        <member name="M:Orleans.EventSourcing.ILogViewUpdate`1.TryAppendRange(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Try to append a range of log entries atomically at the current position of the log.
+            </summary>
+            <returns>true if the entries were appended successfully, or false 
+            if there was a concurrency conflict (i.e. some other entries were previously appended).
+            </returns>
+        </member>
+        <member name="M:Orleans.EventSourcing.ILogViewUpdate`1.ConfirmSubmittedEntries">
+             <summary>
+             Confirm all submitted entries.
+            <para>Waits until all previously submitted entries appear in the confirmed prefix of the log.</para>
+             </summary>
+             <returns>A task that completes after all entries are confirmed.</returns>
+        </member>
+        <member name="M:Orleans.EventSourcing.ILogViewUpdate`1.Synchronize">
+             <summary>
+             Get the latest log view and confirm all submitted entries.
+            <para>Waits until all previously submitted entries appear in the confirmed prefix of the log, and forces a refresh of the confirmed prefix.</para>
+             </summary>
+             <returns>A task that completes after getting the latest version and confirming all entries.</returns>
+        </member>
+        <member name="T:Orleans.EventSourcing.ILogViewAdaptorFactory">
+            <summary>
+            Interface to be implemented for a log-view adaptor factory
+            </summary>
+        </member>
+        <member name="P:Orleans.EventSourcing.ILogViewAdaptorFactory.UsesStorageProvider">
+            <summary> Returns true if a storage provider is required for constructing adaptors. </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.ILogViewAdaptorFactory.MakeLogViewAdaptor``2(Orleans.EventSourcing.ILogViewAdaptorHost{``0,``1},``0,System.String,Orleans.Storage.IGrainStorage,Orleans.EventSourcing.ILogConsistencyProtocolServices)">
+            <summary>
+            Construct a <see cref="T:Orleans.EventSourcing.ILogViewAdaptor`2"/> to be installed in the given host grain.
+            </summary>
+        </member>
+        <member name="T:Orleans.EventSourcing.ILogViewAdaptorHost`2">
+            <summary>
+            Interface implemented by all grains which use log-view consistency
+            It gives the log view adaptor access to grain-specific information and callbacks.
+            </summary>
+            <typeparam name="TLogView">type of the log view</typeparam>
+            <typeparam name="TLogEntry">type of log entries</typeparam>
+        </member>
+        <member name="M:Orleans.EventSourcing.ILogViewAdaptorHost`2.UpdateView(`0,`1)">
+            <summary>
+            Implementation of view transitions. 
+            Any exceptions thrown will be caught and logged as a warning./>.
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.ILogViewAdaptorHost`2.OnViewChanged(System.Boolean,System.Boolean)">
+            <summary>
+            Notifies the host grain about state changes. 
+            Called by <see cref="T:Orleans.EventSourcing.ILogViewAdaptor`2"/> whenever the tentative or confirmed state changes.
+            Implementations may vary as to whether and how much they batch change notifications.
+            Any exceptions thrown will be caught and logged as a warning./>.
+            </summary>
+        </member>
+        <member name="T:Orleans.EventSourcing.ILogConsistencyProtocolParticipant">
+            <summary>
+            Grain interface for grains that participate in multi-cluster log-consistency protocols.
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.ILogConsistencyProtocolParticipant.PreActivateProtocolParticipant">
+            <summary>
+            Called immediately before the user-level OnActivateAsync, on same scheduler.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.EventSourcing.ILogConsistencyProtocolParticipant.PostActivateProtocolParticipant">
+            <summary>
+            Called immediately after the user-level OnActivateAsync, on same scheduler.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.EventSourcing.ILogConsistencyProtocolParticipant.DeactivateProtocolParticipant">
+            <summary>
+            Called immediately after the user-level OnDeactivateAsync, on same scheduler.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Orleans.EventSourcing.ILogConsistencyProtocolMessage">
+            <summary>
+            interface to mark classes that represent protocol messages.
+            All such classes must be serializable.
+            </summary>
+        </member>
+        <member name="T:Orleans.EventSourcing.LogConsistentGrain`1">
+            <summary>
+            Base class for all grains that use log-consistency for managing  the state.
+            It is the equivalent of <see cref="T:Orleans.Grain`1"/> for grains using log-consistency.
+            (SiloAssemblyLoader uses it to extract type)
+            </summary>
+            <typeparam name="TView">The type of the view</typeparam>
+        </member>
+        <member name="M:Orleans.EventSourcing.LogConsistentGrain`1.InstallAdaptor(Orleans.EventSourcing.ILogViewAdaptorFactory,System.Object,System.String,Orleans.Storage.IGrainStorage,Orleans.EventSourcing.ILogConsistencyProtocolServices)">
+            <summary>
+            called right after grain construction to install the log view adaptor
+            </summary>
+            <param name="factory"> The adaptor factory to use </param>
+            <param name="state"> The initial state of the view </param>
+            <param name="grainTypeName"> The type name of the grain </param>
+            <param name="grainStorage"> The grain storage, if needed </param>
+            <param name="services"> Protocol services </param>
+        </member>
+        <member name="P:Orleans.EventSourcing.LogConsistentGrain`1.DefaultAdaptorFactory">
+            <summary>
+            Gets the default adaptor factory to use, or null if there is no default
+            (in which case user MUST configure a consistency provider)
+            </summary>
+        </member>
+        <member name="T:Orleans.EventSourcing.LogStorage.LogConsistencyProvider">
+             <summary>
+             A log-consistency provider that stores the latest view in primary storage, using any standard storage provider.
+             Supports multiple clusters connecting to the same primary storage (doing optimistic concurrency control via e-tags)
+            <para>
+             The log itself is transient, i.e. not actually saved to storage - only the latest view (snapshot) and some 
+             metadata (the log position, and write flags) are stored in the primary. 
+             </para>
+             </summary>
+        </member>
+        <member name="P:Orleans.EventSourcing.LogStorage.LogConsistencyProvider.UsesStorageProvider">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.EventSourcing.LogStorage.LogConsistencyProvider.MakeLogViewAdaptor``2(Orleans.EventSourcing.ILogViewAdaptorHost{``0,``1},``0,System.String,Orleans.Storage.IGrainStorage,Orleans.EventSourcing.ILogConsistencyProtocolServices)">
+            <summary>
+            Make log view adaptor 
+            </summary>
+            <typeparam name="TView">The type of the view</typeparam>
+            <typeparam name="TEntry">The type of the log entries</typeparam>
+            <param name="hostGrain">The grain that is hosting this adaptor</param>
+            <param name="initialState">The initial state for this view</param>
+            <param name="grainTypeName">The type name of the grain</param>
+            <param name="grainStorage">Storage provider</param>
+            <param name="services">Runtime services for multi-cluster coherence protocols</param>
+        </member>
+        <member name="T:Orleans.EventSourcing.LogStorage.LogStateWithMetaDataAndETag`1">
+            <summary>
+            A class that extends grain state with versioning metadata, so that a grain with log-view consistency
+            can use a standard storage provider via <see cref="T:Orleans.EventSourcing.LogStorage.LogViewAdaptor`2"/>
+            </summary>
+            <typeparam name="TEntry">The type used for log entries</typeparam>
+        </member>
+        <member name="P:Orleans.EventSourcing.LogStorage.LogStateWithMetaDataAndETag`1.StateAndMetaData">
+            <summary>
+            Gets and Sets StateAndMetaData
+            </summary>
+        </member>
+        <member name="P:Orleans.EventSourcing.LogStorage.LogStateWithMetaDataAndETag`1.ETag">
+            <summary>
+            Gets and Sets Etag
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.LogStorage.LogStateWithMetaDataAndETag`1.#ctor">
+            <summary>
+            Initializes a new instance of GrainStateWithMetaDataAndETag class
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.LogStorage.LogStateWithMetaDataAndETag`1.ToString">
+            <summary>
+            Convert current GrainStateWithMetaDataAndETag object information to a string
+            </summary>
+        </member>
+        <member name="T:Orleans.EventSourcing.LogStorage.LogStateWithMetaData`1">
+            <summary>
+            A class that extends grain state with versioning metadata, so that a log-consistent grain
+            can use a standard storage provider via <see cref="T:Orleans.EventSourcing.LogStorage.LogViewAdaptor`2"/>
+            </summary>
+            <typeparam name="TEntry"></typeparam>
+        </member>
+        <member name="P:Orleans.EventSourcing.LogStorage.LogStateWithMetaData`1.Log">
+            <summary>
+            The stored view of the log
+            </summary>
+        </member>
+        <member name="P:Orleans.EventSourcing.LogStorage.LogStateWithMetaData`1.GlobalVersion">
+            <summary>
+            The length of the log
+            </summary>
+        </member>
+        <member name="P:Orleans.EventSourcing.LogStorage.LogStateWithMetaData`1.WriteVector">
+            <summary>
+            Metadata that is used to avoid duplicate appends.
+            Logically, this is a (string->bit) map, the keys being replica ids
+            But this map is represented compactly as a simple string to reduce serialization/deserialization overhead
+            Bits are read by <see cref="M:Orleans.EventSourcing.LogStorage.LogStateWithMetaData`1.GetBit(System.String)"/> and flipped by  <see cref="M:Orleans.EventSourcing.LogStorage.LogStateWithMetaData`1.FlipBit(System.String)"/>.
+            Bits are toggled when writing, so that the retry logic can avoid appending an entry twice
+            when retrying a failed append.
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.LogStorage.LogStateWithMetaData`1.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Orleans.EventSourcing.LogStorage.LogStateWithMetaData`1"/> class.
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.LogStorage.LogStateWithMetaData`1.GetBit(System.String)">
+            <summary>
+            Gets one of the bits in <see cref="P:Orleans.EventSourcing.LogStorage.LogStateWithMetaData`1.WriteVector"/>
+            </summary>
+            <param name="Replica">The replica for which we want to look up the bit</param>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.EventSourcing.LogStorage.LogStateWithMetaData`1.FlipBit(System.String)">
+            <summary>
+            toggle one of the bits in <see cref="P:Orleans.EventSourcing.LogStorage.LogStateWithMetaData`1.WriteVector"/> and return the new value.
+            </summary>
+            <param name="Replica">The replica for which we want to flip the bit</param>
+            <returns>the state of the bit after flipping it</returns>
+        </member>
+        <member name="T:Orleans.EventSourcing.LogStorage.LogViewAdaptor`2">
+             <summary>
+             A log view adaptor that wraps around a traditional storage adaptor, and uses batching and e-tags
+             to append entries.
+            <para>
+             The log itself is transient, i.e. not actually saved to storage - only the latest view and some 
+             metadata (the log position, and write flags) are stored. 
+             </para>
+             </summary>
+             <typeparam name="TLogView">Type of log view</typeparam>
+             <typeparam name="TLogEntry">Type of log entry</typeparam>
+        </member>
+        <member name="M:Orleans.EventSourcing.LogStorage.LogViewAdaptor`2.#ctor(Orleans.EventSourcing.ILogViewAdaptorHost{`0,`1},`0,Orleans.Storage.IGrainStorage,System.String,Orleans.EventSourcing.ILogConsistencyProtocolServices)">
+            <summary>
+            Initialize a StorageProviderLogViewAdaptor class
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.LogStorage.LogViewAdaptor`2.LastConfirmedView">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.EventSourcing.LogStorage.LogViewAdaptor`2.GetConfirmedVersion">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.EventSourcing.LogStorage.LogViewAdaptor`2.InitializeConfirmedView(`0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.EventSourcing.LogStorage.LogViewAdaptor`2.RetrieveLogSegment(System.Int32,System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.EventSourcing.LogStorage.LogViewAdaptor`2.MakeSubmissionEntry(`1)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.EventSourcing.LogStorage.LogViewAdaptor`2.ReadAsync">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.EventSourcing.LogStorage.LogViewAdaptor`2.WriteAsync">
+            <inheritdoc/>
+        </member>
+        <member name="T:Orleans.EventSourcing.LogStorage.LogViewAdaptor`2.UpdateLogStorageFailed">
+            <summary>
+            Describes a connection issue that occurred when updating the primary storage.
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.LogStorage.LogViewAdaptor`2.UpdateLogStorageFailed.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="T:Orleans.EventSourcing.LogStorage.LogViewAdaptor`2.ReadFromLogStorageFailed">
+            <summary>
+            Describes a connection issue that occurred when reading from the primary storage.
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.LogStorage.LogViewAdaptor`2.ReadFromLogStorageFailed.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="T:Orleans.EventSourcing.LogStorage.LogViewAdaptor`2.UpdateNotificationMessage">
+            <summary>
+            A notification message sent to remote instances after updating this grain in storage.
+            </summary>
+        </member>
+        <member name="P:Orleans.EventSourcing.LogStorage.LogViewAdaptor`2.UpdateNotificationMessage.Version">
+            <inheritdoc/>
+        </member>
+        <member name="P:Orleans.EventSourcing.LogStorage.LogViewAdaptor`2.UpdateNotificationMessage.Origin">
+            <summary> The cluster that performed the update </summary>
+        </member>
+        <member name="P:Orleans.EventSourcing.LogStorage.LogViewAdaptor`2.UpdateNotificationMessage.Updates">
+            <summary> The list of updates that were applied </summary>
+        </member>
+        <member name="P:Orleans.EventSourcing.LogStorage.LogViewAdaptor`2.UpdateNotificationMessage.ETag">
+            <summary> The e-tag of the storage after applying the updates</summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.LogStorage.LogViewAdaptor`2.UpdateNotificationMessage.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.EventSourcing.LogStorage.LogViewAdaptor`2.Merge(Orleans.EventSourcing.Common.INotificationMessage,Orleans.EventSourcing.Common.INotificationMessage)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.EventSourcing.LogStorage.LogViewAdaptor`2.OnNotificationReceived(Orleans.EventSourcing.Common.INotificationMessage)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.EventSourcing.LogStorage.LogViewAdaptor`2.ProcessNotifications">
+            <inheritdoc/>
+        </member>
+        <member name="T:Orleans.EventSourcing.StateStorage.GrainStateWithMetaDataAndETag`1">
+            <summary>
+            A class that extends grain state with versioning metadata, so that a grain with log-view consistency
+            can use a standard storage provider via <see cref="T:Orleans.EventSourcing.StateStorage.LogViewAdaptor`2"/>
+            </summary>
+            <typeparam name="TView">The type used for log view</typeparam>
+        </member>
+        <member name="P:Orleans.EventSourcing.StateStorage.GrainStateWithMetaDataAndETag`1.StateAndMetaData">
+            <summary>
+            Gets and Sets StateAndMetaData
+            </summary>
+        </member>
+        <member name="P:Orleans.EventSourcing.StateStorage.GrainStateWithMetaDataAndETag`1.ETag">
+            <summary>
+            Gets and Sets Etag
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.StateStorage.GrainStateWithMetaDataAndETag`1.#ctor(`0)">
+            <summary>
+            Initialize a new instance of GrainStateWithMetaDataAndETag class with an initialView
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.StateStorage.GrainStateWithMetaDataAndETag`1.#ctor">
+            <summary>
+            Initializes a new instance of GrainStateWithMetaDataAndETag class
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.StateStorage.GrainStateWithMetaDataAndETag`1.ToString">
+            <summary>
+            Convert current GrainStateWithMetaDataAndETag object information to a string
+            </summary>
+        </member>
+        <member name="T:Orleans.EventSourcing.StateStorage.GrainStateWithMetaData`1">
+            <summary>
+            A class that extends grain state with versioning metadata, so that a log-consistent grain
+            can use a standard storage provider via <see cref="T:Orleans.EventSourcing.StateStorage.LogViewAdaptor`2"/>
+            </summary>
+            <typeparam name="TView"></typeparam>
+        </member>
+        <member name="P:Orleans.EventSourcing.StateStorage.GrainStateWithMetaData`1.State">
+            <summary>
+            The stored view of the log
+            </summary>
+        </member>
+        <member name="P:Orleans.EventSourcing.StateStorage.GrainStateWithMetaData`1.GlobalVersion">
+            <summary>
+            The length of the log
+            </summary>
+        </member>
+        <member name="P:Orleans.EventSourcing.StateStorage.GrainStateWithMetaData`1.WriteVector">
+            <summary>
+            Metadata that is used to avoid duplicate appends.
+            Logically, this is a (string->bit) map, the keys being replica ids
+            But this map is represented compactly as a simple string to reduce serialization/deserialization overhead
+            Bits are read by <see cref="M:Orleans.EventSourcing.StateStorage.GrainStateWithMetaData`1.GetBit(System.String)"/> and flipped by  <see cref="M:Orleans.EventSourcing.StateStorage.GrainStateWithMetaData`1.FlipBit(System.String)"/>.
+            Bits are toggled when writing, so that the retry logic can avoid appending an entry twice
+            when retrying a failed append.
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.StateStorage.GrainStateWithMetaData`1.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Orleans.EventSourcing.StateStorage.GrainStateWithMetaData`1"/> class.
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.StateStorage.GrainStateWithMetaData`1.#ctor(`0)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Orleans.EventSourcing.StateStorage.GrainStateWithMetaData`1"/> class.
+            </summary>
+            <param name="initialstate">The initial state of the view</param>
+        </member>
+        <member name="M:Orleans.EventSourcing.StateStorage.GrainStateWithMetaData`1.GetBit(System.String)">
+            <summary>
+            Gets one of the bits in <see cref="P:Orleans.EventSourcing.StateStorage.GrainStateWithMetaData`1.WriteVector"/>
+            </summary>
+            <param name="Replica">The replica for which we want to look up the bit</param>
+            <returns></returns>
+        </member>
+        <member name="M:Orleans.EventSourcing.StateStorage.GrainStateWithMetaData`1.FlipBit(System.String)">
+            <summary>
+            toggle one of the bits in <see cref="P:Orleans.EventSourcing.StateStorage.GrainStateWithMetaData`1.WriteVector"/> and return the new value.
+            </summary>
+            <param name="Replica">The replica for which we want to flip the bit</param>
+            <returns>the state of the bit after flipping it</returns>
+        </member>
+        <member name="T:Orleans.EventSourcing.StateStorage.LogConsistencyProvider">
+             <summary>
+             A log-consistency provider that stores the latest view in primary storage, using any standard storage provider.
+             Supports multiple clusters connecting to the same primary storage (doing optimistic concurrency control via e-tags)
+            <para>
+             The log itself is transient, i.e. not actually saved to storage - only the latest view (snapshot) and some 
+             metadata (the log position, and write flags) are stored in the primary. 
+             </para>
+             </summary>
+        </member>
+        <member name="P:Orleans.EventSourcing.StateStorage.LogConsistencyProvider.UsesStorageProvider">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.EventSourcing.StateStorage.LogConsistencyProvider.MakeLogViewAdaptor``2(Orleans.EventSourcing.ILogViewAdaptorHost{``0,``1},``0,System.String,Orleans.Storage.IGrainStorage,Orleans.EventSourcing.ILogConsistencyProtocolServices)">
+            <summary>
+            Make log view adaptor 
+            </summary>
+            <typeparam name="TView">The type of the view</typeparam>
+            <typeparam name="TEntry">The type of the log entries</typeparam>
+            <param name="hostGrain">The grain that is hosting this adaptor</param>
+            <param name="initialState">The initial state for this view</param>
+            <param name="grainTypeName">The type name of the grain</param>
+            <param name="grainStorage">Storage provider</param>
+            <param name="services">Runtime services for multi-cluster coherence protocols</param>
+        </member>
+        <member name="T:Orleans.EventSourcing.StateStorage.LogViewAdaptor`2">
+             <summary>
+             A log view adaptor that wraps around a traditional storage adaptor, and uses batching and e-tags
+             to append entries.
+            <para>
+             The log itself is transient, i.e. not actually saved to storage - only the latest view and some 
+             metadata (the log position, and write flags) are stored. 
+             </para>
+             </summary>
+             <typeparam name="TLogView">Type of log view</typeparam>
+             <typeparam name="TLogEntry">Type of log entry</typeparam>
+        </member>
+        <member name="M:Orleans.EventSourcing.StateStorage.LogViewAdaptor`2.#ctor(Orleans.EventSourcing.ILogViewAdaptorHost{`0,`1},`0,Orleans.Storage.IGrainStorage,System.String,Orleans.EventSourcing.ILogConsistencyProtocolServices)">
+            <summary>
+            Initialize a StorageProviderLogViewAdaptor class
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.StateStorage.LogViewAdaptor`2.LastConfirmedView">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.EventSourcing.StateStorage.LogViewAdaptor`2.GetConfirmedVersion">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.EventSourcing.StateStorage.LogViewAdaptor`2.InitializeConfirmedView(`0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.EventSourcing.StateStorage.LogViewAdaptor`2.MakeSubmissionEntry(`1)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.EventSourcing.StateStorage.LogViewAdaptor`2.ReadAsync">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.EventSourcing.StateStorage.LogViewAdaptor`2.WriteAsync">
+            <inheritdoc/>
+        </member>
+        <member name="T:Orleans.EventSourcing.StateStorage.LogViewAdaptor`2.UpdateStateStorageFailed">
+            <summary>
+            Describes a connection issue that occurred when updating the primary storage.
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.StateStorage.LogViewAdaptor`2.UpdateStateStorageFailed.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="T:Orleans.EventSourcing.StateStorage.LogViewAdaptor`2.ReadFromStateStorageFailed">
+            <summary>
+            Describes a connection issue that occurred when reading from the primary storage.
+            </summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.StateStorage.LogViewAdaptor`2.ReadFromStateStorageFailed.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="T:Orleans.EventSourcing.StateStorage.LogViewAdaptor`2.UpdateNotificationMessage">
+            <summary>
+            A notification message sent to remote instances after updating this grain in storage.
+            </summary>
+        </member>
+        <member name="P:Orleans.EventSourcing.StateStorage.LogViewAdaptor`2.UpdateNotificationMessage.Version">
+            <inheritdoc/>
+        </member>
+        <member name="P:Orleans.EventSourcing.StateStorage.LogViewAdaptor`2.UpdateNotificationMessage.Origin">
+            <summary> The cluster that performed the update </summary>
+        </member>
+        <member name="P:Orleans.EventSourcing.StateStorage.LogViewAdaptor`2.UpdateNotificationMessage.Updates">
+            <summary> The list of updates that were applied </summary>
+        </member>
+        <member name="P:Orleans.EventSourcing.StateStorage.LogViewAdaptor`2.UpdateNotificationMessage.ETag">
+            <summary> The e-tag of the storage after applying the updates</summary>
+        </member>
+        <member name="M:Orleans.EventSourcing.StateStorage.LogViewAdaptor`2.UpdateNotificationMessage.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.EventSourcing.StateStorage.LogViewAdaptor`2.Merge(Orleans.EventSourcing.Common.INotificationMessage,Orleans.EventSourcing.Common.INotificationMessage)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.EventSourcing.StateStorage.LogViewAdaptor`2.OnNotificationReceived(Orleans.EventSourcing.Common.INotificationMessage)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.EventSourcing.StateStorage.LogViewAdaptor`2.ProcessNotifications">
+            <inheritdoc/>
+        </member>
+        <member name="M:Orleans.Hosting.CustomStorageSiloBuilderExtensions.AddCustomStorageBasedLogConsistencyProviderAsDefault(Orleans.Hosting.ISiloBuilder,System.String)">
+            <summary>
+            Adds a custom storage log consistency provider as default consistency provider"/>
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.CustomStorageSiloBuilderExtensions.AddCustomStorageBasedLogConsistencyProvider(Orleans.Hosting.ISiloBuilder,System.String,System.String)">
+            <summary>
+            Adds a custom storage log consistency provider"/>
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.LogStorageSiloBuilderExtensions.AddLogStorageBasedLogConsistencyProviderAsDefault(Orleans.Hosting.ISiloBuilder)">
+            <summary>
+            Adds a log storage log consistency provider as default consistency provider"/>
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.LogStorageSiloBuilderExtensions.AddLogStorageBasedLogConsistencyProvider(Orleans.Hosting.ISiloBuilder,System.String)">
+            <summary>
+            Adds a log storage log consistency provider"/>
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.StateStorageSiloBuilderExtensions.AddStateStorageBasedLogConsistencyProviderAsDefault(Orleans.Hosting.ISiloBuilder)">
+            <summary>
+            Adds a state storage log consistency provider as default consistency provider"/>
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.StateStorageSiloBuilderExtensions.AddStateStorageBasedLogConsistencyProvider(Orleans.Hosting.ISiloBuilder,System.String)">
+            <summary>
+            Adds a state storage log consistency provider"/>
+            </summary>
+        </member>
+        <member name="T:Orleans.SystemTargetInterfaces.ILogConsistencyProtocolGateway">
+            <summary>
+            The  protocol gateway is a relay that forwards incoming protocol messages from other clusters
+            to the appropriate grain in this cluster.
+            </summary>
+        </member>
+        <member name="T:Orleans.Runtime.LogConsistency.ProtocolServices">
+            <summary>
+            Functionality for use by log view adaptors that run distributed protocols.
+            This class allows access to these services to providers that cannot see runtime-internals.
+            It also stores grain-specific information like the grain reference, and caches
+            </summary>
+        </member>
+    </members>
+</doc>

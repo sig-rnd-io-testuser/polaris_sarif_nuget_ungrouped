@@ -1,0 +1,126 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Orleans.Hosting.Kubernetes</name>
+    </assembly>
+    <members>
+        <member name="T:Orleans.Hosting.Kubernetes.KubernetesClusterAgent">
+            <summary>
+            Reflects cluster configuration changes between Orleans and Kubernetes.
+            </summary>
+        </member>
+        <member name="T:Orleans.Hosting.Kubernetes.KubernetesHostingOptions">
+            <summary>
+            Options for hosting in Kubernetes.
+            </summary>
+        </member>
+        <member name="F:Orleans.Hosting.Kubernetes.KubernetesHostingOptions.PodNamespaceEnvironmentVariable">
+            <summary>
+            The environment variable for specifying the Kubernetes namespace which all silos in this cluster belong to.
+            </summary>
+        </member>
+        <member name="F:Orleans.Hosting.Kubernetes.KubernetesHostingOptions.PodNameEnvironmentVariable">
+            <summary>
+            The environment variable for specifying the name of the Kubernetes pod which this silo is executing in.
+            </summary>
+        </member>
+        <member name="F:Orleans.Hosting.Kubernetes.KubernetesHostingOptions.PodIPEnvironmentVariable">
+            <summary>
+            The environment variable for specifying the IP address of this pod.
+            </summary>
+        </member>
+        <member name="F:Orleans.Hosting.Kubernetes.KubernetesHostingOptions.ClusterIdEnvironmentVariable">
+            <summary>
+            The environment variable for specifying <see cref="P:Orleans.Configuration.ClusterOptions.ClusterId"/>.
+            </summary>
+        </member>
+        <member name="F:Orleans.Hosting.Kubernetes.KubernetesHostingOptions.ServiceIdEnvironmentVariable">
+            <summary>
+            The environment variable for specifying <see cref="P:Orleans.Configuration.ClusterOptions.ServiceId"/>.
+            </summary>
+        </member>
+        <member name="F:Orleans.Hosting.Kubernetes.KubernetesHostingOptions.ServiceIdLabel">
+            <summary>
+            The name of the <see cref="P:Orleans.Configuration.ClusterOptions.ServiceId"/> label on the pod.
+            </summary>
+        </member>
+        <member name="F:Orleans.Hosting.Kubernetes.KubernetesHostingOptions.ClusterIdLabel">
+            <summary>
+            The name of the <see cref="P:Orleans.Configuration.ClusterOptions.ClusterId"/> label on the pod.
+            </summary>
+        </member>
+        <member name="P:Orleans.Hosting.Kubernetes.KubernetesHostingOptions.ClientConfiguration">
+            <summary>
+            Gets the client configuration.
+            </summary>
+        </member>
+        <member name="P:Orleans.Hosting.Kubernetes.KubernetesHostingOptions.GetClientConfiguration">
+            <summary>
+            The delegate used to get an instance of <see cref="T:k8s.KubernetesClientConfiguration"/>.
+            </summary>
+        </member>
+        <member name="P:Orleans.Hosting.Kubernetes.KubernetesHostingOptions.MaxAgents">
+            <summary>
+            The number of silos in the cluster which should monitor Kubernetes.
+            </summary>
+            <remarks>
+            Setting this to a small number can reduce the load on the Kubernetes API server.
+            </remarks>
+        </member>
+        <member name="P:Orleans.Hosting.Kubernetes.KubernetesHostingOptions.MaxKubernetesApiRetryAttempts">
+            <summary>
+            Gets or sets the maximum number of attempts to retry Kubernetes API calls.
+            </summary>
+        </member>
+        <member name="P:Orleans.Hosting.Kubernetes.KubernetesHostingOptions.DeleteDefunctSiloPods">
+            <summary>
+            Whether or not to delete pods which correspond to silos which have become defunct since this silo became active.
+            </summary>
+        </member>
+        <member name="P:Orleans.Hosting.Kubernetes.KubernetesHostingOptions.Namespace">
+            <summary>
+            The Kubernetes namespace which this silo and all other silos belong to.
+            </summary>
+        </member>
+        <member name="P:Orleans.Hosting.Kubernetes.KubernetesHostingOptions.PodName">
+            <summary>
+            The name of the Kubernetes pod which this silo is executing in.
+            </summary>
+        </member>
+        <member name="P:Orleans.Hosting.Kubernetes.KubernetesHostingOptions.PodIP">
+            <summary>
+            The PodIP of the Kubernetes pod which this silo is executing in.
+            </summary>
+        </member>
+        <member name="T:Orleans.Hosting.Kubernetes.KubernetesHostingOptionsValidator">
+            <summary>
+            Validates <see cref="T:Orleans.Hosting.Kubernetes.KubernetesHostingOptions"/>.
+            </summary>
+        </member>
+        <member name="T:Orleans.Hosting.KubernetesHostingExtensions">
+            <summary>
+            Extensions for hosting a silo in Kubernetes.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.KubernetesHostingExtensions.UseKubernetesHosting(Orleans.Hosting.ISiloBuilder)">
+            <summary>
+            Adds Kubernetes hosting support.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.KubernetesHostingExtensions.UseKubernetesHosting(Orleans.Hosting.ISiloBuilder,System.Action{Microsoft.Extensions.Options.OptionsBuilder{Orleans.Hosting.Kubernetes.KubernetesHostingOptions}})">
+            <summary>
+            Adds Kubernetes hosting support.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.KubernetesHostingExtensions.UseKubernetesHosting(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds Kubernetes hosting support.
+            </summary>
+        </member>
+        <member name="M:Orleans.Hosting.KubernetesHostingExtensions.UseKubernetesHosting(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.Extensions.Options.OptionsBuilder{Orleans.Hosting.Kubernetes.KubernetesHostingOptions}})">
+            <summary>
+            Adds Kubernetes hosting support.
+            </summary>
+        </member>
+    </members>
+</doc>
